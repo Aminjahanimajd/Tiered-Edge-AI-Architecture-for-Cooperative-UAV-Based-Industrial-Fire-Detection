@@ -30,7 +30,7 @@ node_modules/
 # Heavy or private inputs are not redistributable research outputs
 datasets/
 external_data/
-models/
+/models/
 recovery_images/
 *.img
 *.etl

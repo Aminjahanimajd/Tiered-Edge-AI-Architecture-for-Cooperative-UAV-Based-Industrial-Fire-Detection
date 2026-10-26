@@ -24,6 +24,7 @@ config/** -text
 publications/** -text
 media/** -text
 thesis/** -text
+simulation/** -text
 *.pdf binary
 *.pptx binary
 *.png binary

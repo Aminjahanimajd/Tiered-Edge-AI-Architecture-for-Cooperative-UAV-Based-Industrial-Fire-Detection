@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf version="1.9">
+  <model name="modalai_devkit_scout_proxy">
+    <!-- PX4 x500 dynamics are used only for pre-measurement development. -->
+    <include merge="true">
+      <uri>x500</uri>
+    </include>
+    <link name="scout_identity_link">
+      <pose relative_to="base_link">0 0 0.14 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia><ixx>1e-6</ixx><iyy>1e-6</iyy><izz>1e-6</izz></inertia>
+      </inertial>
+      <visual name="scout_blue_compact_shell">
+        <pose>0 0 0.05 0 0 0</pose>
+        <geometry><cylinder><radius>0.52</radius><length>0.16</length></cylinder></geometry>
+        <material>
+          <ambient>0.02 0.25 1 1</ambient>
+          <diffuse>0.02 0.25 1 1</diffuse>
+          <emissive>0.01 0.1 0.8 1</emissive>
+        </material>
+      </visual>
+      <visual name="scout_blue_dome">
+        <pose>0 0 0.17 0 0 0</pose>
+        <geometry><sphere><radius>0.34</radius></sphere></geometry>
+        <material>
+          <ambient>0.02 0.25 1 1</ambient>
+          <diffuse>0.02 0.25 1 1</diffuse>
+          <emissive>0.01 0.1 0.8 1</emissive>
+        </material>
+      </visual>
+      <visual name="scout_forward_camera_marker">
+        <pose>0.09 0 -0.01 0 0 0</pose>
+        <geometry><box><size>0.025 0.045 0.025</size></box></geometry>
+        <material><ambient>0.05 0.05 0.05 1</ambient></material>
+      </visual>
+    </link>
+    <joint name="scout_identity_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>scout_identity_link</child>
+    </joint>
+  </model>
+</sdf>
