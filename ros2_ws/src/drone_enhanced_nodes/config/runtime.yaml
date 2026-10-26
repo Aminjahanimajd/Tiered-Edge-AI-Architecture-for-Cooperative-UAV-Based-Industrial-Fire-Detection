@@ -1,0 +1,42 @@
+sentinel_enhanced:
+  ros__parameters:
+    formal_mode: false
+    experiment_id: ""
+    trial_id: ""
+    camera_backend: gstreamer_yuy2
+    camera_device: /dev/video2
+    camera_width: 640
+    camera_height: 480
+    camera_fps: 30
+    engine_path: /workspace/ros2_ws/sentinel_v1.engine
+    log_directory: /workspace/ros2_ws/enhanced_logs
+    class_names: [fire, smoke]
+    live_hazard_classes: [fire]
+    confidence_threshold: 0.15
+    nms_iou_threshold: 0.45
+    temporal_consecutive_frames: 3
+    resize_mode: letterbox
+    scout_timeout_ms: 10000
+    rejection_cooldown_ms: 5000
+    cooldown_radius_normalized: 0.10
+    inference_period_ms: 33
+    enable_flight_commands: false
+
+scout_enhanced:
+  ros__parameters:
+    formal_mode: false
+    experiment_id: ""
+    trial_id: ""
+    camera_topic: /hires_small_color
+    yuv420_format: nv21
+    model_path: /home/root/colcon_ws/best.tflite
+    log_directory: /home/root/colcon_ws/enhanced_logs
+    class_names: [fire, smoke, non_fire]
+    live_hazard_classes: [fire]
+    confidence_threshold: 0.50
+    nms_iou_threshold: 0.45
+    resize_mode: letterbox
+    output_coordinate_space: normalized
+    interpreter_threads: 4
+    max_frame_age_ms: 500
+    enable_flight_commands: false

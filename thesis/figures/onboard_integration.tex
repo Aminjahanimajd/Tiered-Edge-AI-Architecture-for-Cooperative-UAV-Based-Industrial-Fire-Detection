@@ -1,0 +1,44 @@
+\begin{tikzpicture}[
+  font=\footnotesize,
+  hw/.style={draw,rounded corners=2pt,align=center,text width=26mm,
+    minimum height=11mm,fill=blue!7},
+  sw/.style={draw,rounded corners=2pt,align=center,text width=32mm,
+    minimum height=13mm,fill=orange!9},
+  net/.style={draw,rounded corners=2pt,align=center,text width=29mm,
+    minimum height=12mm,fill=green!10},
+  boundary/.style={draw,rounded corners=4pt,inner sep=4mm},
+  flow/.style={-{Latex[length=2.1mm]},thick},
+  data/.style={<->,>=Latex,thick,blue!65!black},
+  monitor/.style={<->,dashed,thick,gray!75},
+  linklabel/.style={font=\scriptsize,fill=white,inner sep=1.2pt,align=center}
+]
+  % Sentinel hardware and companion-computer path.
+  \node[hw] (battery) at (0,0) {X500 battery and\\power distribution};
+  \node[hw] (reg) at (3.5,0) {DC--DC\\regulator};
+  \node[sw] (jetson) at (7.4,0) {Jetson Nano\\L4T host + Foxy container\\TensorRT coordinator};
+  \node[net] (ap) at (11.5,0) {SwarmNet access point\\Cyclone DDS on\\\texttt{wlan0}};
+  \node[hw] (d435) at (7.4,2.2) {D435i\\colour stream};
+  \node[hw] (pixhawk) at (7.4,-2.2) {Pixhawk 6C\\MAVLink telemetry};
+
+  \draw[flow] (battery) -- (reg);
+  \draw[flow] (reg) -- (jetson);
+  \draw[flow] (d435) -- (jetson);
+  \draw[data] (pixhawk) -- (jetson);
+  \draw[data] (jetson) -- (ap);
+
+  \node[boundary,fit=(battery)(reg)(d435)(pixhawk)(jetson)(ap),
+    label={[font=\bfseries]above:Sentinel --- customized X500 V2}] (sentinel) {};
+
+  % Scout path is separate: it acquires and verifies its own frame.
+  \node[hw] (scam) at (2.8,-5.7) {ModalAI camera\\and MPA};
+  \node[sw] (voxl) at (6.8,-5.7) {VOXL 2\\native ROS 2 Foxy\\TFLite verifier + PX4};
+  \draw[flow] (scam) -- (voxl);
+  \node[boundary,fit=(scam)(voxl),
+    label={[font=\bfseries]above:Scout --- ModalAI development platform}] (scout) {};
+
+  \coordinate (ddsroute) at (9.2,-5.7);
+  \draw[data] (ap.south) -- ++(0,-0.9) -| (ddsroute) -- (voxl.east);
+
+  \node[net] (laptop) at (11.5,-5.7) {Laboratory laptop\\setup, monitoring and\\evidence retrieval only};
+  \draw[monitor] (ap.east) -| (laptop.north);
+\end{tikzpicture}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "status": "TWO_PASS_TWO_FIDELITY_FAILED",
+  "export_manifest_sha256": "e596e209e3a13fde71adae26d9e6649504b3b80fd1ad07d650400f6c11ff5cbe",
+  "fidelity_manifest_sha256": "4f67ce2404e009318e068b9a414ac87874dee3d43f9ad3f0d25739c728ce0612",
+  "calibration_images": 64,
+  "fidelity_rule": {
+    "box_iou": 0.5,
+    "minimum_detection_match_rate": 0.95,
+    "maximum_mean_absolute_confidence_difference": 0.02
+  },
+  "models": [
+    {"model_id": "yolov8n_416", "onnx_sha256": "aefbc333350898a1be0e7c7e1fe1038722fbecb00ddc5b25f5d5f599ff473a80", "match_rate": 0.9603267211201867, "confidence_mae": 0.00005645095837502802, "status": "PASS"},
+    {"model_id": "yolov8n_640", "onnx_sha256": "ebbc2c06ed3d98a8fd1c34dc8529138c812bce56da84862b528ec48c8a3f9dfe", "match_rate": 0.9496124031007752, "confidence_mae": 0.0002553187880893143, "status": "FIDELITY_FAILED"},
+    {"model_id": "yolov8s_416", "onnx_sha256": "ef2fbce918f2109caa072f6aac30a49334ba68529ddec7cca21d2379f4e3e207", "match_rate": 0.959830866807611, "confidence_mae": 0.00022325689099484948, "status": "PASS"},
+    {"model_id": "yolov8s_640", "onnx_sha256": "8cbcdc54de3f1013ed8f9f4daa8c6cc571c15326acd888280f1e5901a8bd7a3f", "match_rate": 0.9168997203355973, "confidence_mae": 0.00021171157252376245, "status": "FIDELITY_FAILED"}
+  ],
+  "claim_boundary": "Laptop ONNX conversion fidelity only; no edge-device deployment or performance claim."
+}

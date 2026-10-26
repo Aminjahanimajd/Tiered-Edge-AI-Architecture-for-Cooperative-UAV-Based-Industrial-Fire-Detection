@@ -1,0 +1,560 @@
+\chapter{System Implementation and Integration}
+\label{ch:implementation}
+
+Chapter~\ref{ch:architecture} defined the division of responsibility between
+the Sentinel and Scout, and Chapter~\ref{ch:data-models} separated the
+historical deployed models from the controlled six-model study. This chapter
+describes how the stationary two-device system and the simulation mission layer
+were implemented. It concentrates on software paths, interfaces, state control,
+logging and recovery. Experimental protocols and numerical outcomes are
+reserved for Chapters~\ref{ch:methodology} and \ref{ch:results}.
+
+\section{Implementation scope and status}
+\label{sec:implementation:status}
+
+The repository contains two related implementation layers. The first is the
+stationary physical perception workflow: a TensorRT node on the Sentinel, a
+TensorFlow Lite verification node on the Scout, and a correlated ROS~2/DDS
+request--verdict exchange. The second is a PX4/Gazebo mission implementation
+that exercises vehicle-state transitions using simulated vehicles. The two
+layers share event semantics but do not share evidence status. In particular,
+the simulation does not convert an image-space detection box into a geographic
+target, and it cannot substitute for physical flight.
+
+Table~\ref{tab:implementation-status} records the status used throughout this
+chapter. ``Implemented'' means that source code and configuration exist;
+``exercised'' additionally requires retained runtime evidence. Neither term
+implies that the component passed every later experimental protocol.
+
+\begin{table}[H]
+  \centering
+  \caption{Final implementation status for the retained study evidence.}
+  \label{tab:implementation-status}
+  \small
+  \begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.26\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}X@{}}
+    \toprule
+    Component & Status & Evidence boundary \\
+    \midrule
+    Sentinel camera and TensorRT node & Implemented and exercised &
+    The cleanly rebuilt stationary deployment executed the final 640-pixel
+    TensorRT engine in the retained ten-minute and thirty-minute campaigns. \\
+    Scout camera and TFLite verifier & Implemented and exercised &
+    Live camera decoding and independent full-frame verification were exercised
+    in bounded stationary trials; no coordinate-guided navigation was used. \\
+    Temporal filter and coordinator & Implemented and exercised & Three-frame
+    gating, correlated verdicts, timeouts, cooldown and one terminal decision
+    are enforced in source code; comparative effects belong to later chapters. \\
+    ROS~2/DDS exchange on SwarmNet & Implemented and exercised & Typed messages
+    crossed the stationary wireless link during unloaded and live-inference
+    campaigns; airborne operation and controlled radio interference were not
+    evaluated. \\
+    MAVLink/physical-flight path & Safety locked & Telemetry configuration was
+    retained, while the stationary nodes reject enabled flight commands and the
+    local dry-run adapter blocks arm and motion calls. \\
+    Dual-PX4/Gazebo mission layer & Development branches exercised & Confirmed
+    and rejected development paths were executed on provisional proxies; the
+    preregistered repeated formal campaign remains gated. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Figure~\ref{fig:implementation-pipeline} relates the principal processes to the
+interfaces defined in Chapter~\ref{ch:architecture}. Each device retains its
+own image stream. Only the event record and terminal decision cross the
+perception boundary.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.98\textwidth}{!}{\input{figures/implementation_pipeline.tex}}
+  \caption{Implemented stationary software pipeline. The Sentinel bounding box
+  is transferred for event traceability; the Scout verifier uses its own latest
+  full frame. Flight commands remain disabled in both physical nodes.}
+  \label{fig:implementation-pipeline}
+\end{figure}
+
+\section{Physical, power and data integration}
+\label{sec:implementation:physical}
+
+The Sentinel was built as a customized X500 V2 system rather than treated as
+an opaque commercial appliance. The Pixhawk~6C provides the flight-controller
+boundary, while the Jetson Nano was added as a companion computer and the D435i
+as the perception sensor. The Jetson receives power from the airframe power
+distribution through a DC--DC regulator; the camera connects to the Jetson;
+and a three-conductor serial link provides the Jetson--Pixhawk telemetry path.
+Figure~\ref{fig:onboard-integration} records this functional topology together
+with the more integrated Scout path.
+
+\begin{figure}[p]
+  \centering
+  \resizebox{0.96\textwidth}{!}{\input{figures/onboard_integration.tex}}
+  \caption[Physical and software integration boundary.]{Physical power, data
+  and software integration boundary. Solid paths are required by the onboard
+  implementation. The dashed laptop path is used for configuration, monitoring
+  and evidence retrieval and is not the hazard-inference or final-decision
+  path. Electrical ratings and connector-level pin mapping were not admitted as
+  calibrated measurements.}
+  \label{fig:onboard-integration}
+\end{figure}
+
+The retained MAVProxy configuration identifies the Jetson serial endpoint as
+\path{/dev/ttyTHS1} at 57,600~baud. It does not independently identify which
+physical connector pins were populated, so the manuscript does not infer a
+TX/RX/ground mapping from the three-conductor count alone. Similarly, the
+accepted evidence does not preserve the regulator model, its efficiency or a
+calibrated input/output time series. The power topology is therefore an
+implementation fact, while regulator adequacy and energy cost remain
+unmeasured engineering quantities.
+
+Camera and compute placement also influence payload, balance, field of view,
+cooling and vibration. The installed D435i pose, complete-aircraft mass,
+dimensions, rotor spacing and centre of gravity were not measured under the
+registered geometry protocol before the evidence freeze. The simulation uses
+provisional platform proxies for this reason. These omissions do not invalidate
+stationary perception measurements, but they prevent the stationary results
+from establishing airborne endurance, aerodynamic performance or a calibrated
+camera-to-body transform.
+
+The Scout retains the ModalAI development platform's integrated VOXL~2, camera
+and PX4 services. It was not used as a remote accelerator for the Sentinel: it
+captures and verifies its own frame. This separation preserves the tiered
+role boundary but requires two independently functioning camera/runtime stacks.
+
+\section{Heterogeneous operating environments}
+\label{sec:implementation:environments}
+
+The two devices do not run an identical operating-system image. Compatibility
+is established at the ROS~2 interface and DDS wire level rather than by forcing
+the same host distribution onto dissimilar vendor platforms. Table
+\ref{tab:device-environments} summarizes the retained software inventory.
+
+\begin{table}[H]
+  \centering
+  \caption{Retained onboard software environments and compatibility role.}
+  \label{tab:device-environments}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.35\textwidth}X@{}}
+    \toprule
+    Layer & Sentinel & Scout \\
+    \midrule
+    Host platform & Jetson Linux R32.7.6 / JetPack 4.6.6, Ubuntu 18.04.6 and
+    kernel \texttt{4.9.337-tegra} & ModalAI VOXL~2 host; the exact base
+    distribution/version was not preserved in the accepted thesis inventory \\
+    ROS~2 placement & Foxy in the L4T-compatible
+    \path{dustynv/ros:foxy-ros-base-l4t-r32.7.1} container & Native Foxy at
+    \path{/opt/ros/foxy} \\
+    Build/deployment & Docker 20.10.21, NVIDIA runtime, host networking and a
+    bind-mounted ROS workspace & Native \texttt{colcon} workspace and ModalAI
+    platform services \\
+    Camera/runtime & D435i, GStreamer, CUDA and TensorRT & Modal Pipe
+    Architecture bridge, validated YUV/RGB decoding and TensorFlow Lite \\
+    Middleware compatibility & \multicolumn{2}{p{0.77\textwidth}@{}}{Common enhanced message
+    package, Cyclone DDS, selected \texttt{wlan0}, multicast, matching domain
+    per experiment and compatible QoS} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Containerization was chosen because the Jetson Nano depends on its NVIDIA L4T
+host stack, whereas the project required the same ROS~2 Foxy message and
+middleware generation exposed natively by the Scout. The container retains
+access to the NVIDIA runtime, camera devices, host wireless interface and
+mounted workspace without replacing the Jetson host distribution. This gives a
+repeatable ROS user space but introduces device-pass-through, host-network and
+container-image dependencies. It is therefore a compatibility mechanism, not
+evidence that the hosts are homogeneous or that container overhead is zero.
+
+Using Foxy on both nodes simplifies custom-message generation and reduces
+cross-distribution uncertainty. Identical Ubuntu releases are not required for
+DDS communication. What must agree is the message schema, ROS domain,
+middleware discovery, network interface and compatible QoS. The failed first
+transport attempt, in which Cyclone DDS selected the Sentinel container's
+Ethernet interface rather than SwarmNet, demonstrates why matching ROS labels
+alone are insufficient.
+
+\section{Sentinel camera and inference pipeline}
+\label{sec:implementation:sentinel}
+
+The Sentinel node is a ROS~2 Foxy Python process executed in the Jetson Nano
+software environment. Its retained configuration selects the Intel RealSense
+D435i colour endpoint at \path{/dev/video2}, a $640\times480$ YUY2 stream at
+30~frames/s, and an explicit GStreamer capture string. The pipeline converts
+YUY2 to BGR and terminates in an \texttt{appsink} configured with one buffer,
+frame dropping and disabled clock synchronization. These options bound queued
+camera work: if inference is slower than the source stream, the application
+uses a recent frame instead of processing an increasingly old backlog.
+
+The camera path is explicit because two generic alternatives failed during
+bring-up. Direct OpenCV/V4L2 access did not establish the intended conversion
+path, and the pre-existing QGroundControl streaming service could hold
+\path{/dev/video2} exclusively. The accepted preflight procedure temporarily
+paused that service, opened the explicit GStreamer pipeline, acquired the
+bounded probe frames, and restored the service. This was an operator-controlled
+resource arbitration procedure, not automatic camera self-recovery. A failed
+read during normal node operation is logged as \texttt{camera\_read\_failed}
+and that inference iteration is skipped.
+
+\subsection{Preprocessing and TensorRT execution}
+
+The preprocessing function derives its target geometry from the engine rather
+than assuming that a model name implies a resolution. It applies the configured
+letterbox transform, pads with value 114, converts BGR to RGB, normalizes to
+$[0,1]$, and produces a contiguous batch-1 NCHW tensor. The transform object is
+retained so decoded boxes can be mapped back to the source frame.
+
+At initialization, the TensorRT adapter deserializes the engine and enumerates
+every binding. It rejects dynamic or non-positive shapes, requires exactly one
+input and one output, and checks for a batch-1 NCHW RGB input. Host buffers are
+page locked and device buffers are allocated from the binding-derived element
+counts. Each inference verifies the tensor data type and element count before
+asynchronous host-to-device transfer, engine execution and device-to-host
+transfer on one CUDA stream. The stream is synchronized before a copied output
+array is returned. A failed execution is raised to the node and logged as an
+\texttt{inference\_error}; it is not converted into a zero-confidence
+detection.
+
+The accepted final workspace engine is the 640-pixel artifact identified in
+Section~\ref{sec:data-models:6}. Its input and output shapes are
+$[1,3,640,640]$ and $[1,6,8400]$. The implementation must not be described with
+the timing of the earlier 416-pixel engine. The node stores the engine SHA-256,
+binding metadata, camera configuration, thresholds, resize mode and disabled
+flight-command flag in its session manifest before processing frames.
+
+\subsection{Detection and dispatch}
+
+Decoded predictions are filtered to the approved live class, \emph{fire}. The
+node records the number of retained detections and uses the highest-confidence
+box as the temporal-filter observation. While a Scout request is pending, the
+Sentinel continues to record local observations but does not create a second
+event. When the filter triggers, the source-frame box is normalized and stored
+with the source dimensions. A new opaque event identifier is attached to the
+experiment and trial identifiers before publication on
+\texttt{/swarm/hazard\_alert}.
+
+The message does not contain a geographic position. Fields named
+\texttt{target\_u}, \texttt{target\_v}, \texttt{bbox\_width} and
+\texttt{bbox\_height} refer only to the Sentinel camera image, as defined in
+Section~\ref{sec:architecture:interfaces}. The Sentinel therefore implements
+target designation at the event-record level without claiming cross-camera
+localization.
+
+\section{Scout camera and verification pipeline}
+\label{sec:implementation:scout}
+
+The Scout node runs in the native ROS~2 Foxy environment on VOXL~2. It
+subscribes to the Modal Pipe Architecture image bridge with the sensor-data QoS
+profile and maintains a thread-safe latest-frame buffer. The configured topic
+is \texttt{/hires\_small\_color}. Camera preflight showed that the concrete ROS
+payload can be YUV~4:2:2 even when the platform camera configuration uses other
+format terminology. The decoder therefore validates the message dimensions,
+row step and payload length before accepting YUV~4:2:0, YUV~4:2:2, RGB8 or
+BGR8 layouts. Unsupported or inconsistent data produces a
+\texttt{camera\_decode\_error} record.
+
+MPA is useful because it exposes the Scout's vendor-supported camera pipeline
+without requiring the verification node to implement a new low-level camera
+driver. The \texttt{voxl\_mpa\_to\_ros2\_node} bridge converts that platform
+stream into a ROS~2 image topic consumed by the verifier. This reduced camera
+integration effort and kept acquisition on the Scout, but it did not remove
+format risk: live metadata and ROS encoding terminology did not initially make
+the concrete byte layout unambiguous. Explicit payload-geometry checks and
+YUV-to-BGR conversion were therefore required. The bridge and camera server
+also become runtime dependencies, as demonstrated by the retained unavailable-
+camera and stale-frame fault experiments.
+
+The latest-frame buffer stores a copied BGR image, a local monotonic timestamp
+and a sequence number under a lock. On a verification request it returns a
+snapshot only if a frame exists, time has not regressed, and the frame is no
+older than the configured 500~ms limit. Missing, stale or clock-regressed
+states produce an explicit \texttt{ERROR} verdict. They are not interpreted as
+evidence that fire is absent.
+
+\subsection{Bounded verification work}
+
+The alert callback validates the message structure and requires the expected
+experiment and trial identifiers. Event identifiers are retained in a
+thread-safe set, so duplicate requests are logged and ignored. Accepted work is
+placed in a single-element non-blocking queue served by a dedicated worker. If
+that queue is occupied, the node immediately returns a correlated
+\texttt{ERROR} verdict with reason \texttt{verification\_worker\_busy}. This
+policy makes overload visible and prevents the DDS callback from waiting for a
+slow inference.
+
+For each accepted request, the worker snapshots the latest local camera frame,
+applies the same letterbox/RGB/normalization function with NHWC layout, and
+invokes the deployed TFLite interpreter with four threads. The adapter requires
+one float32 input and one output and rejects an unexpected tensor interface.
+The historical deployment accepts $[1,640,640,3]$ and returns
+$[1,7,8400]$. As explained in Chapter~\ref{ch:data-models}, this is a distinct
+multi-class deployment artifact rather than one of the later fire-only
+screening candidates.
+
+The worker performs independent full-frame fire decoding at the configured
+threshold. A retained fire detection yields \texttt{CONFIRMED}; otherwise the
+normal verdict is \texttt{REJECTED}. The Sentinel box is stored in the alert
+record but never selects a Scout crop. The implementation records queue delay,
+frame age, inference duration, raw maximum fire score, decoded detections and,
+when enabled, the diagnostic-frame hash. A second set prevents more than one
+verdict from being published for an event.
+
+The Scout bring-up history is retained because it changed the interpretation of
+the live system. An output-coordinate assumption initially produced invalid
+decoded behaviour, and an event-synchronized diagnostic established the
+correct configuration for the retained artifact. Earlier pre-correction trials
+remain excluded from accepted performance summaries. The correction altered
+decoding configuration; it did not retrospectively change the recorded model
+or camera evidence.
+
+\section{Temporal filter and correlated decision handling}
+\label{sec:implementation:coordination}
+
+The three-frame rule is implemented by a small stateful filter. For threshold
+$\tau$ and required count $K=3$, its update is
+\begin{equation}
+  k_t = \begin{cases}
+    k_{t-1}+1, & c_t \geq \tau,\\
+    0, & c_t < \tau,
+  \end{cases}
+  \qquad z_t=\mathbb{1}[k_t\geq K].
+  \label{eq:implementation-temporal-filter}
+\end{equation}
+A non-finite confidence is rejected. A low-confidence frame resets the count,
+and a successful dispatch resets the filter. The rule counts inference
+observations rather than elapsed time, so three frames do not represent a fixed
+physical duration when the achieved inference rate changes.
+
+Listing~\ref{lst:coordination-pseudocode} summarizes the implemented control
+path. It complements the architectural state diagram in
+Figure~\ref{fig:coordination-states} by showing where validation and terminal
+outcomes occur.
+
+\begin{lstlisting}[language=Python,caption={Simplified implemented detection--verification control path.},label={lst:coordination-pseudocode}]
+on_sentinel_frame(frame):
+    detections = infer_and_decode(frame, live_class="fire")
+    best = highest_confidence(detections)
+    if event_is_pending():
+        log_tracking_observation(best)
+        return
+    if temporal_filter.update(confidence(best)) and best exists:
+        alert = create_correlated_alert(best)
+        publish(alert)
+
+on_scout_alert(alert):
+    require_valid_session_and_new_event(alert)
+    if worker_queue_full():
+        publish(ERROR, reason="verification_worker_busy")
+    else:
+        enqueue(alert)
+
+scout_worker(alert):
+    frame = latest_fresh_local_frame()
+    if frame unavailable:
+        publish(ERROR, reason=frame_status)
+    else:
+        result = independent_full_frame_inference(frame)
+        publish(CONFIRMED if result has fire else REJECTED)
+
+on_sentinel_verdict(verdict):
+    require_matching_active_event(verdict)
+    publish_exactly_one_terminal_decision(verdict)
+\end{lstlisting}
+
+The Sentinel coordinator accepts a verdict only while it is awaiting the Scout
+and only for the active event. Finalized identifiers are retained so a duplicate
+cannot generate another decision. The timeout timer runs independently of the
+inference timer; expiration creates \texttt{TIMEOUT} with zero Scout confidence.
+A rejection creates an expiring, image-space cooldown around the rejected box
+centre. This replaced an earlier permanent spatial blacklist that could have
+suppressed a later genuine flame at a similar image coordinate. The cooldown is
+a request-rate control, not a world-coordinate exclusion zone.
+
+Every accepted outcome becomes one \texttt{HazardDecision}. A confirmed event
+also emits an \texttt{ALARM} console record. No GPIO siren, remote dashboard,
+emergency-service call or automatic physical response was implemented. This is
+the boundary between the demonstrated software decision and any operational
+alarm system.
+
+\section{Evidence logging and fault recovery}
+\label{sec:implementation:logging}
+
+Each physical node creates a session directory whose path contains the
+experiment, trial, device and node-run identifiers. In formal mode, experiment
+and trial identifiers are mandatory and a pre-existing directory causes the
+run to fail rather than overwrite evidence. The session manifest is created
+with exclusive file mode and records the model path and hash, tensor interface,
+camera settings, thresholds, runtime options, safety state and test scope.
+
+Runtime events are serialized as JSON Lines by a dedicated writer thread. The
+producer submits a copy of each record to a queue with capacity 4096 and never
+waits for disk I/O. Queue overflow increments a locked dropped-record counter,
+which is itself included in inference records. The writer flushes at the
+configured interval, and orderly shutdown drains the stop marker, flushes the
+file and calls \texttt{fsync}. This design reduces synchronous logging
+interference; it cannot guarantee that evidence survives sudden power loss or a
+damaged filesystem.
+
+Records contain both UTC wall time and local monotonic nanoseconds. Monotonic
+differences are used for durations on one device. Sentinel and Scout monotonic
+epochs are unrelated and must not be subtracted. Wall time supports chronology,
+but the retained experiments do not establish sub-millisecond clock
+synchronization. The round-trip design in Chapter~\ref{ch:methodology} therefore
+uses the Sentinel clock for both publication and callback endpoints.
+
+Expected failures are converted into explicit events or error verdicts:
+
+\begin{itemize}
+  \item Sentinel camera and inference failures skip the affected iteration and
+  preserve their reason;
+  \item Scout decoding, stale-frame and worker failures return correlated
+  \texttt{ERROR} outcomes rather than ordinary rejection;
+  \item duplicate and mismatched events are retained as ignored or suppressed
+  records; and
+  \item timeout is a terminal outcome distinct from rejection.
+\end{itemize}
+
+Platform recovery is a separate engineering layer. The Scout camera server was
+restarted under operator control after a bounded stream failure. The Sentinel
+camera service required controlled pause and restoration during camera access.
+Later, the Sentinel microSD developed extensive filesystem inconsistency. A
+complete sector image and configuration archives were frozen before bounded
+repair attempts, and the damaged card was rejected for further experiments.
+The clean-rebuild runbook requires storage, camera, engine, ROS~2, SwarmNet and
+safety acceptance gates before any new device result is admitted. This recovery
+chronology belongs in Appendix~\ref{app:supplementary}; it is not evidence of
+runtime fault tolerance by the deployed perception node.
+
+\section{SwarmNet and ROS~2/DDS integration}
+\label{sec:implementation:network}
+
+SwarmNet is hosted by the Sentinel access point and gives the Sentinel, Scout
+and laboratory laptop a local wireless path. ROS~2 Foxy is containerized on the
+Sentinel and installed natively on the Scout. The enhanced interface package
+defines the three messages summarized in Table~\ref{tab:interfaces}; the node
+package implements the publishers, subscribers, camera paths and backends.
+
+The first injected DDS attempt exposed a multi-interface discovery failure.
+Cyclone DDS selected the Sentinel container's Ethernet interface while the
+Scout used \texttt{wlan0}, so no intended subscriber was discovered. The
+corrected configuration explicitly selects Cyclone DDS on both devices, binds
+to \texttt{wlan0}, permits multicast and uses an isolated ROS domain for each
+test. The public configuration contains no access-point password or remote
+access credential.
+
+The physical workflow uses three topic paths:
+
+\begin{itemize}
+  \item \texttt{/swarm/hazard\_alert}: Sentinel request with model identity,
+  persistence count, source timing and image-space box;
+  \item \texttt{/swarm/hazard\_verdict}: Scout response with matching event
+  identity, model identity, frame timing, confidence and reason; and
+  \item \texttt{/swarm/hazard\_decision}: Sentinel terminal record joining the
+  two stages.
+\end{itemize}
+
+Publisher and subscription queues use depth 10 in the enhanced nodes. The
+Scout image subscription uses the ROS sensor-data profile, while the compact
+event topics use the default reliable profile created by the depth argument.
+The implementation does not expose a custom deadline, lifespan or durability
+policy. Chapter~\ref{ch:methodology} treats application-level event counts and
+round-trip timing as the measured quantities; it does not infer packet-level
+loss from the absence of missing application replies.
+
+\section{MAVLink and physical-flight boundary}
+\label{sec:implementation:flight}
+
+The recovered Sentinel configuration includes a MAVProxy service that expects
+the Pixhawk serial endpoint on \path{/dev/ttyTHS1} at 57,600 baud and forwards
+MAVLink to a laboratory-network destination. These values are recovered
+configuration facts and require revalidation after the clean rebuild. MAVLink
+is designed for constrained vehicle telemetry links \cite{MAVLinkProtocolOverview},
+but the presence of a service definition does not prove correct estimator,
+navigation or actuator behaviour.
+
+Both stationary perception nodes declare \texttt{enable\_flight\_commands}
+and abort initialization if it is true. The separate local mission dry run
+creates a deterministic lawnmower preview in an arbitrary local ENU frame and
+exercises hold, resume and confirmation logic through a safety-locked adapter.
+That adapter refuses arm, takeoff, waypoint and velocity calls. The dry run
+contains no live MAVLink, PX4, GPS, estimator, collision-avoidance or motor
+path. It verifies a software boundary rather than vehicle motion.
+
+\section{Dual-vehicle simulation implementation}
+\label{sec:implementation:simulation}
+
+The simulation layer uses two namespaced PX4/Gazebo instances with distinct
+vehicle identities, PX4 instances, MAVLink system identifiers and ROS~2 command
+and telemetry topics. Scenario manifests provide local-ENU patrol, hold,
+verification, home and geofence positions. These positions are scenario inputs;
+they are not calculated from the Sentinel camera bounding box.
+
+The coordinator implements the mission states introduced in
+Section~\ref{sec:architecture:states}. In a confirmed branch, the Sentinel
+holds, the Scout is dispatched to the scenario verification point, and both
+vehicles proceed through the configured safe return and landing path. In a
+rejected branch, the Sentinel resumes its patrol and the Scout returns to its
+standby path before landing. Development runs exercised both branches using
+distinct X500 V2-derived Sentinel and ModalAI/Starling-derived Scout proxies.
+Their results establish executable command paths under those recorded simulator
+conditions, not formal success probabilities.
+
+Figure~\ref{fig:gazebo-visual-mission} shows six registered points from the
+accepted confirmed-hazard visual run. The authoritative instance and spawn
+manifests identify the orange vehicle as the Sentinel X500 V2-derived proxy and
+the blue vehicle as the ModalAI/Starling-derived Scout proxy. This mapping
+supersedes ambiguous labels attached to earlier development screenshots. The
+red fire marker and its local-ENU location are scenario truth: they trigger and
+assess the mission logic but do not represent camera-model inference or
+vision-derived localization.
+
+The continuous recording from the final v17 run was accepted for thesis and
+defence presentation after its role mapping and sequence were checked; this
+qualitative review did not replace
+the synchronized manifest, event log or PX4/ROS~2 records. The later v6 visual
+derivation retained the identical accepted video hash and corrected only the
+thesis contact sheet: the safe-standoff panel now uses the registered capture
+frame and the alarm panel reproduces exact fields from the retained event log.
+
+Fault support is fail closed. The mission-node-restart case, for example,
+terminates the first coordinator with a distinct restart-required status while
+leaving both simulator instances running. A separate recovery process then
+re-discovers both identities, enters degraded/RTL handling, publishes safe
+setpoints and verifies landing without sending a new arm command. Source and
+mocked orchestration tests exist, but a mocked handoff is not a Gazebo result.
+
+The accepted visual pilot closes one presentation gate, but the repeated
+310-run matrix remains incomplete; therefore no reliability rate or general
+fault-recovery claim is made in this chapter.
+
+\section{Integration boundary}
+\label{sec:implementation:boundary}
+
+The implementation realizes the tiered architecture defined in Chapter~3 without
+silently extending its scope. The Sentinel performs local fire detection and
+temporal gating; the Scout independently verifies its own current view; ROS~2
+correlates the request, verdict and final decision; and append-only records
+preserve the evidence path. The physical nodes remain stationary and reject
+flight enablement. The simulated mission uses scenario coordinates and remains
+separate from image-space perception.
+
+The implementation is therefore sufficient for the bounded experiments
+defined next. Four validation gaps nevertheless remain explicit: the
+six-model exact-device matrix, the common-stimulus tiered-workflow ablation, the
+formal repeated simulation campaign and external transfer evaluation were not
+completed. Chapters~\ref{ch:methodology} and \ref{ch:results} retain those
+distinctions when defining and interpreting the evidence.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{simulation_mission_contact_sheet_20260930.png}
+  \caption[Accepted Gazebo confirmed-hazard mission sequence.]{Accepted Gazebo
+  confirmed-hazard development sequence. The orange cross-shaped Sentinel
+  patrols and holds at the scenario trigger; the blue dome-shaped Scout
+  dispatches to a 4.5~m commanded horizontal standoff point; verification
+  produces the simulated alarm event; and both proxies return and land. The
+  fifth panel reports the exact alarm fields retained in the mission event log
+  rather than substituting an unrelated camera frame. The coloured floor discs
+  are home markers, not vehicles. The visual frames and log panel are linked to
+  the retained event log and continuous video. Airframe dynamics
+  remain provisional simulation proxies, and the hazard trigger, acquisition,
+  and verdict are scenario truth rather than detector outputs.}
+  \label{fig:gazebo-visual-mission}
+\end{figure}

@@ -1,0 +1,134 @@
+{
+  "acceptance": "both identities and namespaces remain isolated; Sentinel patrols and holds; Scout dispatches to standoff; the preregistered verdict drives the correct mission branch; all active vehicles return, land, disarm, and finish in typed LANDED states",
+  "agent_ip": "172.30.176.1",
+  "claim_boundary": "One development run on provisional simulation proxies. It is not a formal reliability estimate, physical flight, industrial-site validation, or vision-derived localization evidence.",
+  "completed_utc": "2026-09-30T15:35:42.886049+00:00",
+  "container": "drone-xrce-ros-probe",
+  "event_id": "scenario-fire-tank-a",
+  "gazebo_gui_requested": true,
+  "injected_fault": "none",
+  "landing_timeout_s": 60.0,
+  "mission_command": [
+    "docker.exe",
+    "exec",
+    "drone-xrce-ros-probe",
+    "bash",
+    "-lc",
+    "source /opt/ros/jazzy/setup.bash && source /ws/install/setup.bash && export PYTHONPATH=/project/src:${PYTHONPATH:-} && export DRONE_ENHANCED_SIMULATION_ONLY=I_ACKNOWLEDGE_PX4_SITL_ONLY && python3 /project/tools/px4_sim_hierarchical_mission.py --scenario /project/config/simulation_scenarios_visual_v3.json --event-id scenario-fire-tank-a --output /project/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/mission_events.jsonl --total-timeout-s 420.0 --landing-timeout-s 60.0 --fault none --runner-mode single_event"
+  ],
+  "mission_result": {
+    "claim_boundary": "One development mission on provisional PX4/Gazebo proxies; not physical flight, formal reliability, industrial deployment, or vision-derived localization evidence.",
+    "event_id": "scenario-fire-tank-a",
+    "expected_verdict": "CONFIRMED",
+    "failure_reason": null,
+    "fault_triggered": false,
+    "final_phase": "LANDING",
+    "injected_fault": "none",
+    "mission_states": {
+      "scout": "LANDED",
+      "sentinel": "LANDED"
+    },
+    "recovery_only": false,
+    "rejected_fault_inputs": [],
+    "rejection_memory_probes": [],
+    "restart_required": false,
+    "runner_mode": "single_event",
+    "status": "PASS",
+    "target_id": "tank-a-fixture",
+    "transition_count": 13,
+    "vehicles": {
+      "scout": {
+        "command_attempts": {
+          "176": 1,
+          "21": 1,
+          "400": 1
+        },
+        "final_position_ned_m": [
+          0.29312658309936523,
+          0.08666596561670303,
+          -0.012293219566345215
+        ],
+        "identity_verified": true,
+        "landed": true,
+        "system_id": 3
+      },
+      "sentinel": {
+        "command_attempts": {
+          "176": 1,
+          "21": 1,
+          "400": 1
+        },
+        "final_position_ned_m": [
+          0.15305888652801514,
+          0.28979289531707764,
+          -0.024147450923919678
+        ],
+        "identity_verified": true,
+        "landed": true,
+        "system_id": 2
+      }
+    }
+  },
+  "mission_returncode": 0,
+  "raw_hashes": {
+    "event_log_sha256": "53ca0b7408cbf80ad531d90beeaf9161a9f123e4be335c982b6b6280fade9c31",
+    "recovery_event_log_sha256": null,
+    "recovery_stderr_sha256": null,
+    "recovery_stdout_sha256": null,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "a188c25a9b3dea8ff2093314d86faa2ae1c595e47f8955a761f9b3f1261ec242",
+    "topic_readiness_attempts_sha256": "f0e49e08d241f32cabdfde05ed0a040adf643edc4409a5884320e554fa189779",
+    "topic_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "topic_stdout_sha256": "f0b6ed85091959ed86ad190ef13184217f2add71be18a9f777d4f107dd27e170"
+  },
+  "recovery_command": null,
+  "recovery_result": null,
+  "recovery_returncode": null,
+  "run_type": "dual_px4_hierarchical_development_mission",
+  "runner_mode": "single_event",
+  "safety_state": "PX4/Gazebo SITL only; mandatory simulator token; no physical transport, interface, actuator, or vehicle",
+  "scenario": "/mnt/d/Drones/Drone_Enhanced/config/simulation_scenarios_visual_v3.json",
+  "schema_version": 1,
+  "source_hashes": {
+    "mission_controller_sha256": "b25adc17b1abd51a8e0dc224badaa485bcfbc79b4c5f33e5ae3ec2024c052bd1",
+    "mission_node_sha256": "ee857a66a8555c81511fa734ea6e509c4df3975307b668f2f3d207047425a35a",
+    "mission_plan_sha256": "07542e7bb6a71d5f463f71d28270d83b920092c9f7195af8b2ee0096be0b829f",
+    "orchestrator_sha256": "ed9457b6db7636a96b6e00d8002858b3f52bdc52434bc7177c367943df849662",
+    "px4_adapter_sha256": "e1b431bed72f68a5e631452ac981a8d6e82f2640176b4cf14194c96422459949",
+    "scenario_sha256": "d11aa39c28f64c5886556b17f71ef6901810e472ab0295bcbe8903e9274d2944",
+    "spawn_runner_sha256": "864ba28afd27bc1dc248606fb124d2c0b187dd0df37b94ba1d91fe1ad5cc445c",
+    "visual_capture_runner_sha256": "b65f5864bb198b83f59b7e4e1387fe5eec5a3d1675a607b6135e1118338552f9"
+  },
+  "spawn_error": null,
+  "spawn_status": "PASS",
+  "started_utc": "2026-09-30T15:31:23.829353+00:00",
+  "status": "PASS",
+  "topic_checks": {
+    "/scout/fmu/in/offboard_control_mode": true,
+    "/scout/fmu/in/trajectory_setpoint": true,
+    "/scout/fmu/in/vehicle_command": true,
+    "/scout/fmu/out/vehicle_local_position_v1": true,
+    "/scout/fmu/out/vehicle_status_v1": true,
+    "/sentinel/fmu/in/offboard_control_mode": true,
+    "/sentinel/fmu/in/trajectory_setpoint": true,
+    "/sentinel/fmu/in/vehicle_command": true,
+    "/sentinel/fmu/out/vehicle_local_position_v1": true,
+    "/sentinel/fmu/out/vehicle_status_v1": true
+  },
+  "topic_command": [
+    "docker.exe",
+    "exec",
+    "drone-xrce-ros-probe",
+    "bash",
+    "-lc",
+    "source /opt/ros/jazzy/setup.bash && source /ws/install/setup.bash && ros2 topic list -t"
+  ],
+  "topic_readiness_attempt_count": 5,
+  "visual_annotated_video_sha256": "bd54946f690256bbf3b95312c326c8c4269192966529e131438e54041c2b0e36",
+  "visual_capture_error": null,
+  "visual_capture_fps": 1.0,
+  "visual_capture_manifest_sha256": "a2f0e1acf23e9114e63591d216a37caf8df2281d5586ec7b39f337792b5fb692",
+  "visual_capture_requested": true,
+  "visual_capture_status": "PASS",
+  "visual_source_video_sha256": "732de24d2a72cfdba902bf4c6863e54253acce032cc1a1f25a3df3e4c6d9149c"
+}

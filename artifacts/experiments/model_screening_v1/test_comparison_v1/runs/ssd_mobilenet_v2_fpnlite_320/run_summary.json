@@ -1,0 +1,43 @@
+{
+  "access_class": "NO LAB",
+  "annotations_sha256": "651e2782db96cbbdf2ba718494f7b57447f96aea6d7719fac350132f1b72a06d",
+  "checkpoint_files": [
+    {
+      "bytes": 20768512,
+      "path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/model_screening_v1/ssd_mobilenet_v2_screen_seed_20260729/ckpt-47.data-00000-of-00001",
+      "sha256": "e3be71d94a5de80a6bf831be5999e6914b35a6b124a6df4779ac0822b56421d2"
+    },
+    {
+      "bytes": 47999,
+      "path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/model_screening_v1/ssd_mobilenet_v2_screen_seed_20260729/ckpt-47.index",
+      "sha256": "ee20414e69c0473e17989f19724709708c9a49303e2e26e8eabe4d771cf9e229"
+    }
+  ],
+  "checkpoint_prefix": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/model_screening_v1/ssd_mobilenet_v2_screen_seed_20260729/ckpt-47",
+  "elapsed_seconds": 51.90751607700001,
+  "ended_utc": "2026-08-09T10:41:15.081037+00:00",
+  "framework": "TensorFlow Object Detection API",
+  "gpu_devices": [
+    "/physical_device:GPU:0"
+  ],
+  "latency_sha256": "7309eb1f7c96e33f0df1b14fa4d80ebeb7f4a30889785a16108583625caa5eaa",
+  "model_id": "ssd_mobilenet_v2_fpnlite_320",
+  "parameter_count": 2598116,
+  "parameters": {
+    "batch": 1,
+    "image_count": 733,
+    "progress_every_images": 50,
+    "score_floor": 0.001,
+    "warmup_iterations": 10
+  },
+  "pipeline_config_sha256": "e9bc58ac683c50f86f5599018188ba7b4880f9a1b09aacae6f53652560cbbffd",
+  "prediction_count": 73300,
+  "predictions_sha256": "75c62938eedad517ffa506bdf00a8f5651f394c059576f41f605d6b5160f029c",
+  "python": "3.11.15",
+  "schema_version": 1,
+  "started_utc": "2026-08-09T10:40:25.390418+00:00",
+  "status": "completed",
+  "tensorflow": "2.15.1",
+  "tf_function_tracing_count": 2,
+  "trainable_parameter_count": 2557860
+}

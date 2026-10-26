@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-07-29",
+  "reviewer_role": "principal engineer",
+  "queue_csv_sha256": "3abeec10506a1d89e96433c52bc54d4a81044f62a647ad8e06a39e7dbf3dcced",
+  "queue_row_numbering": "one-based data-row order, excluding the CSV header",
+  "viewing_method": "eight generated side-by-side contact sheets at original rendered resolution",
+  "classifications": {
+    "visually_same_scene": "1-2",
+    "not_visibly_same_scene_at_contact_sheet_resolution": "3-85"
+  },
+  "interpretation": [
+    "Both same-scene decisions are background/background pairs.",
+    "Every queued background/fire pair was visually distinct.",
+    "The enriched queue is not a prevalence sample and does not prove independence for every unreviewed candidate."
+  ]
+}

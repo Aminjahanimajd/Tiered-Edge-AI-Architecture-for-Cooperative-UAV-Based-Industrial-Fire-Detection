@@ -1,0 +1,13 @@
+std_msgs/Header header
+string experiment_id
+string trial_id
+string event_id
+string decision
+string hazard_type
+float32 sentinel_confidence
+float32 scout_confidence
+uint64 detection_monotonic_ns
+uint64 alert_sent_monotonic_ns
+uint64 verdict_received_monotonic_ns
+uint64 decision_monotonic_ns
+string reason

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "capture_date": "2026-07-30",
+  "environment_id": "wsl_tensorflow_py311_v1",
+  "runtime_location": "/home/sefroyek/.venvs/drone_enhanced_tf_py311",
+  "python": "3.11.15",
+  "tensorflow": "2.15.1",
+  "mediapipe": "0.10.21",
+  "mediapipe_model_maker": "0.2.1.4",
+  "tensorflow_datasets": "4.9.10",
+  "tensorflow_metadata": "1.15.0",
+  "tensorflow_io": "0.36.0",
+  "setuptools": "80.9.0",
+  "package_lock": "config/model_training_tf_wsl_py311.lock.txt",
+  "package_lock_sha256": "629c7a154a6bcee04c9325507c25194c3f9e3d55625ead76b7a6cccc34f4ad6a",
+  "tensorflow_models_commit": "f36581036d3346a9496de06c8fd678d23cfe2103",
+  "object_detection_builder_test": "24 tests passed; 1 non-test session case skipped",
+  "cuda_kernel_gate": "passed on NVIDIA GeForce RTX 3050 Laptop GPU",
+  "tfrecord_export_summary_sha256": "54d3db7656b89e1866a5354eb93440e5b934e237fb7f5c0ce592e47086d0423b",
+  "ssd_pretrained_archive_sha256": "bd0865d32467fc62a1f32d771b21c8b5fc9ef136ed18222291e1965047bead1b",
+  "notes": [
+    "The runtime is isolated on the WSL native filesystem; the complete lock is source controlled.",
+    "MediaPipe 1.0.0 was rejected because its wheel lacked mediapipe.tasks.cc; version 0.10.21 passed imports.",
+    "setuptools 80.9.0 and tensorflow-metadata 1.15.0 are explicit compatibility pins.",
+    "The existing duplicate user.default warning in /etc/wsl.conf was observed but not modified.",
+    "LVIS 0.5.3 was added after the first real trainer import exercised an evaluation module not covered by the earlier builder tests."
+  ]
+}

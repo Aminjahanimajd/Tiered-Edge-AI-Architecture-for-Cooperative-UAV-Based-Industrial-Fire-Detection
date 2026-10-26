@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>drone_enhanced_nodes</name>
+  <version>0.1.0</version>
+  <description>Correlated Sentinel and Scout fire-detection research nodes.</description>
+  <maintainer email="Aminjahanimajd@users.noreply.github.com">Mohammadamin Jahanimajd</maintainer>
+  <license>AGPL-3.0-only</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>drone_enhanced_interfaces</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

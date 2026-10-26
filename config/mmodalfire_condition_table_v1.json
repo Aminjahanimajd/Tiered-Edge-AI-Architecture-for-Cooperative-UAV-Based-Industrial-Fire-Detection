@@ -1,0 +1,353 @@
+[
+  [
+    "Material",
+    "Lighting Environment(lx)",
+    "Wind speed (m/s)",
+    "Location of fire",
+    "Quantity of material",
+    "Time",
+    "Month.Day Hour:Min-Hour-Min"
+  ],
+  [
+    "Cotton 1",
+    168,
+    0,
+    "Close to the wall, 1.2m to the ceiling",
+    "3.2m to the ceiling",
+    "8.2 16：26-16：34",
+    null
+  ],
+  [
+    "Cotton 2",
+    34,
+    "1.0-1.5",
+    "Close to the wall, 1.2m to the ceiling",
+    "4.8m",
+    "8.2 17：21-17：31",
+    null
+  ],
+  [
+    "Cotton 3",
+    96,
+    0,
+    "Center of the room, 1.8m to the ceiling",
+    "1.6m",
+    "8.2 18：39-18：50",
+    null
+  ],
+  [
+    "Cotton 4",
+    98,
+    "0.5-1.0",
+    "Center of the room, 1.8m to the ceiling",
+    "1.6m",
+    "8.2 19：25-19：35",
+    null
+  ],
+  [
+    "Cotton 5",
+    35,
+    0,
+    "Center of the room, 1.8m to the ceiling",
+    "1.6m",
+    "8.3 10：07-10：18",
+    null
+  ],
+  [
+    "Cotton 6",
+    39,
+    "0.5-1.0",
+    "Center of the room, 1.8m to the ceiling",
+    "1.6m",
+    "8.3 11：02-11：09",
+    null
+  ],
+  [
+    "Cotton 7",
+    148,
+    0,
+    "Center of the room, 1.2m to the ceiling",
+    "1.6m",
+    "8.3 11：37-11：51",
+    null
+  ],
+  [
+    "Cotton 8",
+    70,
+    0,
+    "Close to the detector, 1.2m to the ceiling",
+    "1.6m",
+    "8.3 14：33-14：48",
+    null
+  ],
+  [
+    "Cotton 9",
+    150,
+    0,
+    "Center of the room, 1.2m to the ceiling",
+    "3.2m",
+    "8.3 15：21-15：30",
+    null
+  ],
+  [
+    "N-heptane 1",
+    180,
+    0,
+    "Center of the room, 1.2m to the ceiling",
+    "75ml",
+    "8.3 16：03-16：12",
+    null
+  ],
+  [
+    "N-heptane 2",
+    180,
+    "1.0-1.5",
+    "Center of the room, 1.2m to the ceiling",
+    "75ml",
+    "8.3 16：12-16：21",
+    null
+  ],
+  [
+    "N-heptane 3",
+    50,
+    0,
+    "Center of the room, 1.2m to the ceiling",
+    "75ml",
+    "8.3 16：39-16：47",
+    null
+  ],
+  [
+    "N-heptane 4",
+    50,
+    "1.0-1.5",
+    "Center of the room, 1.2m to the ceiling",
+    "75ml",
+    "8.3 16：47-16：51",
+    null
+  ],
+  [
+    "N-heptane 5",
+    65,
+    0,
+    "Close to the detector, 1.2m to the ceiling",
+    "75ml",
+    "8.3 17：16-17：21",
+    null
+  ],
+  [
+    "N-heptane 6",
+    65,
+    0,
+    "Close to the detector, 1.2m to the ceiling",
+    "75ml",
+    "8.3 17：21-17：25",
+    null
+  ],
+  [
+    "N-heptane 7",
+    172,
+    0,
+    "Close to the wall, 1.2m to the ceiling",
+    "75ml",
+    "8.4 11：48-11：57",
+    null
+  ],
+  [
+    "N-heptane 8",
+    59,
+    0,
+    "Close to the wall, 1.2m to the ceiling",
+    "75ml",
+    "8.4 11：57-12：10",
+    null
+  ],
+  [
+    "Polyurethane 1",
+    159,
+    0,
+    "Center of the room, 1.2m to the ceiling",
+    "3 pieces, 50*50*3（cm）",
+    "8.8 10：01-10：05",
+    null
+  ],
+  [
+    "Polyurethane 2",
+    62,
+    0,
+    "Center of the room, 2.8m to the ceiling",
+    "2 pieces, 50*50*3（cm）",
+    "8.8 15：37-15：46",
+    null
+  ],
+  [
+    "Polyurethane 3",
+    48,
+    "0.5-1.0",
+    "Center of the room, 2.8m to the ceiling",
+    "2 pieces, 50*50*3（cm）",
+    "8.8 16：25-16：33",
+    null
+  ],
+  [
+    "Polyurethane 4",
+    20,
+    0,
+    "Center of the room, 2.8m to the ceiling",
+    "2 pieces, 50*50*3（cm）",
+    "8.8 17：20-17：28",
+    null
+  ],
+  [
+    "Polyurethane 5",
+    20,
+    "1.0-1.5",
+    "Center of the room, 2.8m to the ceiling",
+    "2 pieces, 50*50*3（cm）",
+    "8.8 18：22-18：30",
+    null
+  ],
+  [
+    "Wood1",
+    61,
+    0,
+    "Center of the room, 1.8m to the ceiling",
+    "2 pieces, 2.5*2.5*10（cm）",
+    "8.10 9：50-10：37",
+    null
+  ],
+  [
+    "Wood2",
+    61,
+    "1.0-1.5",
+    "Center of the room, 1.8m to the ceiling",
+    "2 pieces, 2.5*2.5*10（cm）",
+    "8.10 11：08-11：36",
+    null
+  ],
+  [
+    "Wood3",
+    44,
+    "0.5-1.0",
+    "Center of the room, 1.0m to the ceiling",
+    "2 pieces, 2.5*2.5*10（cm）",
+    "8.10 14：02-14：36",
+    null
+  ],
+  [
+    "Wood4",
+    21,
+    0,
+    "Center of the room, 1.0m to the ceiling",
+    "2 pieces, 2.5*2.5*10（cm）",
+    "8.10 15：04-15：30",
+    null
+  ],
+  [
+    "Dry ice1",
+    106,
+    "0.5-1.0",
+    "Close to the wall, 1.2m to the ceiling",
+    "20 pieces, (no hot water)",
+    "8.4 15：12-15：20",
+    null
+  ],
+  [
+    "Dry ice2",
+    106,
+    "0.5-1.0",
+    "Close to the wall, 1.2m to the ceiling",
+    "20 pieces, (with hot water)",
+    "8.4 15：23-15：30",
+    null
+  ],
+  [
+    "Dry ice3",
+    137,
+    0,
+    "Close to the wall, 1.2m to the ceiling",
+    "20 pieces, (with hot water)",
+    "8.4 15：41-15：51",
+    null
+  ],
+  [
+    "Dry ice4",
+    47,
+    0,
+    "Close to the wall, 1.2m to the ceiling",
+    "20 pieces, (with hot water)",
+    "8.4 15：56-16：03",
+    null
+  ],
+  [
+    "Mist1",
+    84,
+    0,
+    "Center of the room, 2.8m to the ceiling",
+    null,
+    "8.10 16：01-16：09",
+    null
+  ],
+  [
+    "Mist2",
+    84,
+    "1.0-1.5",
+    "Center of the room, 2.8m to the ceiling",
+    null,
+    "8.10 16：12-16：20",
+    "16：14 change wind speed to 0.7m/s"
+  ],
+  [
+    "Mist3",
+    30,
+    "1.0-1.5",
+    "Center of the room, 1.2m to the ceiling",
+    null,
+    "8.10 16：22-16：29",
+    null
+  ],
+  [
+    "Mist4",
+    30,
+    0,
+    "Center of the room, 1.2m to the ceiling",
+    null,
+    "8.10 16：31-16：37",
+    "16：35 turn on the light, and the luminance is 68lux"
+  ],
+  [
+    "Blank control 1",
+    68,
+    0,
+    null,
+    null,
+    "8.10 16：38-16：40",
+    null
+  ],
+  [
+    "Blank control 2",
+    16,
+    0,
+    null,
+    null,
+    "8.10 16：40-16：42",
+    null
+  ],
+  [
+    "Occlusion of N-heptane",
+    null,
+    null,
+    null,
+    null,
+    "8.10 16：48-17：02",
+    null
+  ],
+  [
+    "Occlusion of polyurethane",
+    null,
+    null,
+    null,
+    null,
+    "8.10 17：05-17：13",
+    null
+  ]
+]

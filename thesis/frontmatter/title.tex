@@ -1,0 +1,63 @@
+\begin{titlepage}
+\thispagestyle{empty}
+\fontfamily{cmr}\selectfont
+
+% This page reproduces the official UNIME Computer Science bachelor's-thesis
+% title-page composition. Positions are fixed against the A4 page so the
+% appearance is independent of the document-wide thesis margins.
+\begin{tikzpicture}[remember picture,overlay]
+  \coordinate (pageNW) at (current page.north west);
+
+  \node[anchor=north,inner sep=0pt]
+    at ([yshift=-126pt]current page.north)
+    {\includegraphics[width=108pt]{unime_seal_color.png}};
+
+  \node[anchor=north,inner sep=0pt,text width=451pt,align=center]
+    at ([yshift=-254pt]current page.north)
+    {\fontsize{20.74}{24}\selectfont\scshape
+      Universit\`a degli studi di Messina};
+
+  \draw[line width=0.45pt]
+    ([xshift=72pt,yshift=-283pt]pageNW) --
+    ([xshift=523pt,yshift=-283pt]pageNW);
+  \draw[line width=1.15pt]
+    ([xshift=72pt,yshift=-291pt]pageNW) --
+    ([xshift=523pt,yshift=-291pt]pageNW);
+
+  \node[anchor=north,inner sep=0pt,text width=451pt,align=center]
+    at ([yshift=-313pt]current page.north)
+    {\fontsize{12}{15}\selectfont\bfseries
+      DIPARTIMENTO DI SCIENZE MATEMATICHE E INFORMATICHE,\\[4pt]
+      SCIENZE FISICHE E SCIENZE DELLA TERRA\\[4pt]
+      Bachelor's Degree in Computer Science L31\\[5pt]
+      Curriculum: Data Analysis};
+
+  \node[anchor=center,inner sep=0pt,text width=470pt,align=center]
+    at ([yshift=-451pt]current page.north)
+    {\fontsize{20.74}{26}\selectfont\bfseries
+      \begin{tabular}{@{}c@{}}
+        Tiered Edge AI Architecture\\[2pt]
+        for Cooperative UAV-Based\\[2pt]
+        Industrial Fire Detection
+      \end{tabular}};
+
+  \node[anchor=north west,inner sep=0pt]
+    at ([xshift=72pt,yshift=-582pt]pageNW)
+    {\fontsize{14.4}{18}\selectfont Supervisor:};
+  \node[anchor=north west,inner sep=0pt]
+    at ([xshift=72pt,yshift=-607pt]pageNW)
+    {\fontsize{14.4}{18}\selectfont Prof. Giovanni Merlino};
+
+  \node[anchor=north east,inner sep=0pt]
+    at ([xshift=523pt,yshift=-582pt]pageNW)
+    {\fontsize{14.4}{18}\selectfont Candidate:};
+  \node[anchor=north east,inner sep=0pt]
+    at ([xshift=523pt,yshift=-607pt]pageNW)
+    {\fontsize{14.4}{18}\selectfont Mohammadamin Jahanimajd};
+
+  \node[anchor=north,inner sep=0pt,text width=200pt,align=center]
+    at ([yshift=-681pt]current page.north)
+    {\fontsize{14.4}{20}\selectfont Academic Year\\[1pt]
+     \textbf{2025/2026}};
+\end{tikzpicture}
+\end{titlepage}

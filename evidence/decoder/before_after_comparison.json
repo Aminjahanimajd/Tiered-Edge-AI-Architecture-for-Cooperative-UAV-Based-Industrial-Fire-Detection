@@ -1,0 +1,102 @@
+{
+  "baseline_analysis_path": "D:\\Drones\\Drone_Enhanced\\artifacts\\processed\\device_validation\\20260729_m2_backend_benchmark\\benchmark_analysis.json",
+  "baseline_analysis_sha256": "08291f9a04a4eae29314e6797cdf7e4be4e7f876a79c8ca7508322fe73a80b8e",
+  "claim_boundary": "Descriptive software-optimization effect for the two exact deployed systems and fixed synthetic protocol; no accuracy, energy, camera, ROS 2, or statistical-significance claim.",
+  "comparison_design": {
+    "changed_field": "candidate filtering and coordinate decoding implementation",
+    "controlled_fields": [
+      "device",
+      "deployed model hash",
+      "synthetic input",
+      "resize mode",
+      "warm-up count",
+      "measured iteration count",
+      "confidence threshold",
+      "NMS threshold"
+    ],
+    "inferential_statistics_reported": false,
+    "paired_samples": false,
+    "remaining_confounders": [
+      "ordinary operating-system background load",
+      "temperature at run start",
+      "uncontrolled run-to-run variation"
+    ],
+    "type": "separate serial before-and-after runs"
+  },
+  "devices": {
+    "scout": {
+      "metrics": {
+        "decode_ms": {
+          "absolute_change_ms": -82.14154932,
+          "baseline_mean_ms": 83.13384816,
+          "optimized_mean_ms": 0.99229884,
+          "relative_reduction_percent": 98.8063840878745
+        },
+        "inference_ms": {
+          "absolute_change_ms": -8.3908543,
+          "baseline_mean_ms": 982.68386992,
+          "optimized_mean_ms": 974.29301562,
+          "relative_reduction_percent": 0.8538711743261949
+        },
+        "pipeline_ms": {
+          "absolute_change_ms": -91.14363560000004,
+          "baseline_mean_ms": 1070.81099266,
+          "optimized_mean_ms": 979.66735706,
+          "relative_reduction_percent": 8.511645493439534
+        },
+        "preprocess_ms": {
+          "absolute_change_ms": -0.6112319799999995,
+          "baseline_mean_ms": 4.99327458,
+          "optimized_mean_ms": 4.3820426,
+          "relative_reduction_percent": 12.241104914362621
+        }
+      },
+      "model_sha256": "d533e320081be17ac91fb77c20a9de09f4bffada0d7f88c88326d57cd893bc35",
+      "pipeline_rate": {
+        "baseline_mean_pipelines_per_second": 0.9338716233346667,
+        "optimized_mean_pipelines_per_second": 1.0207546396166742,
+        "rate_ratio_optimized_to_baseline": 1.0930352889102315,
+        "relative_increase_percent": 9.303528891023145
+      }
+    },
+    "sentinel": {
+      "metrics": {
+        "decode_ms": {
+          "absolute_change_ms": -147.63029862000002,
+          "baseline_mean_ms": 148.91990734,
+          "optimized_mean_ms": 1.28960872,
+          "relative_reduction_percent": 99.1340253005559
+        },
+        "inference_ms": {
+          "absolute_change_ms": -0.17235858000000093,
+          "baseline_mean_ms": 45.1464857,
+          "optimized_mean_ms": 44.97412712,
+          "relative_reduction_percent": 0.38177629405161195
+        },
+        "pipeline_ms": {
+          "absolute_change_ms": -147.27437206000002,
+          "baseline_mean_ms": 204.32379502,
+          "optimized_mean_ms": 57.04942296,
+          "relative_reduction_percent": 72.07891378759103
+        },
+        "preprocess_ms": {
+          "absolute_change_ms": 0.5282851399999995,
+          "baseline_mean_ms": 10.257401980000001,
+          "optimized_mean_ms": 10.78568712,
+          "relative_reduction_percent": -5.150282118513595
+        }
+      },
+      "model_sha256": "16f9018ac299c6f525610a877d798392ec26d53fccb84b589ff6533d76589bf2",
+      "pipeline_rate": {
+        "baseline_mean_pipelines_per_second": 4.894192572637544,
+        "optimized_mean_pipelines_per_second": 17.528661082183888,
+        "rate_ratio_optimized_to_baseline": 3.581522553931192,
+        "relative_increase_percent": 258.1522553931192
+      }
+    }
+  },
+  "generated_utc": "2026-07-29T10:53:18.302Z",
+  "optimized_analysis_path": "D:\\Drones\\Drone_Enhanced\\artifacts\\processed\\device_validation\\20260729_m2_decoder_optimization\\benchmark_analysis.json",
+  "optimized_analysis_sha256": "250b853e7886fd6bafa1860bb76c5a9840a5a9a6d69c30fcbff87ba52e9c7072",
+  "schema_version": 1
+}

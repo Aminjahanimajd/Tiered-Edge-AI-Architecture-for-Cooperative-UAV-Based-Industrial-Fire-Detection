@@ -1,0 +1,44 @@
+\begin{tikzpicture}[
+  font=\small,
+  device/.style={draw,rounded corners=2pt,align=center,text width=49mm,
+    minimum height=10mm,fill=blue!9,font=\bfseries\small},
+  process/.style={draw,rounded corners=2pt,align=center,text width=43mm,
+    minimum height=11mm,fill=blue!3},
+  message/.style={draw,rounded corners=2pt,align=center,text width=35mm,
+    minimum height=10mm,fill=orange!10,font=\scriptsize},
+  decision/.style={draw,rounded corners=2pt,align=center,text width=43mm,
+    minimum height=11mm,fill=gray!10},
+  flow/.style={-{Latex[length=2.2mm]},thick},
+  exchange/.style={-{Latex[length=2.2mm]},thick,blue!65!black},
+  lane/.style={draw,rounded corners=4pt,inner sep=4mm}
+]
+  \node[device] (sentinel) at (0,0) {Sentinel\\Jetson Nano / ROS 2 Foxy container};
+  \node[device] (scout) at (9.2,0) {Scout\\VOXL 2 / native ROS 2 Foxy};
+
+  \node[process,below=7mm of sentinel] (scam) {D435i YUY2 $640\times480$\\GStreamer conversion to BGR};
+  \node[process,below=7mm of scam] (strt) {letterbox, RGB and NCHW\\TensorRT 640-pixel inference};
+  \node[process,below=7mm of strt] (filter) {fire-only decoding\\three-frame temporal filter};
+  \node[message,below=8mm of filter] (alert) {\texttt{HazardAlert}\\event identity, model hash and image metadata};
+  \node[decision,below=27mm of alert] (decision) {Sentinel coordinator\\one terminal \texttt{HazardDecision}};
+
+  \node[process,below=7mm of scout] (vcam) {MPA ROS image topic\\validated YUV/RGB decoding};
+  \node[process,below=7mm of vcam] (buffer) {locked latest-frame buffer\\500-ms freshness gate};
+  \node[process,below=7mm of buffer] (tflite) {letterbox, RGB and NHWC\\TFLite full-frame inference};
+  \node[message,below=8mm of tflite] (verdict) {\texttt{HazardVerdict}\\matching identity and outcome};
+
+  \node[lane,fit=(sentinel)(scam)(strt)(filter)(alert)(decision)] {};
+  \node[lane,fit=(scout)(vcam)(buffer)(tflite)(verdict)] {};
+
+  \draw[flow] (sentinel) -- (scam);
+  \draw[flow] (scam) -- (strt);
+  \draw[flow] (strt) -- (filter);
+  \draw[flow] (filter) -- (alert);
+  \draw[flow] (scout) -- (vcam);
+  \draw[flow] (vcam) -- (buffer);
+  \draw[flow] (buffer) -- (tflite);
+  \draw[flow] (tflite) -- (verdict);
+
+  \draw[exchange] (alert.east) -- node[above,font=\scriptsize,fill=white,inner sep=2pt]{request} (verdict.west);
+  \draw[exchange] (verdict.west) -- ++(-14mm,0) |- node[pos=.70,below,font=\scriptsize,fill=white,inner sep=2pt]{correlated reply} (decision.east);
+  \draw[flow] (alert.south) -- node[right,font=\scriptsize,fill=white,inner sep=2pt]{start timeout} (decision.north);
+\end{tikzpicture}

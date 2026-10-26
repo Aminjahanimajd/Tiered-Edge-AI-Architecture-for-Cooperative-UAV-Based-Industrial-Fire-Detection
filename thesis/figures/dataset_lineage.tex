@@ -1,0 +1,31 @@
+\begin{tikzpicture}[
+  node distance=7mm,
+  box/.style={draw,rounded corners=2pt,align=left,text width=0.76\textwidth,
+    minimum height=10mm,inner sep=3mm,fill=blue!4},
+  decision/.style={box,fill=orange!9},
+  tag/.style={draw,rounded corners=2pt,align=center,text width=18mm,
+    minimum height=10mm,font=\scriptsize\bfseries,fill=gray!10},
+  arrow/.style={-{Latex[length=2.2mm]},thick}
+]
+  \node[box] (source) {\textbf{Historical source pool.} 41,880 augmented fire/smoke images, supplemented by recovered environmental negative-image folders.};
+  \node[tag,left=7mm of source] {SOURCE};
+  \node[decision,below=of source] (policy) {\textbf{Eligibility policy.} Retain images with at least one fire box; exclude smoke-only images; admit licensed fire-free hard negatives.};
+  \node[tag,left=7mm of policy] {POLICY};
+  \node[box,below=of policy] (prov) {\textbf{Provisional manifest.} 23,220 images: 20,584 positive images and 2,636 background images.};
+  \node[tag,left=7mm of prov] {MANIFEST};
+  \node[decision,below=of prov] (audit) {\textbf{Integrity audit.} Reconstruct source families, adjudicate annotations, screen exact and perceptual duplicates, and control splits at group level.};
+  \node[tag,left=7mm of audit] {AUDIT};
+  \node[box,below=of audit] (v10) {\textbf{Immutable source-family version 10.} 23,214 images and 29,095 boxes.};
+  \node[tag,left=7mm of v10] {BASELINE};
+  \node[decision,below=of v10] (curate) {\textbf{Controlled curation.} Exclude three dominant mega-groups, cap retained groups at 50, remove ambiguous records, and quarantine five unreliable source families.};
+  \node[tag,left=7mm of curate] {CURATION};
+  \node[box,below=of curate] (final) {\textbf{Frozen research manifest version 7.} 4,991 images, 3,400 fire boxes and 2,615 inferred groups; group-preserving split of 3,558 train, 700 validation and 733 one-time test images.};
+  \node[tag,left=7mm of final] {FROZEN};
+
+  \draw[arrow] (source) -- (policy);
+  \draw[arrow] (policy) -- (prov);
+  \draw[arrow] (prov) -- (audit);
+  \draw[arrow] (audit) -- (v10);
+  \draw[arrow] (v10) -- (curate);
+  \draw[arrow] (curate) -- (final);
+\end{tikzpicture}

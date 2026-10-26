@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "registry_id": "external_evaluation_sources_v1",
+  "training_use_permitted": false,
+  "raw_sources_are_immutable": true,
+  "admission_rule": "No sample enters an evaluation manifest until provenance, license, checksums, decoding, labels, and overlap audits pass.",
+  "sources": [
+    {
+      "source_id": "fasdd_uav",
+      "role": "external_uav_object_detection_proxy",
+      "authoritative_page": "https://github.com/openrsgis/FASDD",
+      "paper_or_description": "Repository-linked FASDD UAV subset",
+      "source_repository_commit": "f47e4ebb34f0cca3f434326e75fb49f7cad21c14",
+      "data_doi": "10.57760/sciencedb.j00104.00103",
+      "data_record": "https://www.scidb.cn/en/detail?dataSetId=ce9c9400b44148e1b0a749f5c3eb0bda",
+      "project_repository": "https://github.com/OyamingO/FASDD",
+      "requested_scope": "every eligible FASDD-UAV image",
+      "dataset_record_version": "9.0.0",
+      "dataset_record_total_bytes": 82125550221,
+      "license_identifier": "CC-BY-SA-4.0",
+      "license_evidence_path": "https://www.scidb.cn/en/detail?dataSetId=ce9c9400b44148e1b0a749f5c3eb0bda",
+      "license_audit_status": "PASS_EXPLICIT_LICENSE_IN_DATASET_RECORD_JSON_LD_VERIFIED_2026-09-09",
+      "license_audit_evidence": "docs/evidence/external_sources/FASDD_LICENSE_AUDIT_20260909.md",
+      "local_raw_root": "external_data/raw/fasdd_uav",
+      "acquisition_status": "NOT_ACQUIRED",
+      "admission_status": "BLOCKED_PENDING_ACQUISITION_CHECKSUMS_LABEL_DECODE_AND_OVERLAP_AUDITS",
+      "overlap_audit_status": "NOT_RUN",
+      "manifest_path": null
+    },
+    {
+      "source_id": "mmodalfire_rgb",
+      "role": "external_industrial_domain_temporal_proxy",
+      "authoritative_page": "https://www.nature.com/articles/s41597-026-06810-6",
+      "paper_or_description": "MmodalFire visible-RGB sequences",
+      "data_doi": "10.6084/m9.figshare.28804448.v1",
+      "data_api": "https://api.figshare.com/v2/articles/28804448",
+      "archive": {
+        "name": "MmodalFire.rar",
+        "bytes": 4929210010,
+        "published_md5": "88287408a7a36a25999cf6276fa902a9",
+        "verified_sha256": "e65d162d03005584ac6b765efc7a14dca3de3a94df9a3c6b9a27d79de3242fb1"
+      },
+      "requested_scope": "all eligible RGB sequences, or the preregistered stratified fallback above 80 GB",
+      "fallback_selection": {
+        "activation_threshold_bytes": 85899345920,
+        "method": "lexically first sequence from every available site/fuel/interference/condition stratum"
+      },
+      "license_identifier": "CC-BY-4.0",
+      "license_evidence_path": "https://api.figshare.com/v2/articles/28804448",
+      "local_raw_root": "external_data/raw/mmodalfire_rgb",
+      "local_extracted_root": "external_data/extracted/mmodalfire_v1",
+      "acquisition_status": "ACQUIRED_ARCHIVE_HASH_VERIFIED_AND_EXTRACTED",
+      "admission_status": "BLOCKED_PENDING_EVENT_CONDITION_ALIGNMENT_AND_OVERLAP_AUDIT",
+      "overlap_audit_status": "NOT_RUN",
+      "manifest_path": "config/mmodalfire_media_inventory_v1.json",
+      "publisher_condition_table": {
+        "source_workbook": "external_data/extracted/mmodalfire_v1/原始数据/SETTINGS OF THE COMBUSTION EXPERIMENT FOR DATA COLLECTION.xlsx",
+        "source_workbook_sha256": "87583397541a3e8daafec65c14739197dca9ddfa8ec439694c916b2a0ad370ce",
+        "publisher_readme": "external_data/extracted/mmodalfire_v1/原始数据/Readme.txt",
+        "publisher_readme_sha256": "54bdece4848652271b36c36ef597215d4adbdc95b6478ad4a5bef53eafd61789",
+        "derived_table": "config/mmodalfire_condition_table_v1.json",
+        "derived_table_sha256": "db1475b91a9292d570ba2ec185a23c1f1ab45fc2e0e972e4b8b4de0737baa1cd",
+        "extraction_method": "artifact-tool importXlsx plus exact Sheet1 A1:G39 values",
+        "condition_row_count": 38,
+        "sheet2_status": "EMPTY",
+        "sheet3_status": "EMPTY",
+        "video_alignment_status": "OCR_REVIEW_REQUIRED_BEFORE_INTERVAL_ADMISSION",
+        "alignment_frame_manifest": "manifests/mmodalfire_alignment_frames_v1.json",
+        "alignment_frame_manifest_sha256": "7157ba5f3d833973341b6c7a04cd4be3ff6777a2784cab66d5ba8dee156b71a4",
+        "alignment_ocr_manifest": "manifests/mmodalfire_alignment_ocr_v1.json",
+        "alignment_ocr_manifest_sha256": "8f8e55eee6cf72ec0c2173f5f1e352880cac4538a98c59bc2f40be15dd660db3",
+        "alignment_ocr_result": {
+          "sampled_frames": 84,
+          "clock_parsed": 68,
+          "review_required": 16,
+          "video_progression_pass": 9,
+          "video_count": 28
+        },
+        "alignment_narrow_ocr_manifest": "manifests/mmodalfire_alignment_ocr_v2_20260909.json",
+        "alignment_narrow_ocr_manifest_sha256": "69c5adc10caef3b4d15420f960c82aabf5ae00df2f9e1397ee1c8c015133bfe9",
+        "alignment_narrow_ocr_result": {
+          "sampled_frames": 84,
+          "full_timestamp_parsed": 59,
+          "review_required": 25,
+          "video_progression_pass": 10,
+          "video_count": 28
+        },
+        "alignment_cross_pass_manifest": "manifests/mmodalfire_alignment_consolidated_20260909.json",
+        "alignment_cross_pass_manifest_sha256": "5f607f757f63e32e33b6c1fd42e0bcb11b90fbc9b61ecac5a32958107bf537d0",
+        "alignment_cross_pass_result": {
+          "video_progression_pass": 8,
+          "review_required": 20,
+          "video_count": 28
+        }
+      },
+      "structural_media_probe": "PASS_28_OF_28",
+      "full_frame_decode_status": "PASS_28_OF_28_WITH_19_METADATA_COUNT_MISMATCHES",
+      "full_frame_decode_manifest": "manifests/mmodalfire_full_decode_v1.json",
+      "full_frame_decode_manifest_sha256": "5e0d4f82addea9629f2b72bfb6db975db44d06b8c8783f9f09e8c063b814d322",
+      "full_frame_decode_counts": {
+        "clean_metadata_match": 9,
+        "decoded_to_end_metadata_count_mismatch": 19,
+        "decoder_failures": 0,
+        "reported_frames": 2974228,
+        "decoded_frames": 2974209
+      }
+    }
+  ],
+  "required_audits": {
+    "exact_hash_overlap": true,
+    "perceptual_overlap": true,
+    "source_family_overlap": true,
+    "label_parse": true,
+    "media_decode": true
+  },
+  "claim_boundary": "Results are external UAV and industrial-domain proxy evaluations, not operational industrial-site validation."
+}

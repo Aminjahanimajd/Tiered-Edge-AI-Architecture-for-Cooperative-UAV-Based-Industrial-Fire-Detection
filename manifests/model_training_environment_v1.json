@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "capture_date": "2026-07-29",
+  "environment_id": "windows_rtx3050_yolo_py312_v1",
+  "python": "3.12.13",
+  "operating_system": "Windows",
+  "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+  "gpu_memory_mib": 4096,
+  "nvidia_driver": "610.62",
+  "cuda_runtime": "13.0",
+  "torch": "2.12.0+cu130",
+  "torchvision": "0.27.0+cu130",
+  "ultralytics": "8.4.45",
+  "opencv_python": "5.0.0.93",
+  "numpy": "2.4.4",
+  "package_lock": "config/model_training_yolo_py312.lock.txt",
+  "pretrained_weights": {
+    "yolov8n.pt": {
+      "bytes": 6549796,
+      "sha256": "f59b3d833e2ff32e194b5bb8e08d211dc7c5bdf144b90d2c8412c47ccfc83b36"
+    },
+    "yolov8s.pt": {
+      "bytes": 22588772,
+      "sha256": "1f47a78bf100391c2a140b7ac73a1caae18c32779be7d310658112f7ac9aa78a"
+    }
+  },
+  "initial_cuda_import": "passed",
+  "cuda_kernel_gate": "passed on 2026-07-30 after cs2.exe closed; a 256x256 CUDA matrix multiplication completed on cuda:0",
+  "power_confirmation": "user confirmation required before full training",
+  "notes": [
+    "The historical D:/Drones/yolov8_env remains unchanged and unusable because its Python 3.10 base interpreter is absent.",
+    "The new environment is isolated under ignored artifacts/envs/yolo_py312.",
+    "YOLO_CONFIG_DIR is redirected inside the workspace to avoid changing user-level Ultralytics settings."
+  ]
+}

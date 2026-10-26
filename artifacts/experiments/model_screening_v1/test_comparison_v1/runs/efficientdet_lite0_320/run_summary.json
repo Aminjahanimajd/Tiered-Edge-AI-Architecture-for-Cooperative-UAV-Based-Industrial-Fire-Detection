@@ -1,0 +1,40 @@
+{
+  "access_class": "NO LAB",
+  "annotations_sha256": "651e2782db96cbbdf2ba718494f7b57447f96aea6d7719fac350132f1b72a06d",
+  "elapsed_seconds": 944.2292882000002,
+  "ended_utc": "2026-08-09T10:56:27.029373+00:00",
+  "framework": "TensorFlow Lite Interpreter",
+  "latency_sha256": "84201be9e9c30a0a7c662ba61cd99908f973b4db493ffcf76f2936d8877b2528",
+  "model": {
+    "bytes": 4443288,
+    "path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/model_screening_v1/efficientdet_lite0_screen_seed_20260729_retry10_resume_ckpt90/export_retry3_cpu/efficientdet_lite0.tflite",
+    "sha256": "948e71fa53fa9a740a2bca45f169280a9c6e6596a49bfcab65d0ad9cfda2f12c"
+  },
+  "model_id": "efficientdet_lite0_320",
+  "parameters": {
+    "batch": 1,
+    "class_id_offset": 1,
+    "float_input_scale": 1.0,
+    "image_count": 733,
+    "input_size": [
+      320,
+      320
+    ],
+    "integer_input_mode": "raw_pixels",
+    "output_tensor_indices": {
+      "boxes": 598,
+      "classes": 599,
+      "count": 601,
+      "scores": 600
+    },
+    "score_floor": 0.001,
+    "warmup_iterations": 10
+  },
+  "prediction_count": 17734,
+  "predictions_sha256": "69923777dd6583df25a7f7dd4cae16167ac7b4f9bbb8a1eb9dde99f3fe5e4a5a",
+  "python": "3.9.25",
+  "schema_version": 1,
+  "started_utc": "2026-08-09T10:41:27.684361+00:00",
+  "status": "completed",
+  "tensorflow": "2.8.1"
+}

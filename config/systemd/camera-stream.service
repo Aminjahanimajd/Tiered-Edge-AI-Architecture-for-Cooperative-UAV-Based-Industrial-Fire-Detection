@@ -1,0 +1,15 @@
+[Unit]
+Description=RealSense H.264 UDP Stream
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+Environment=GCS_HOST=127.0.0.1
+ExecStart=/usr/bin/gst-launch-1.0 v4l2src device=/dev/video2 ! video/x-raw,format=YUY2,width=640,height=480,framerate=30/1 ! nvvidconv ! 'video/x-raw(memory:NVMM), format=I420' ! nvv4l2h264enc maxperf-enable=1 bitrate=1000000 insert-sps-pps=true ! h264parse ! rtph264pay pt=96 ! udpsink host=${GCS_HOST} port=5600 sync=false
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

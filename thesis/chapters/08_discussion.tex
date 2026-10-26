@@ -1,0 +1,488 @@
+\chapter{Discussion and Limitations}
+\label{ch:discussion}
+
+Chapter~\ref{ch:results} showed that the evidence is uneven across the five
+research questions. The internal model comparison, historical device
+measurements and stationary two-node workflow produced quantitative
+observations. A 30-minute complete-stack run established bounded concurrent
+service survival while exposing unmet Scout latency and strict swap criteria. Comparative
+temporal-filter effects, formal mission reliability and external transfer were
+not established.
+This chapter interprets that pattern rather than treating every implemented
+component as an experimentally validated contribution.
+
+The central hypothesis proposed that a resource-aware tiered edge
+architecture can divide hazard-detection responsibilities between heterogeneous
+drones. The results support the narrower claim that the implemented Sentinel
+and Scout can execute that division under bounded stationary conditions and
+that the division exposes measurable predictive, runtime and latency
+trade-offs. They do not establish that the tiered workflow improves accuracy in general,
+that the selected pair is optimal, or that the system is ready for autonomous
+industrial use.
+
+\section{Answers to the research questions}
+\label{sec:discussion:1}
+
+Table~\ref{tab:discussion-rq-answers} gives the final evidence-bounded answer to
+each research question. ``Bounded answer'' means that the retained evidence
+answers part of the question under stated conditions while another evidence
+layer remains unavailable. ``Not evaluated'' means that no eligible experiment
+supports a performance answer.
+
+\begin{table}[H]
+  \centering
+  \caption{Evidence-bounded answers to the five research questions.}
+  \label{tab:discussion-rq-answers}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.07\textwidth}p{0.17\textwidth}X@{}}
+    \toprule
+    RQ & Status & Answer supported by the accepted evidence \\
+    \midrule
+    RQ1 & Bounded answer & The six candidates exhibited different
+    predictive and laptop-runtime trade-offs, and the historical Sentinel and
+    Scout pair executed on their devices. The strengthened 12-cell screen was
+    not completed, so the experiment does not select a supported candidate for
+    every platform. \\
+    RQ2 & Bounded answer & A stationary 30-minute complete-stack run
+    completed without process death, OOM, thermal shutdown or logger loss while
+    both flight-service paths were active. It missed the Scout p95 target and
+    showed 0.922~MiB Sentinel swap growth, so not every acceptance criterion was
+    satisfied. \\
+    RQ3 & Bounded answer & The Scout produced both correlated confirmations
+    and rejections, and the added decision time was measured. The effects of
+    the temporal filter and tiered workflow on event retention and false-alert burden
+    are not estimable from the retained frame-level evidence. \\
+    RQ4 & Bounded answer & Two nominal branches, four selected fault paths
+    and one hash-linked visual confirmed-hazard mission completed in development
+    simulation. The formal repeated campaign and physical two-vehicle mission
+    were not completed, so correct behaviour is demonstrated only for the
+    retained pilots. \\
+    RQ5 & Not evaluated & Neither external source reached a frozen eligible
+    inference manifest. No transfer-performance conclusion is supported. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{RQ1: predictive performance and platform support}
+
+The internal comparison rejects the idea of a universal detector winner.
+YOLOv8n-416 led validation AP50--95 and F1, while EfficientDet led test
+AP50--95, precision and F1. All candidates lost F1 between validation and test,
+and their grouped intervals overlapped. The ranking reversal is compatible
+with sensitivity to split composition, source domains, target scales and model
+inductive biases. It does not justify replacing the validation-frozen selection
+with the model that happened to rank first on the test split.
+
+Runtime also changed the ordering. EfficientDet's stronger test result used an
+available CPU/XNNPACK path whose laptop inference call was approximately two
+orders of magnitude slower than the GPU-capable YOLO paths. Conversely,
+YOLOv8n-640 had the lowest observed YOLO laptop time but lower validation AP
+than YOLOv8n-416. These comparisons establish a multi-objective selection
+problem; they do not show which model will preserve its ranking after
+conversion and execution on either edge device.
+
+The historical exact-device evidence shows that the final Sentinel TensorRT
+and Scout TFLite artifacts were executable in their assigned roles. It cannot
+complete the six-candidate selection question because only that deployed pair
+was measured under the retained 100-iteration device protocol. The answer to
+RQ1 is therefore descriptive for offline predictive trade-offs and historical
+deployment, but incomplete for candidate-by-platform support.
+
+\subsection*{RQ2: sustainable operation with concurrent services}
+
+The ten-minute run first showed that both live cameras and deployed inference
+paths could coexist with ROS~2, logging and resource sampling. The later
+complete-stack run extended that observation beyond 30 minutes and added Scout
+PX4 services plus Sentinel Pixhawk/MAVProxy telemetry. Both wrappers closed
+normally, no logger drop or OOM occurred, minimum available memory remained
+1,589.9~MiB on Sentinel and 4,873.8~MiB on Scout, and maximum valid reported
+temperatures were 51.0 and 48.2~\(^{\circ}\)C.
+
+RQ2 therefore has a bounded rather than universal answer. The evidence supports
+stationary service coexistence for the measured interval, not unlimited or
+airborne sustainability. Moreover, the corrected tiered-workflow probe covered only
+the final 180.245~s. Its 2.618~s p95 alert-to-verdict time exceeded the
+registered 2~s target, and Sentinel swap increased by 0.922~MiB. Preserving
+these failures is important: resource-constrained operation was feasible under
+the observed load, but the registered configuration was not compliant with
+every performance criterion.
+
+\subsection*{RQ3: temporal filtering and secondary verification}
+
+The stationary evidence demonstrates a functional second decision stage. The
+Scout confirmed all 13 requests in the stronger visible-flame interval,
+confirmed one of ten requests in the smaller unstable-flame interval, and
+rejected all six forced unlit requests. A fixed acknowledgement would not have
+produced this condition-sensitive pattern. The event identity chain also shows
+that the returned verdict was connected to the correct Sentinel request.
+
+The evidence does not quantify improvement. The forced unlit requests bypassed
+Sentinel detection, so they cannot measure false alerts prevented by the
+tiered workflow. The logs did not retain every pre-filter candidate and filter-counter
+transition, so they cannot reconstruct how many single-frame candidates the
+three-frame rule removed or how many labelled hazards it retained. A
+single-frame, filtered and verified comparison on a shared labelled sequence is
+still required.
+
+The measured cost of verification is material. Mean Scout inference exceeded
+1.25~s in both accepted positive trials, and mean Sentinel
+alert-to-final-decision time was approximately 1.44--1.46~s. The architecture
+therefore adds an independent RGB decision at the cost of delayed resolution.
+Whether that trade-off is appropriate depends on the operational cost of an
+unsupported alert relative to the cost of waiting for confirmation. The
+present study measures the latency but does not define a safety-critical
+deadline for an industrial plant.
+
+The repeated fault cases strengthen the coordination result without turning it
+into a reliability estimate. Camera-interface loss and a post-preflight stale
+stream failed closed in all five registered repetitions; absence of the Scout
+process generated one timeout per event; and all ten verdicts injected after
+timeout were rejected without an additional final decision. These outcomes
+demonstrate specific defensive paths. They do not measure natural fault rates,
+wireless recovery or rejection-memory effectiveness.
+
+\subsection*{RQ4: two-vehicle mission behaviour and faults}
+
+The simulation pilots demonstrate executable nominal branches and selected
+safe-state transitions through real PX4 SITL and namespaced ROS~2 interfaces.
+They also exposed a genuine state-assignment defect: two pre-fix fault pilots
+assigned \texttt{TAKEOFF} before Scout actuation. The corrected v2 runs moved
+directly from \texttt{PREFLIGHT} to \texttt{DEGRADED}. Retaining both versions
+is stronger engineering evidence than reporting only the repaired runs because
+it shows the failure, correction and regression outcome.
+
+Six passing pilots do not support a reliability estimate. The rejected nominal
+scenario required six mode/arm attempts after temporary health failures, which
+shows that a final pass can contain operational variability. The incomplete
+310-run campaign, provisional airframe proxies and scenario-defined target
+coordinates prevent a broader claim about mission correctness. RQ4 is therefore
+answered for the existence of the implemented branches, not for their
+probability of success or their physical-flight behaviour.
+
+\subsection*{RQ5: external transfer}
+
+RQ5 has no evaluated performance answer. FASDD-UAV had not been acquired and locally
+audited. MmodalFire passed archive and decode checks, but only 8 of 28 video
+ranges passed the stricter timestamp consolidation and the event labels and
+overlap gates were still open. Running the detector before those gates closed
+would have produced numbers without a defensible denominator or independence
+claim. Reporting the question as not evaluated preserves the value of the future
+evaluation and avoids using readiness work as surrogate accuracy evidence.
+
+\section{Predictive performance and resource trade-offs}
+\label{sec:discussion:2}
+
+The comparison illustrates why predictive performance, runtime portability and
+device feasibility must remain separate selection dimensions. An offline
+checkpoint can rank well and still lack a faithful conversion. The two
+416-pixel YOLO ONNX artifacts passed the frozen fidelity gate, while both
+640-pixel ONNX exports and the SSD TFLite export failed. Successful export and
+runtime allocation were therefore insufficient indicators of equivalent
+behaviour.
+
+The YOLOv8n-640 ONNX result is a useful borderline example. Its match rate of
+0.9496 was close to the 0.95 rule, and its matched confidence error was small.
+Rounding the result upward or relaxing the gate would nonetheless change the
+experiment after observing the outcome. Preserving the failure supports a
+repeatable comparison and leaves room for a separately registered alternative
+conversion.
+
+The historical deployed pair reflects system roles rather than a model-family
+optimum. The Sentinel 640-pixel TensorRT pipeline averaged 58.151~ms in the
+camera-free benchmark, while the Scout TFLite pipeline averaged 999.431~ms.
+The devices, models, runtimes and output interfaces all differed. The ratio
+supports the observation that the deployed Sentinel path was faster than the
+deployed Scout path; it does not isolate whether hardware, model size, runtime,
+delegate use or implementation caused the difference.
+
+The decoder experiment reinforces this point. Vectorization reduced the
+historical Sentinel complete-pipeline mean from 204.324 to 57.049~ms while
+backend inference changed only slightly. Before optimization, Python
+post-processing hid much of the benefit of TensorRT. On the Scout, inference
+already dominated, so the same decoder change yielded a smaller pipeline
+reduction. Resource-aware design therefore requires profiling the complete
+software path on each platform rather than inferring the bottleneck from model
+architecture alone.
+
+No energy-efficiency ranking is supported. Laptop resource samples combined
+host-wide and device-wide quantities over unequal durations, while the physical
+complete-stack record did not include calibrated power measurements. The
+30-minute temperature and resource series supports bounded thermal and memory
+observations, but not a causal throttling or energy-efficiency conclusion. The
+strengthened device screen remains necessary before all candidate models can be
+compared on common platform-specific objectives.
+
+\section{Contribution and cost of the tiered workflow}
+\label{sec:discussion:3}
+
+The primary architectural contribution is the explicit division of
+responsibilities. The Sentinel performs initial hazard detection, persistence
+filtering and request publication. The Scout acquires a current frame, makes a
+second model-based judgement and returns a correlated verdict. The Sentinel
+then records the final decision. Correlation fields, typed outcomes and
+asynchronous logging turn two unrelated detector calls into an auditable
+decision workflow.
+
+This division provides an additional rejection opportunity, but the Scout is
+not independent physical ground truth. Both nodes use RGB imagery and learned
+fire detectors, so their errors may be correlated through appearance, lighting,
+domain shift or shared training sources. A thermal, particulate or gas sensor
+would provide a different physical measurement; it was not part of the tested
+verification path.
+
+The strong- and small-flame observations show why a second decision must not be
+assumed beneficial in every condition. The stronger exposure produced 13
+confirmations from 13 marked requests, while the smaller unstable exposure
+produced one confirmation from ten. Possible explanations include apparent
+flame area, motion, viewpoint, focus, exposure, threshold calibration and
+training-domain mismatch. The trial does not isolate their causal effects. It
+does establish that the Scout can reject requests that the Sentinel has already
+promoted, including requests associated with a real but difficult visual
+target.
+
+The communication time was small relative to Scout inference in the bounded
+campaigns. Typical camera-free round-trip medians were approximately 5--6~ms,
+and the loaded 1,000-event median was 4.393~ms, whereas
+Scout inference was approximately 1.25--1.32~s in the accepted live conditions.
+The earlier 400.453~ms communication tail remains operationally relevant:
+timeouts based only on a median would ignore observed variability. Under
+loaded, moving or interfered conditions, the communication share could change,
+so the present ratio is not generalized beyond the retained stationary setup.
+
+The tiered workflow also creates new failure surfaces: request loss, unavailable Scout,
+stale or duplicate verdicts, incompatible clock interpretations, timeout
+selection, and disagreement handling. The architecture addresses several of
+these with event identity and explicit terminal states, but it does not remove
+them. Its contribution is a testable and traceable coordination boundary, not
+automatic reliability from adding a second vehicle.
+
+\section{Onboard execution and warehouse-scenario implications}
+\label{sec:discussion:onboard}
+
+The implemented perception and decision path is onboard even though the
+physical experiment is not aerial. The Sentinel performs capture, TensorRT
+inference, filtering, coordination and finalization on its Jetson Nano, while
+the Scout performs camera acquisition and TFLite verification on VOXL~2. The
+Sentinel-hosted SwarmNet access point carries compact ROS~2 records between
+them. The laboratory laptop supports setup, observation and evidence transfer;
+it is not the required inference or final-decision computer. This distinction
+is central to the title: the work evaluates distributed edge computation on
+UAV hardware, but physical flight remains outside the accepted evidence.
+
+Onboard processing has four principal advantages for the intended scenario.
+First, it avoids continuous raw-video transmission and reduces the radio load
+to alerts, verdicts and final decisions. Second, perception does not require an
+external Internet or cloud service. Third, imagery can remain on the vehicle,
+which may simplify privacy and site-data handling. Fourth, different runtimes
+can be optimized for the two heterogeneous computers. The observed SwarmNet
+round-trip times show that compact decision messages were inexpensive relative
+to Scout inference in the stationary tests; they do not establish the same
+relationship under flight or industrial radio interference.
+
+The same design creates costs. Compute, camera and radio load draw from the
+vehicle energy budget; the added Sentinel computer, regulator, camera and
+mounting contribute payload; and two embedded environments must be deployed,
+monitored and recovered. No calibrated electrical-power or flight-endurance
+measurement quantifies those costs in this study. The Sentinel is also both
+the access-point host and the final-decision coordinator. Loss of that node or
+its wireless service can remove the coordination path even if the Scout can
+still execute local inference. The architecture is therefore distributed in
+computation but not free of concentrated dependencies.
+
+A warehouse-like deployment adds conditions not reproduced by the laboratory.
+Metallic structures and machinery can produce occlusion and multipath radio
+propagation; aisles constrain line of sight and safe trajectories; illumination
+can change abruptly; and smoke can obscure the RGB appearance on which both
+detectors depend. Indoor GPS denial would require a validated local estimator,
+shared frame convention, camera calibration, obstacle sensing and safe-standoff
+planner. The simulator exercised scenario-defined local coordinates, not this
+physical localization chain. Local onboard processing is consequently a
+reasonable architectural response to constrained connectivity, but the present
+evidence does not prove coverage, collision safety or hazard-detection
+reliability in a warehouse.
+
+\section{Failures and alternative explanations}
+\label{sec:discussion:4}
+
+The evidence contains failures at data, model, conversion, software,
+integration and mission levels. Treating them as part of the result clarifies
+which changes improved the system and which questions remain uncertain.
+
+The validation-to-test rank change may arise from domain composition rather
+than training instability alone. The source-family split reduces direct
+leakage, but reconstructed identities cannot capture every related frame or
+scene. Annotation judgement, retained negatives and the scarcity of
+COCO-defined small boxes can also change metrics. One seed per configuration
+does not separate model choice from training variance.
+
+Conversion failures have several plausible sources: exporter graph changes,
+preprocessing differences, coordinate conventions, suppression details and
+runtime kernels. The Scout live bring-up supplied a concrete instance. The
+camera stream required explicit UYVY decoding, and the model output used
+normalized coordinates while the shared decoder initially expected model-pixel
+coordinates. Those defects produced repeated zero-confidence outcomes until
+the interfaces were inspected and corrected. The early records are therefore
+configuration failures, not evidence that the detector could not see flame.
+
+The 0.05 Scout threshold was selected after observing diagnostic illuminated
+and unlit scores. It made the later proof-of-function trials possible, but it
+was not preregistered or calibrated on a representative Scout validation set.
+This choice can explain part of the observed confirmation pattern and prevents
+the live counts from becoming an unbiased accuracy estimate.
+
+Hardware state also affected execution. The Scout battery depleted and the
+device rebooted, clearing volatile deployment files. Three of five repeated
+negative JPEG payloads were lost after their hashes had been logged, although
+the structured event records remained complete. The incident supports the need
+for persistent staging and transfer checks. It does not invalidate the retained
+scores, but it limits later visual inspection of those three frames.
+
+The simulation pre-fix state error and temporary arming rejections show two
+different failure classes. The first was a controller defect corrected in code.
+The second came from PX4 health readiness and required no bypass. Combining
+them under a single mission-failure count would conceal whether the remedy is a
+software change, a preflight wait policy or a simulator configuration update.
+
+\section{Threats to validity}
+\label{sec:discussion:5}
+
+\subsection{Construct validity}
+
+The detector operationalizes visible flame appearance in RGB images. It does
+not measure heat, combustion products or particulate concentration. A fire
+bounding box is therefore not proof of a physical fire. Physical smoke was not
+evaluated in the final two-device campaign and is outside the validated hazard
+scope.
+
+Hazard verification is also limited to a second RGB model judgement. The final
+alarm was a logical decision and retained log output, not an independently
+certified emergency alarm. Image-space coordinates were transferred as event
+metadata, but the Scout used full-frame inference and did not use those
+coordinates to crop, navigate or localize a target.
+
+\subsection{Internal validity}
+
+The physical trials were stationary, with propellers removed and a handheld
+lighter approximately 20--25~cm from the cameras. Camera height, flame
+stability, focus, exposure, viewpoint and battery state were not fully
+controlled. The accepted positive intervals were marked independently, but
+requests within one interval were temporally dependent. Historical
+unsynchronized lighter trials cannot supply ignition-to-detection latency or
+frame-level false-negative counts.
+
+Framework-specific preprocessing and decoding could not be made identical for
+all six candidates. The fidelity programme measures some of that risk but does
+not remove native-framework differences. Laptop runs also occurred
+sequentially and may include operating-system or display workload. These
+conditions restrict causal statements about architecture alone.
+
+\subsection{External validity}
+
+The curated internal images and one laboratory room do not represent the
+range of industrial sites, weather, lighting, occlusion, smoke, vibration,
+altitude, radio interference or fire scale. The lighter stimulus is especially
+different from an industrial hazard in fuel, geometry, heat and background
+context. The term industrial in the title identifies the application problem,
+not the validated deployment environment.
+
+The development simulator used provisional airframe proxies and
+scenario-defined local-ENU targets. Its successful state transitions do not
+establish real estimator behaviour, aerodynamics, collision clearance or
+radio performance. Physical two-vehicle flight generalization remains outside
+the evidence.
+
+\subsection{Statistical conclusion validity}
+
+All six training configurations used one controlled seed. The grouped
+bootstrap resampled inferred source families and therefore reflects only
+within-dataset resampling variability under that grouping. It does not correct
+selection bias, label error, unknown dependence or between-seed variance.
+Overlapping intervals are not treated as a formal equivalence or difference
+test.
+
+The live request counts are small and dependent within exposures. Fractions
+such as 13/13 and 1/10 are direct condition-specific observations rather than
+binomial estimates of population recall. The 300-event communication campaigns
+use serial messages from consecutive sessions, and 300/300 replies do not prove
+zero DDS packet loss because retransmission can occur below the application
+layer.
+
+\begin{table}[H]
+  \centering
+  \caption{Principal validity threats, their effect on interpretation and the
+  validation needed to reduce them.}
+  \label{tab:validity-followup}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.21\textwidth}p{0.34\textwidth}X@{}}
+    \toprule
+    Threat & Consequence for this thesis & Required follow-up \\
+    \midrule
+    RGB construct only & Verification does not establish physical combustion
+    or smoke presence. & Add calibrated thermal, particulate or gas sensing
+    under an approved safety protocol. \\
+    Small, stationary lighter trials & Counts do not estimate industrial or
+    flight reliability. & Preregister repeated conditions, synchronized
+    labels, varied target scale, distance, viewpoint and hard negatives. \\
+    One seed per model & Ranking may include training-run variance. & Repeat
+    selected candidates over multiple frozen seeds. \\
+    Inferred source grouping & Residual relatedness and domain bias may remain.
+    & Strengthen provenance and collect independently sourced evaluation data. \\
+    Incomplete device matrix & Platform-specific model support is unknown. &
+    Complete fidelity-valid 20/200 cells on both devices. \\
+    Single complete-stack endurance run & Repeatability, calibrated power and
+    airborne thermal behaviour remain unknown. & Repeat the registered run
+    across controlled ambient and power conditions, then add staged flight only
+    under an approved safety protocol. \\
+    Missing stage ablation & Filter and tiered-workflow effect sizes are unknown. &
+    Replay the same labelled sequence through all three decision stages. \\
+    Development simulation only & No mission success probability or physical
+    flight claim is supported. Qualitative review of the visual delivery checks
+    presentation clarity, not simulator fidelity. & Freeze airframe parameters
+    and execute the formal retained-run matrix before staged physical tests. \\
+    External manifests blocked & Transfer behaviour was not evaluated. & Close
+    license, alignment, overlap and eligibility gates before inference. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Remaining validation and deployment boundaries}
+\label{sec:discussion:6}
+
+The current contribution ends at a stationary two-node perception workflow and
+development simulation. The Sentinel Pixhawk participated only through
+receive-only telemetry in the accepted complete-stack endurance run; no
+integrated arming, take-off, navigation, collision
+avoidance, return or landing was demonstrated on the real vehicles. The word
+swarm denotes coordinated heterogeneous roles in a two-node architecture; it
+does not imply a validated autonomous formation.
+
+Localization is likewise incomplete. The Sentinel message carries image-space
+coordinates and event context, while the simulator uses scenario-defined local
+truth. A physical system would need camera calibration, a transform from image
+and vehicle frames to a shared world frame, estimator uncertainty and a
+validated safe standoff trajectory. Without those elements, the architecture
+supports target designation at the messaging level but not geographic
+localization or autonomous Scout dispatch.
+
+Operational deployment would require more than additional accuracy data. It
+would need hazard-specific safety requirements, alarm deadlines, human
+oversight, fail-safe behaviour, data-governance rules, radio planning,
+environmental qualification and compliance with the applicable aviation and
+site procedures. Those requirements were not evaluated and are not inferred
+from the laboratory or simulator results.
+
+The evidence supports the central hypothesis to a limited degree: roles can be
+divided across the tested heterogeneous edge nodes, and the implemented
+workflow can produce correlated confirmations and rejections. Evidence is
+insufficient to conclude that the division is sustainable beyond the measured
+stationary interval, improves accuracy relative to a common baseline, transfers
+to eligible external domains or operates correctly as a physical two-vehicle
+industrial mission. Chapter
+\ref{ch:conclusion} therefore states a conditional conclusion and prioritizes
+the missing validations rather than presenting the prototype as a completed
+deployment.
+
+\reviewstatus{The discussion answers RQ1, RQ2, RQ3 and RQ4 only within their
+completed evidence layers. RQ2 has a bounded answer and RQ5 was not evaluated. No
+result establishes physical smoke detection, geographic localization,
+autonomous industrial flight or universal reliability.}

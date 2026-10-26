@@ -1,0 +1,178 @@
+\chapter{Supplementary Analyses and Failure Chronology}
+\label{app:supplementary}
+
+This appendix preserves the negative and incomplete outcomes that constrain the
+final interpretation. The chronology is analytical rather than exhaustive: raw
+timestamps, command transcripts and hashes remain in the repository evidence.
+A later successful attempt does not erase an earlier failure when that failure
+explains a design change or a validity boundary.
+
+\section{Failure and correction chronology}
+
+{\scriptsize
+\begin{longtable}{@{}p{0.13\textwidth}p{0.27\textwidth}p{0.27\textwidth}p{0.24\textwidth}@{}}
+  \caption{Retained failures, corrections and consequences for the thesis.}
+  \label{tab:appendix-failures}\\
+  \toprule
+  Date/phase & Observation & Correction or disposition & Consequence for interpretation \\
+  \midrule
+  \endfirsthead
+  \multicolumn{4}{c}{\tablename\ \thetable\ continued}\\
+  \toprule
+  Date/phase & Observation & Correction or disposition & Consequence for interpretation \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{4}{r}{Continued on next page}\\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+
+  29 July device audit & The earlier Sentinel benchmark artifact had
+  416-pixel input and output shape $[1,6,3549]$, while the final ROS workspace
+  used a 640-pixel engine with output shape $[1,6,8400]$. & Both engine
+  identities were retained and the final 640-pixel path was benchmarked
+  separately. & Historical 416-pixel latency is never reported as a measurement
+  of the final deployed engine. \\
+
+  Scout camera bring-up & The camera published UYVY/YUV data and the model
+  returned normalized coordinates while the shared decoder initially assumed a
+  different representation. The mismatch produced repeated zero-confidence
+  outcomes. & The image decode and coordinate convention were inspected and
+  corrected before the accepted trials. & Early zero-confidence records are
+  configuration failures, not evidence of detector incapability. \\
+
+  Scout calibration & A 0.05 live threshold was selected after diagnostic
+  illuminated and unlit observations. & The threshold was recorded and used for
+  the bounded proof-of-function trials. & It was not preregistered on an
+  independent Scout validation set; live counts are not unbiased accuracy
+  estimates. \\
+
+  Scout power and storage & The Scout battery depleted and the device
+  rebooted, clearing volatile deployment files. Three of five repeated negative
+  JPEG payloads were unavailable after their hashes had been logged. &
+  Structured event records and the two preserved images were retained; the
+  missing images were not reconstructed. & The accepted scores remain usable,
+  but later visual inspection of three payloads is impossible. \\
+
+  YOLO ONNX fidelity & YOLOv8n-640 obtained a 0.9496 match rate against a frozen
+  minimum of 0.95; YOLOv8s-640 also failed. & Both outcomes remained failures;
+  the criterion was not rounded or relaxed after observation. & Neither failed
+  ONNX artifact enters equivalent-model device ranking. \\
+
+  SSD TFLite fidelity & The exported SSD artifact achieved a 0.8714 match rate
+  and failed the registered fidelity rule. & The artifact and report were
+  preserved and the candidate was excluded from device ranking through that
+  conversion. & Export and runtime allocation are insufficient evidence of
+  equivalent behaviour. \\
+
+  Decoder profiling & Python post-processing dominated the early Sentinel
+  pipeline and masked much of the TensorRT benefit. & Vectorized decoding was
+  implemented and compared against the retained baseline. & Complete-pipeline
+  profiling is required; backend inference time alone can misidentify the
+  bottleneck. \\
+
+  Simulation pre-fix pilots & Two fault pilots assigned \texttt{TAKEOFF} before
+  Scout actuation when the system should have degraded from preflight. & The
+  state assignment was corrected; v2 runs transitioned directly from
+  \texttt{PREFLIGHT} to \texttt{DEGRADED}. & Pre-fix and post-fix evidence are
+  both retained; only corrected runs support the repaired behaviour. \\
+
+  Simulation arming variability & A retained nominal scenario required six
+  mode/arm attempts after temporary PX4 health rejections. & No safety bypass
+  was introduced; the final accepted attempt and preceding variability were
+  retained. & A final pass does not imply deterministic mission availability. \\
+
+  Visual-simulation revision & The earlier v7 screenshot-derived delivery was
+  rejected for ambiguous role presentation, intrusive annotations and poor
+  camera framing. A later v16 run completed the principal hazard branch but
+  failed its 30~s landing bound. & Both attempts were retained. The v17 run
+  used an explicitly recorded 60~s landing bound and a continuous native video;
+  it passed identity, topic, terminal-state and capture gates. The video was
+  qualitatively reviewed and accepted for thesis/defence presentation; the v6 derived
+  delivery retained its hash and corrected the contact-sheet evidence. &
+  v17 supports only one bounded development observation; visual acceptance adds
+  no simulator-fidelity, physical-flight or reliability claim. \\
+
+  9 September readiness & The formal simulation matrix and external evaluations
+  had not passed their respective readiness/eligibility gates. & Protocols and
+  blockers remained visible at the evidence cutoff; no substitute run was
+  admitted. & RQ4 has a bounded development answer; RQ5 was not evaluated. \\
+\end{longtable}
+}
+
+\section{Excluded and deferred evidence}
+
+\begin{table}[H]
+  \centering
+  \caption{Evidence excluded from quantitative conclusions or deferred beyond the cutoff.}
+  \label{tab:appendix-exclusions}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.25\textwidth}p{0.31\textwidth}X@{}}
+    \toprule
+    Evidence & Reason for exclusion or deferral & Permitted use \\
+    \midrule
+    Unsynchronized historical lighter logs & Ignition intervals and ground-truth
+    frame labels are unavailable. & Implementation history and qualitative
+    proof of function only. \\
+    Failed/unbounded retracing attempt & Evaluation did not satisfy the corrected
+    bounded-signature execution contract. & Failure chronology; the corrected
+    run supplies the accepted SSD result. \\
+    Fidelity-failed conversions & Converted predictions did not satisfy the
+    preregistered equivalence gate. & Conversion-failure result, not device
+    performance of an equivalent model. \\
+    Camera-free device loops & Camera acquisition, ROS~2 traffic and complete
+    services were absent. & Backend/pipeline timing only; no sustainability
+    conclusion. \\
+    Forced unlit Scout requests & Requests bypassed Sentinel detection and were
+    not natural false alerts. & Verification-branch rejection behaviour only. \\
+    Pre-fix simulation pilots & Controller state assignment was known to be
+    incorrect. & Defect evidence and comparison with the repaired v2 path. \\
+    Incomplete formal simulation campaign & The preregistered denominator was
+    not executed. & Protocol and readiness status only. \\
+    MmodalFire preliminary readiness outputs & Timestamp consolidation,
+    event-label and overlap gates remained open. & Acquisition and readiness
+    evidence only; no transfer metric. \\
+    FASDD-UAV & Local acquisition and licence/admission requirements were not
+    completed. & External-source plan only. \\
+    Physical flight and industrial operation & No accepted integrated
+    two-vehicle flight or industrial-site campaign exists. & Future work; no
+    present-tense performance claim. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Supplementary interpretation of timing}
+
+The timing layers in the evidence are intentionally non-interchangeable.
+Laptop inference-call latency excludes device runtime effects. The historical
+device backend benchmarks exclude camera capture, communication and final
+decision handling. ROS~2/DDS RTT measures an application request and reply on
+the Sentinel monotonic clock. Alert-to-final-decision latency includes the
+Scout verification path for a correlated live request. A ratio between two
+layers is reported only when its limited meaning is explicit.
+
+Within the retained stationary trials, Scout inference dominated the final
+decision delay, while the median communication RTT was much smaller. The
+earlier 400.453~ms communication maximum remains relevant to timeout design,
+and the absence of loaded or moving-network conditions prevents a broader
+communication guarantee. Likewise, the short backend loops cannot establish
+steady-state temperature, power or memory behaviour.
+
+\section{Preservation and revision rule}
+
+Raw observations remain immutable. Cleaning, grouping, metric calculation and
+figure generation create new derived files with a recorded parent. Failed,
+interrupted and rejected attempts remain distinguishable from accepted runs.
+The evidence inventory records repository-relative path, byte size, UTC
+modification time and SHA-256 so that later revisions can identify exactly
+which artifact changed.
+
+Results arriving after the cutoff may be incorporated only by revising every
+affected layer: experiment register, method, result table or figure,
+interpretation, abstract and conclusion. This rule prevents a later isolated
+number from silently changing the answer to a research question.
+
+\reviewstatus{The supplementary chronology documents why particular records
+were accepted, limited, excluded or deferred. It does not add an industrial
+deployment, physical-flight, smoke-verification or external-transfer result.}

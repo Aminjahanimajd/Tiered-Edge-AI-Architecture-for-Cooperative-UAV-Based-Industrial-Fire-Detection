@@ -1,0 +1,440 @@
+\chapter{System Requirements and Tiered Architecture}
+\label{ch:architecture}
+
+This chapter converts the research questions into system requirements and
+defines the boundary between the stationary perception workflow and the
+two-vehicle mission software. It presents intended behaviour and verified
+implementation status; measurements of performance are reserved for
+Chapters~6 and 7.
+
+\section{Functional and non-functional requirements}
+\label{sec:architecture:requirements}
+
+The requirements were derived from the research questions, the available
+hardware and the need to preserve auditable evidence. A requirement can be
+implemented without being experimentally validated. Table~\ref{tab:requirements}
+therefore identifies both its architectural purpose and its current evidence
+status.
+
+\begin{table}[H]
+  \centering
+  \caption{System requirements and final evidence status.}
+  \label{tab:requirements}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.08\textwidth}p{0.36\textwidth}p{0.18\textwidth}X@{}}
+    \toprule
+    ID & Requirement & Related question & Status boundary \\
+    \midrule
+    FR1 & Sentinel shall perform local initial visible-flame detection and
+    expose the artifact identity and timing needed for analysis. & RQ1, RQ2 &
+    Implemented and exercised on the stationary Sentinel. \\
+    FR2 & A three-consecutive-frame temporal filter shall gate verification
+    requests. & RQ3 & Implemented; its comparative effect requires the accepted
+    ablation evidence. \\
+    FR3 & Each verification request, Scout verdict and final decision shall be
+    correlated by experiment, trial and event identity. & RQ3 & Implemented and
+    exercised in stationary ROS~2 tests. \\
+    FR4 & Scout shall perform independent full-frame visual verification and
+    return at most one application verdict for an event. & RQ1, RQ3 &
+    Implemented and exercised under bounded laboratory conditions. \\
+    FR5 & Sentinel shall emit one terminal decision: \texttt{CONFIRMED},
+    \texttt{REJECTED}, \texttt{TIMEOUT} or \texttt{ERROR}. & RQ3 & Implemented;
+    physical alarm actuation is outside scope. \\
+    FR6 & The mission layer shall model confirmed, rejected and degraded
+    branches for both vehicles without enabling unverified physical flight. &
+    RQ4 & Development simulation branches executed; the formal repeated
+    campaign was not executed. \\
+    NFR1 & Raw evidence shall be append-only and include configuration, timing,
+    model identity and logging-drop counters. & All & Implemented in the enhanced
+    protocol and experiment bundles. \\
+    NFR2 & Runtime claims shall refer to an exact device, model hash, precision,
+    input shape and service configuration. & RQ1, RQ2 & Mandatory analysis rule;
+    historical 416-pixel and deployed 640-pixel Sentinel engines are distinct. \\
+    NFR3 & A missing, duplicate, unrelated or late verdict shall not generate a
+    second accepted decision. & RQ3, RQ4 & Enforced by the coordination state
+    machine; bounded fault evidence is reported later. \\
+    NFR4 & Evaluation shall keep offline, device, stationary, simulation and
+    external evidence categories separate. & All & Thesis-wide reporting
+    constraint. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+No universal numeric latency, power or accuracy requirement was imposed after
+the system had been measured. Instead, each experiment freezes an acceptance
+criterion before its result is interpreted. This avoids converting an observed
+value into a retrospective design target. Safety requirements are categorical:
+physical integrated AI tests are stationary and propeller-free, and the
+mission adapter must fail closed unless an exact simulator-only precondition is
+satisfied.
+
+\section{Sentinel and Scout platforms}
+\label{sec:architecture:platforms}
+
+The Sentinel is a customized Holybro X500 V2 platform with a Pixhawk~6C flight
+controller, NVIDIA Jetson Nano 4~GB computer and Intel RealSense D435i camera.
+Its role is broad-area hazard detection, temporal filtering, creation of target
+metadata and publication of the final decision. NVIDIA's published processor
+and memory specification provides resource context \cite{NvidiaJetsonNano};
+the D400 family datasheet provides camera-family context
+\cite{IntelD400Datasheet}. Actual camera mode, runtime and latency are taken
+from experiment configuration and logs rather than inferred from those
+specifications.
+
+The Scout is a ModalAI PX4 Development Kit with a VOXL~2 computer based on the
+QRB5165. Its role in the stationary workflow is to receive a correlated alert,
+capture its own current image and perform full-frame secondary verification.
+The official VOXL~2 feature matrix describes its processor, memory and
+accelerators \cite{ModalAIVOXL2}. The retained runtime evidence, rather than
+the feature matrix, determines which software backend was actually used.
+
+\begin{table}[H]
+  \centering
+  \caption{Platform roles and architecture-relevant components. Specifications
+  are nominal; measured configurations are reported with the experiments.}
+  \label{tab:platforms}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}XX@{}}
+    \toprule
+    Attribute & Sentinel & Scout \\
+    \midrule
+    Vehicle basis & Customized Holybro X500 V2 & ModalAI PX4 Development Kit \\
+    Flight controller & Pixhawk 6C & PX4-compatible ModalAI platform \\
+    Edge computer & Jetson Nano, 4~GB & VOXL~2 / QRB5165, 8~GB nominal memory \\
+    Camera path & Intel RealSense D435i & Modal Pipe Architecture camera stream \\
+    Perception role & Initial hazard detection and temporal filtering &
+    Independent full-frame hazard verification \\
+    Accepted deployment family & YOLOv8n / TensorRT & YOLOv8s / TensorFlow Lite \\
+    Communication role & Alert publisher, verdict subscriber, decision
+    publisher & Alert subscriber, verdict publisher \\
+    Validated physical mode & Stationary, propellers removed & Stationary,
+    propellers removed \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Physical configuration and scenario fit}
+
+The two platforms are not interchangeable carriers for the same software. The
+vehicles were assembled and configured for this project, with most physical
+customization concentrated on the Sentinel. Its open X500 frame accommodated
+the added Jetson Nano, D435i, wiring and power-conversion hardware, whereas the
+Scout retained the more integrated ModalAI compute, camera and flight stack.
+This difference supports the intended division between persistent initial
+inspection and dispatched secondary verification, but it does not by itself
+establish flight endurance, payload margin or maneuverability.
+
+The Sentinel companion computer is supplied from the airframe power
+distribution through an intermediate DC--DC regulator. A three-conductor
+serial connection links the Jetson-side interface to the Pixhawk, and the
+D435i is mechanically attached to and connected directly to the Jetson. The
+accepted repository preserves the logical serial endpoint and baud rate, but
+not a complete connector-level pin map, regulator part number, calibrated
+voltage/current series or measured camera pose. The thesis therefore reports
+the integration topology while treating electrical efficiency, energy use and
+installed geometry as unmeasured quantities.
+
+Table~\ref{tab:platform-constraint-evidence} separates resource constraints
+that were measured from those that remain design context. This separation is
+important: the term \emph{resource-constrained} is supported directly for
+compute, memory, thermal observation, runtime compatibility and wireless
+communication, but not by a calibrated electrical-power or airborne-endurance
+experiment.
+
+\begin{table}[H]
+  \centering
+  \caption{Platform constraints, evidence status and architectural consequence.}
+  \label{tab:platform-constraint-evidence}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.17\textwidth}p{0.34\textwidth}X@{}}
+    \toprule
+    Constraint & Evidence in this study & Consequence for the architecture \\
+    \midrule
+    Compute and memory & Exact deployed runtimes, latency distributions, host
+    CPU, available memory and swap were recorded on both edge computers. &
+    Model, tensor layout and runtime are selected per platform rather than from
+    predictive accuracy alone. \\
+    Thermal operation & Host thermal-zone values were sampled during bounded
+    stationary runs; cooling configuration and ambient conditions were not a
+    controlled thermal experiment. & Sustained operation is evaluated directly,
+    but no causal throttling or airborne cooling claim is made. \\
+    Electrical power and energy & The Sentinel power topology is documented
+    qualitatively; calibrated voltage, current, regulator efficiency and energy
+    per decision were not measured. & No energy-efficiency ranking or flight-
+    endurance improvement is claimed. \\
+    Payload and geometry & Installed components are identified, but complete
+    mass, rotor spacing, dimensions, centre of gravity and camera pose were not
+    admitted as measured evidence. & Gazebo airframes remain provisional
+    simulation proxies rather than independently identified physical models. \\
+    Wireless communication & Compact ROS~2 request--reply events were measured
+    over SwarmNet in stationary laboratory conditions. & Raw video remains
+    local, reducing link load, while access-point coverage and interference
+    remain deployment risks. \\
+    Sensing & RGB camera paths were exercised on both vehicles; the final
+    physical campaign did not validate depth, inertial, thermal, gas or
+    particulate sensing for hazard decisions. & A second RGB decision improves
+    traceability but is not independent physical confirmation of combustion. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The available sensor set is consequently broader than the evaluated sensing
+path. The D435i family provides RGB, stereo depth and inertial capabilities
+\cite{IntelD400Datasheet}, but the accepted Sentinel detector used only the
+colour stream. Pixhawk telemetry was observed during the final endurance run,
+yet its estimator and vehicle sensors were not inputs to the fire decision.
+The Scout used its ModalAI camera stream through MPA; its PX4, IMU and QVIO
+services were present as platform load but were not validated as parts of an
+AI-controlled physical mission. Table~\ref{tab:sensor-use-boundary} makes this
+availability--use distinction explicit.
+
+\begin{table}[H]
+  \centering
+  \caption{Available platform capabilities versus their evaluated use.}
+  \label{tab:sensor-use-boundary}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.23\textwidth}p{0.27\textwidth}X@{}}
+    \toprule
+    Component & Evaluated use & Boundary \\
+    \midrule
+    D435i colour camera & Sentinel RGB fire inference & Stationary live camera
+    path exercised; no industrial-site calibration. \\
+    D435i depth and IMU & None in the accepted hazard-decision path & Available
+    device capabilities, not evaluated project results. \\
+    Pixhawk 6C sensors and estimator & Receive-only telemetry/service
+    coexistence & No integrated arming, navigation or physical mission. \\
+    ModalAI camera through MPA & Scout current-frame RGB/YUV verification &
+    Stationary bridge and decoding exercised, including unavailable/stale-frame
+    faults. \\
+    Scout PX4, IMU and QVIO services & Concurrent platform services during the
+    endurance run & Their presence contributes load; navigation accuracy was
+    not evaluated. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The labels ``recall-oriented'' and ``precision-oriented'' describe the intended
+roles of the two stages. They are not assumed properties of YOLOv8n and
+YOLOv8s. Operating thresholds and measured errors determine whether the final
+configurations actually realize those priorities.
+
+\section{Responsibility allocation and data flow}
+\label{sec:architecture:dataflow}
+
+Figure~\ref{fig:tiered-architecture} shows the stationary tiered architecture.
+The Sentinel captures a frame, performs local inference and applies the
+temporal filter. When the configured count is reached, it creates one alert
+containing the event identity, detector confidence, temporal count, source
+frame timing, model hash and normalized source-image box. ROS~2/DDS carries
+this compact record over the SwarmNet wireless network.
+
+The Scout treats the alert as a trigger. It does not crop its image around the
+Sentinel box and does not navigate to the transferred coordinates. It performs
+an independent full-frame inference on its current camera frame and publishes a
+correlated \texttt{CONFIRMED}, \texttt{REJECTED} or \texttt{ERROR} verdict. The
+Sentinel accepts only a verdict for the active event and publishes one terminal
+decision. A timeout is generated locally if a matching verdict does not arrive
+within the configured interval.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{\textwidth}{!}{\input{figures/tiered_architecture}}
+  \caption{Tiered edge architecture. Solid paths belong to the evaluated
+  stationary perception and ROS~2 workflow. The dashed flight-control path is
+  implemented for constrained dry-run and simulation use but was not validated
+  as integrated physical flight.}
+  \label{fig:tiered-architecture}
+\end{figure}
+
+This division keeps raw video local to each device and limits the network
+exchange to event metadata and decisions. It also means that verification is
+possible only when the Scout's current field of view contains relevant visual
+evidence. The tiered workflow provides no implicit camera-to-camera correspondence.
+That constraint is part of the architecture rather than a later experimental
+failure.
+
+\subsection{Onboard execution and ground-station boundary}
+
+The physical perception architecture is fully onboard in the computational
+sense. Sentinel camera capture, TensorRT inference, temporal filtering, alert
+publication and final-decision handling execute on the Jetson Nano; Scout
+camera acquisition, decoding and TFLite verification execute on VOXL~2. The
+Sentinel also hosts the SwarmNet wireless access point. The laboratory laptop
+was used for configuration, bounded test orchestration, monitoring and
+evidence retrieval, but it was not the inference server or the required final-
+decision processor in the evaluated two-device path. Loss of an external
+Internet or cloud service therefore does not, by design, remove local
+perception.
+
+This property must not be described as a \emph{full aerial experiment}. The
+accepted physical evidence is stationary and propeller-free; aerial state
+transitions were exercised only in simulation. A precise description is a
+\emph{fully onboard edge-processing architecture with stationary physical
+validation and simulated aerial mission execution}.
+
+Keeping images local reduces radio traffic and avoids making hazard decisions
+dependent on continuous raw-video transport. It also distributes failure and
+maintenance across two dissimilar embedded environments. The Sentinel access
+point and coordinator concentrate connectivity and finalization responsibility,
+so their loss can isolate the Scout even though inference is decentralized.
+Within a warehouse-like scenario, local processing is attractive where
+external connectivity is weak or restricted, but metallic structures, aisles,
+occlusion, multipath propagation and changing illumination can degrade both
+radio and RGB performance. These are design implications, not measured
+industrial-site results.
+
+\section{Communication interfaces and coordinate conventions}
+\label{sec:architecture:interfaces}
+
+The enhanced interface uses three typed ROS~2 messages. Their roles are
+summarized in Table~\ref{tab:interfaces}. All messages carry a ROS header and
+the identifiers needed to join records across the workflow.
+
+\begin{table}[H]
+  \centering
+  \caption{Enhanced decision interfaces.}
+  \label{tab:interfaces}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.23\textwidth}p{0.17\textwidth}X@{}}
+    \toprule
+    Topic and type & Direction & Principal semantics \\
+    \midrule
+    \path{/swarm/hazard_alert} / \texttt{HazardAlert} & Sentinel to Scout &
+    Experiment, trial and event IDs; source device; hazard type; confidence;
+    temporal count; source/alert monotonic times; model hash; normalized
+    source-image box and frame dimensions. \\
+    \path{/swarm/hazard_verdict} / \texttt{HazardVerdict} & Scout to Sentinel &
+    Matching IDs; verdict; hazard type and confidence; receipt/source/verdict
+    times; Scout model hash; reason. \\
+    \path{/swarm/hazard_decision} / \texttt{HazardDecision} & Sentinel to
+    logger or consumer & Matching IDs; terminal decision; both confidences;
+    detection, alert, verdict and decision times; reason. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The alert fields \texttt{target\_u}, \texttt{target\_v},
+\texttt{bbox\_width} and \texttt{bbox\_height} are normalized in the Sentinel
+source-camera frame. The origin is the top-left; \(u\) increases to the right
+and \(v\) increases downwards. These values are not latitude, longitude, local
+vehicle coordinates or Scout image coordinates. Earlier legacy
+\texttt{TargetHazard} messages used ambiguous location naming. The enhanced
+message makes the image-space meaning explicit and is the normative interface
+for the final evaluation.
+
+ROS header time supports cross-device record alignment when clock
+synchronization is known. Each \texttt{*\_monotonic\_ns} field is valid for
+durations on its originating device. Monotonic values from different devices
+cannot be subtracted directly. Application round-trip time can be calculated
+on the initiating Sentinel without assuming that the two monotonic clock
+epochs are equal.
+
+Figure~\ref{fig:decision-sequence} makes the request, response and timeout paths
+explicit. Event identifiers are opaque and cannot be reused within an
+experiment. A duplicate, late or unrelated verdict cannot close a different
+active event.
+
+\begin{figure}[p]
+  \centering
+  \resizebox{0.96\textwidth}{!}{\input{figures/decision_sequence}}
+  \caption{Detailed correlated Sentinel--Scout decision sequence. The Scout
+  validates the request and performs independent full-frame inference on its
+  own fresh image. The coordinator accepts only a matching active-event
+  verdict and records exactly one terminal outcome; the dashed path is the
+  deadline-expiry alternative. Image-space target metadata is retained for
+  traceability and is not used to steer the Scout in the evaluated stationary
+  workflow.}
+  \label{fig:decision-sequence}
+\end{figure}
+\clearpage
+
+\section{Coordination states and mission boundary}
+\label{sec:architecture:states}
+
+The perception coordinator and the flight mission controller use related but
+distinct state models. In the stationary workflow, the coordinator begins in
+\texttt{SEARCHING}. A qualifying candidate moves it to \texttt{TRACKING}; an
+alert moves it to \texttt{AWAITING\_SCOUT}. A matching verdict produces
+\texttt{CONFIRMED}, \texttt{REJECTED} or \texttt{ERROR}; expiration produces
+\texttt{TIMEOUT}. Exactly one terminal decision is recorded before the
+coordinator resets to \texttt{SEARCHING}.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{\textwidth}{!}{\input{figures/coordination_state_machine}}
+  \caption{Stationary perception and coordination states. Terminal decisions
+  are recorded once before the coordinator returns to search.}
+  \label{fig:coordination-states}
+\end{figure}
+
+The mission layer adds vehicle states such as \path{PREFLIGHT},
+\path{TAKEOFF}, \path{PATROL}, \path{SUSPECT_HOLD},
+\path{SCOUT_DISPATCH}, \path{VERIFYING},
+\path{CONFIRMED_HOLD}, \path{REJECTED_RESUME}, \path{DEGRADED},
+\path{RTL} and \path{LANDED}. Its target positions are scenario-defined
+local-ENU coordinates. They are not derived from the Sentinel image box. Two
+development PX4/Gazebo runs exercised the nominal confirmed and rejected
+branches on provisional vehicle proxies. A later accepted visual run executed
+the confirmed branch from preflight through patrol, hold, Scout dispatch,
+verification, alarm publication, return and landing while retaining the
+corresponding state-transition log. These runs establish executable control
+paths under their recorded simulation conditions, not a reliability rate or
+physical-flight validation.
+
+The formal repeated simulation campaign was not executed before the final
+evidence freeze. Measured physical parameters and the complete preregistered
+fault set did not close every readiness gate. Consequently, RQ4 receives only
+a bounded answer from the retained development runs. The visual record is
+supporting evidence for one run and does not replace the formal repeated
+campaign or its machine-readable telemetry.
+
+\section{Resource, logging and safety constraints}
+\label{sec:architecture:constraints}
+
+The Sentinel has less nominal memory and an older GPU architecture than the
+Scout platform, but hardware specifications alone do not determine the model
+assignment. Runtime availability and graph compatibility also matter. The
+Sentinel therefore uses a TensorRT deployment path, while the accepted Scout
+configuration uses TensorFlow Lite. Candidate screening remains broader than
+these historical deployments so that the thesis can distinguish a deployed
+artifact from a model selected under the later controlled comparison.
+
+Logging is moved off the inference path through a bounded queue and a dedicated
+writer. This reduces synchronous file-I/O interference while making overload
+visible through drop counters. Raw JSON Lines records are append-only.
+Corrections, exclusions and derived metrics are stored separately so that an
+analysis cannot silently replace the observation from which it was produced.
+
+The communication layer uses explicit correlation and a timeout rather than
+equating DDS reliability with successful application completion. A time-limited
+rejection cooldown can prevent immediate repeated requests for the same
+normalized image region. Persistent evidence or a sufficient confidence
+increase can override the cooldown, and expiry makes the region eligible
+again. This policy must be evaluated; it is not assumed to improve detection.
+
+The physical safety boundary is strict. Integrated perception experiments use
+stationary aircraft with removed propellers. The architecture does not convert
+an image coordinate into a flight setpoint. The flight adapter is used only
+under explicit dry-run or simulator safeguards. Physical arming, autonomous
+movement and industrial operation require separate validation outside the
+evidence presented here.
+
+\section{Design rationale and research-question traceability}
+\label{sec:architecture:rationale}
+
+The architecture addresses RQ1 by allowing model and runtime choices to be
+evaluated per device rather than assuming homogeneous hardware. It addresses
+RQ2 by defining the concurrent camera, inference, communication and logging
+services whose sustained operation must be measured. It addresses RQ3 through
+explicit single-frame, temporal-filter and verification stages with measurable
+timestamps and terminal outcomes. The separate mission controller supplies the
+software boundary for RQ4, while keeping simulator coordinates and physical
+perception evidence distinct. RQ5 remains principally a data and evaluation
+question; the architecture contributes the frozen model and preprocessing
+contracts needed to test external transfer.
+
+The expected benefit is fewer unsupported terminal confirmations than a
+single-frame Sentinel decision, at the cost of additional delay, energy use and
+failure opportunities. That statement is a hypothesis. The architecture makes
+the comparison observable, but only the accepted experiments in Chapters~6
+and 7 can determine its magnitude under defined conditions.

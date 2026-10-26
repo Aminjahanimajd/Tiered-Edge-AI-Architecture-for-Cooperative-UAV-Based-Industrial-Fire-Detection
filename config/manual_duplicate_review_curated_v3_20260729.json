@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-07-29",
+  "reviewer_role": "principal engineer",
+  "queue_csv_sha256": "ba8cf1bdc6dd3e857769a922bf1b30eebb80bc603cc2206f105a061876a2aed0",
+  "queue_row_numbering": "one-based data-row order, excluding the CSV header",
+  "viewing_method": "eight generated side-by-side contact sheets at original rendered resolution",
+  "classifications": {
+    "visually_same_scene": "1-2",
+    "not_visibly_same_scene_at_contact_sheet_resolution": "3-85"
+  },
+  "interpretation": [
+    "Both same-scene decisions are background/background pairs.",
+    "The remaining fog, haze, cloud, glare, sunrise, and background/fire candidates were visually distinct.",
+    "The enriched queue is not a prevalence sample and does not prove independence for every unreviewed candidate."
+  ]
+}

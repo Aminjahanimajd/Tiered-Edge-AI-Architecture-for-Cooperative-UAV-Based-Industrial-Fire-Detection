@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "dataset_id": "fire_only_curated_manifest_v7",
+  "freeze_date": "2026-07-29",
+  "purpose": "controlled fire-only YOLOv8n and YOLOv8s comparison",
+  "authorship_statement": "curated from third-party datasets; images were not collected by the thesis author",
+  "records_jsonl_sha256": "478803efb7f8f4f6c3fe74d58658958bccfa2d0f58ec50a1a5c16535e393a7dd",
+  "generated_summary_sha256": "54d9a92c8e1fb134a1c1283f2666d8a651a5b6f1e8d567e2e933d4979fa9007a",
+  "record_count": 4991,
+  "positive_record_count": 2404,
+  "background_record_count": 2587,
+  "fire_box_count": 3400,
+  "inferred_group_count": 2615,
+  "split_counts": {
+    "train": {"positive": 1731, "background": 1827, "total": 3558},
+    "valid": {"positive": 319, "background": 381, "total": 700},
+    "test": {"positive": 354, "background": 379, "total": 733}
+  },
+  "audit_sha256": {
+    "annotation": "7edabc62a98a012a16c5fa382f80e55a2d76a574f45d90575387d776b44def51",
+    "duplicate": "a680fa8bfdb8213647f7208eff32de8036ab3e78603aa47dd22c87ff724bf6dc",
+    "perceptual_refinement": "ec5736d0ab7ae06954f56febd495ec66fdd66702e8c8a464b8a6bc3f1aa12dd8",
+    "annotation_decisions_csv": "a669cd4cfb0a5964779c598c0f907c622a0ad7e46acbd87384b294bbf5cfbf79",
+    "duplicate_decisions_csv": "9f127c6fe906e7f6076fe229bc738971df3b19d1d6e2a28ccf7afbb922d25d79"
+  },
+  "policy_sha256": {
+    "initial_curation": "2b5255983487b2199a8fc27ca7a64d8bc99c675e2c3ed1c43d0f156fbb8ded5f",
+    "annotation_adjudication": "9c44c2e4ab2224992866620c3c4fb8fe744c1ea93e6bc200810fe71bce0602e2",
+    "source_family_quarantine": "21db5d91df5288fa449ed311998bea0d9668b64dca1489587baf32e3317b4b67",
+    "final_annotation_review": "ff5637a21cadef204db93af04f4ca747cdf55e07ebfdb4a0872d79d57d2b5821",
+    "final_duplicate_review": "62987bbdd22ffb8f66bff34575b0acbb649ee31694d04e3b72c23b6d9ef46273"
+  },
+  "test_use_policy": "validation only for model and threshold selection; test evaluated once after model selection",
+  "limitations_document": "docs/M3_CURATED_RESEARCH_DATASET_20260729.md"
+}

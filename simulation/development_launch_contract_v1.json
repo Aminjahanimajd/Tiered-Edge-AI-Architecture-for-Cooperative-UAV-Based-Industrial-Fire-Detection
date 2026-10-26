@@ -1,0 +1,70 @@
+{
+  "assets": [
+    {
+      "path": "simulation/models/x500_v2_sentinel_proxy/model.sdf",
+      "sha256": "23e944c139cf539335d554e1c74ca3fa4c8a1cafcafc63911bb5e4cb821f88dc"
+    },
+    {
+      "path": "simulation/models/x500_v2_sentinel_proxy/model.config",
+      "sha256": "7b90623141f5e1a52908ea58f49b71654c9bfc71b039d84d36bccbc771fb469d"
+    },
+    {
+      "path": "simulation/models/modalai_devkit_scout_proxy/model.sdf",
+      "sha256": "26d8b71813b171563cf65afe497d68503be4716351632b26c266750f37d0bc57"
+    },
+    {
+      "path": "simulation/models/modalai_devkit_scout_proxy/model.config",
+      "sha256": "4aa7b05693b735aa1d2cbcb9d8d395cd2b0685d6d2fa031d15d30acc2e073bc3"
+    },
+    {
+      "path": "simulation/worlds/industrial_inspection_proxy_v1.sdf",
+      "sha256": "39dafd486cd11ce1a4b5351369ef00f26f9ace610cf414655c95bb045c7780e1"
+    }
+  ],
+  "claim_boundary": "Development assets are distinct calibrated-proxy scaffolds; no flight or mission result is produced by this command.",
+  "installed": true,
+  "measurement_gate_passed": false,
+  "mode": "DEVELOPMENT_PROXY",
+  "runtime": "/home/sefroyek/drone_enhanced_sim/PX4-Autopilot-v1.17.0",
+  "schema_version": 1,
+  "vehicles": {
+    "scout": {
+      "arguments": [
+        "-i",
+        "2"
+      ],
+      "environment": {
+        "PX4_GZ_MODEL_POSE": "-4.0,0.0,0.0",
+        "PX4_GZ_STANDALONE": "1",
+        "PX4_GZ_WORLD": "industrial_inspection_proxy_v1",
+        "PX4_SIM_MODEL": "gz_modalai_devkit_scout_proxy",
+        "PX4_SYS_AUTOSTART": "4001",
+        "PX4_UXRCE_DDS_NS": "scout",
+        "PX4_UXRCE_DDS_PORT": "8888"
+      },
+      "executable": "/home/sefroyek/drone_enhanced_sim/PX4-Autopilot-v1.17.0/build/px4_sitl_default/bin/px4",
+      "expected_dds_key": 3,
+      "expected_mavlink_system_id": 3,
+      "log_directory": "artifacts/experiments/dual_px4/<run_id>/scout"
+    },
+    "sentinel": {
+      "arguments": [
+        "-i",
+        "1"
+      ],
+      "environment": {
+        "PX4_GZ_MODEL_POSE": "0.0,0.0,0.0",
+        "PX4_GZ_STANDALONE": "0",
+        "PX4_GZ_WORLD": "industrial_inspection_proxy_v1",
+        "PX4_SIM_MODEL": "gz_x500_v2_sentinel_proxy",
+        "PX4_SYS_AUTOSTART": "4001",
+        "PX4_UXRCE_DDS_NS": "sentinel",
+        "PX4_UXRCE_DDS_PORT": "8888"
+      },
+      "executable": "/home/sefroyek/drone_enhanced_sim/PX4-Autopilot-v1.17.0/build/px4_sitl_default/bin/px4",
+      "expected_dds_key": 2,
+      "expected_mavlink_system_id": 2,
+      "log_directory": "artifacts/experiments/dual_px4/<run_id>/sentinel"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+\begin{tikzpicture}[
+  font=\scriptsize,
+  stage/.style={draw,rounded corners=2pt,align=center,text width=22mm,
+    minimum height=12mm,fill=blue!4,inner sep=2mm},
+  scout/.style={stage,fill=orange!9},
+  event/.style={stage,fill=gray!10},
+  flow/.style={-{Latex[length=2mm]},thick},
+  measure/.style={|-|,thick},
+  note/.style={align=center,font=\scriptsize}
+]
+  \node[stage] (capture) at (0,0) {camera exposure\\and acquisition};
+  \node[stage] (pre) at (2.8,0) {preprocessing};
+  \node[stage] (infer) at (5.6,0) {runtime\\inference};
+  \node[stage] (decode) at (8.4,0) {decoding and\\thresholding};
+  \node[event] (alert) at (11.2,0) {temporal gate and\\alert publication};
+  \node[scout] (queue) at (14.0,0) {network, queue and\\Scout frame age};
+  \node[scout] (verify) at (16.8,0) {Scout inference\\and verdict};
+  \node[event] (decision) at (19.6,0) {Sentinel final\\decision};
+
+  \draw[flow] (capture) -- (pre);
+  \draw[flow] (pre) -- (infer);
+  \draw[flow] (infer) -- (decode);
+  \draw[flow] (decode) -- (alert);
+  \draw[flow] (alert) -- (queue);
+  \draw[flow] (queue) -- (verify);
+  \draw[flow] (verify) -- (decision);
+
+  \draw[measure] ([yshift=-12mm]infer.south west) --
+    node[note,below=1mm]{runtime inference} ([yshift=-12mm]infer.south east);
+  \draw[measure] ([yshift=-21mm]pre.south west) --
+    node[note,below=1mm]{device pipeline: preprocessing + runtime + decoding}
+    ([yshift=-21mm]decode.south east);
+  \draw[measure] ([yshift=-30mm]alert.south west) --
+    node[note,below=1mm]{application RTT: Sentinel publication to matching callback}
+    ([yshift=-30mm]verify.south east);
+  \draw[measure] ([yshift=-39mm]alert.south west) --
+    node[note,below=1mm]{alert-to-decision duration on the Sentinel monotonic clock}
+    ([yshift=-39mm]decision.south east);
+
+  \node[note,anchor=north west,text width=49mm] at ([yshift=-49mm]capture.south west)
+    {Camera exposure and acquisition are outside the camera-free backend replay.};
+  \node[note,anchor=north east,text width=64mm] at ([yshift=-49mm]decision.south east)
+    {Monotonic timestamps from different devices are never subtracted directly.};
+\end{tikzpicture}

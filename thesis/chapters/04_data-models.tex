@@ -1,0 +1,469 @@
+\chapter{Dataset Preparation and Model Development}
+\label{ch:data-models}
+
+This chapter describes the evidence pipeline that converts heterogeneous
+third-party imagery into a controlled detector comparison. It first separates
+the historical project assets from the fire-only research dataset, then
+documents annotation and leakage controls, frozen data partitions, training,
+model selection, export and conversion-fidelity checks. Predictive results are
+reported in Chapter~\ref{ch:results}; the purpose here is to make clear which
+inputs, decisions and artifacts produced those results.
+
+\section{Dataset provenance and historical development}
+\label{sec:data-models:1}
+
+\subsection{Historical task definition}
+
+The project did not begin with the final one-class experiment. The historical
+Sentinel and Scout deployments used models and datasets that included fire and
+smoke-related classes. Those artifacts are retained as part of the engineering
+history, but they are not treated as the source of the controlled six-model
+comparison. Live smoke was removed from the formal validation scope because a
+safe and repeatable physical smoke source was not available. The controlled
+task therefore uses one localized target class, \emph{fire}, while smoke-only
+imagery is excluded from the positive class.
+
+The recovered base export identifies itself as Drone-Fire-Smoke version~1. Its
+local metadata records 41,880 images, 640-pixel stretch preprocessing and
+flip, brightness and exposure augmentation. The public dataset is distributed
+through Roboflow Universe under CC~BY~4.0 \cite{DroneFireSmokeDataset}. I did
+not collect these images, and the available export does not provide reliable
+original video or capture-session identifiers. Consequently, the image count
+cannot be interpreted as the number of independent scenes.
+
+Historical development also introduced environmental negative images to expose
+the detector to fire-like visual confounders. Filename and content mapping
+recovered images from the Weather Image Recognition dataset, which contains
+multiple weather categories and declares a CC0 licence
+\cite{BhathenaWeatherDataset}, and from the Weather Classification dataset,
+which also declares CC0 \cite{GuptaWeatherClassification}. The former records
+the Weather Phenomenon Database as its source \cite{Xiao2021WEAPD}. A further
+711 images were mapped to the Stanford Background Dataset, while 21 historical
+files had no surviving source match. The Stanford and unresolved groups were
+excluded from the research freeze because their reuse conditions or provenance
+were not sufficiently established. This exclusion is a licensing and
+traceability decision, rather than an assertion that their image content was
+invalid.
+
+\subsection{Fire-only curation decision}
+
+Label inspection divided the 41,880-image base export into 20,584 images with
+at least one fire annotation, 21,190 smoke-only or other images, and 106 empty
+or background images. Fire-positive images retained only class-0 fire boxes.
+Smoke-only images were excluded rather than silently relabelled as negative,
+because their source annotations were not designed to establish the absence of
+visible fire. The approved environmental sources contributed 2,583 candidate
+background images. Exact hashing removed 53 duplicate negative copies, leaving
+2,530; with the 106 base backgrounds, the provisional dataset contained
+20,584 positive and 2,636 background images.
+
+The distinction between a negative example and erroneous data is important.
+Fog, cloud, glare, sunrise, sandstorm and similar scenes are legitimate
+fire-free observations. Retaining them permits image-level false-alert
+behaviour to be measured. Their inclusion does not prove that these conditions
+represent the future industrial domain, and the positive and negative images
+come from different source collections, so source-specific cues may remain.
+
+\subsection{From provisional data to the frozen research manifest}
+
+The provisional 23,220-image manifest passed structural checks, but further
+analysis showed that three inferred source groups contained 16,364 records,
+or 70.5\% of the provisional collection. Allowing those groups to dominate
+separate partitions would create a strong source/domain confound. The larger
+manifest was therefore preserved as an intermediate artifact and was not used
+for the final comparison.
+
+Figure~\ref{fig:dataset-lineage} summarizes the controlled lineage. I first
+resolved ten flagged annotations into immutable source-family manifest version
+10, which contained 23,214 images and 29,095 fire boxes. I then excluded the
+three dominant mega-groups, retained 6,850 records from 2,628 inferred groups,
+and deterministically capped every retained group at 50 records using seed
+\texttt{20260729}. This produced a 5,185-record candidate with more balanced
+positive and background support. Whole inferred groups, rather than individual
+images, were assigned to train, validation and test targets.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{0.94\textwidth}{!}{\input{figures/dataset_lineage.tex}}
+  \caption{Dataset lineage from the historical fire/smoke export to the frozen
+  fire-only research split. Every transformation created a new manifest; the
+  source images, source annotations and previous manifests were preserved.}
+  \label{fig:dataset-lineage}
+\end{figure}
+
+A split- and box-size-stratified review then led to the exclusion of six
+ambiguous positive records and the removal of 28 non-fire or redundant boxes
+from nine records. A new sample exposed systematic errors in augmented sibling
+images, so five source families were quarantined as complete units, removing
+188 further records. The resulting version-7 freeze contains 4,991 records,
+3,400 retained fire boxes and 2,615 inferred source groups. This 78.5\%
+reduction relative to version 10 is an independence and quality control; it
+does not mean that 78.5\% of the source imagery was intrinsically false.
+
+Table~\ref{tab:data-provenance} records the sources that remain in the freeze.
+The URLs and recorded licence strings are stored per record. The original
+dataset pages remain the attribution authority; the manifest is the local
+traceability record.
+
+\begin{table}[H]
+  \centering
+  \caption{Recorded provenance of the frozen version-7 dataset. Counts refer
+  to retained records after grouping, capping and adjudication.}
+  \label{tab:data-provenance}
+  \small
+  \begin{tabularx}{\textwidth}{@{}XrX@{}}
+    \toprule
+    Recorded source & Records & Recorded reuse status \\
+    \midrule
+    Drone-Fire-Smoke version 1 & 2,461 & CC BY 4.0; attribution required \\
+    Weather Image Recognition / WEAPD derivative & 1,366 & CC0 as recorded on the Kaggle page \\
+    Weather Classification & 1,164 & CC0 as recorded on the Kaggle page \\
+    \midrule
+    Total & 4,991 & Third-party imagery; not collected for this thesis \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Annotation policy, data health and leakage control}
+\label{sec:data-models:2}
+
+\subsection{Class and annotation representation}
+
+The controlled experiment has one target class, \emph{fire}. It is represented
+as class index 0 in YOLO text labels and category identifier 1 in COCO and
+TFRecord exports. A positive record must contain at least one retained fire
+box; a background record must contain none. The same manifest was materialized
+into framework-specific representations so that the candidate frameworks did
+not receive different semantic partitions.
+
+For each YOLO row with normalized centre $(x_c,y_c)$ and normalized width and
+height $(w,h)$, the audit reconstructed the edges
+\begin{equation}
+  x_{\min}=x_c-\frac{w}{2},\quad
+  x_{\max}=x_c+\frac{w}{2},\quad
+  y_{\min}=y_c-\frac{h}{2},\quad
+  y_{\max}=y_c+\frac{h}{2}.
+  \label{eq:yolo-box-edges}
+\end{equation}
+Valid rows require finite values, class index zero, $x_c,y_c\in[0,1]$,
+$w,h\in(0,1]$, and all reconstructed edges within the image to a numerical
+tolerance of $10^{-9}$. The audit also checked record/image/label existence,
+positive image dimensions, duplicate rows and consistency between record type
+and retained box count.
+
+The earlier 23,220-record audit found no malformed row or geometric error, but
+the deterministic 45-image visual queue identified 35 acceptable, four
+questionable and six apparently incorrect cases. Those proportions are not an
+estimate of population label error: the queue was deliberately stratified by
+split and box size, and one reviewer first judged contact-sheet renders.
+Full-resolution adjudication removed six records and 16 boxes when producing
+version 10. The subsequent curated lineage repeated semantic review, removed
+the further ambiguous records and boxes described above, and quarantined the
+five affected source families. All 50 records in the final version-7
+split/size-stratified queue were accepted. This final check still cannot prove
+that all remaining boxes are semantically correct.
+
+\subsection{Image and group integrity}
+
+The final audit decoded all 4,991 referenced images. It reported no corrupt or
+unreadable file, no defined annotation-format problem, no invalid class or box
+geometry, and no inferred group identifier spanning more than one split.
+Seventeen exact-duplicate sets remain, but every set is contained within a
+single split. A difference-hash screen retained 456 cross-split candidates
+because low-detail sky, fog, glare and flame images can collide under a compact
+perceptual hash. A stabilized 108-pair, high-risk manual queue contained no
+remaining visually same-scene pair.
+
+Keeping inferred groups intact is intended to reduce leakage from augmented
+or neighbouring observations. Closely related samples across training and
+evaluation partitions can inflate apparent generalization
+\cite{Tampu2022Leakage}. The cited study concerns a different imaging domain;
+it supports the dependence mechanism rather than providing a numerical
+baseline here. Because the source export lacks authoritative session IDs,
+filename parsing, hashes and manual review may over-group unrelated images or
+under-group related ones. The split is therefore described as
+\emph{leakage-controlled}, not as proven capture-session independent.
+
+\subsection{Object-size boundary}
+
+The training split contains 2,505 fire boxes. The validation split contains
+392 boxes and the one-time test split contains 503. At stored image resolution,
+none of the validation boxes is below the COCO $32^2$-pixel small-object
+boundary, while the test split contains only three such boxes. Standard
+COCO-small average precision is therefore unavailable for validation and too
+sparsely supported for a general test-set conclusion \cite{Lin2014COCO}.
+Descriptive recall is additionally stratified by the ground-truth box area as
+a fraction of image area: below 1\%, 1--5\%, 5--20\% and at least 20\%.
+These relative bins do not recreate the image-space size of the small lighter
+flame used in the stationary laboratory demonstration.
+
+\section{Frozen research splits and external data}
+\label{sec:data-models:3}
+
+\subsection{Partition roles and reproducibility anchors}
+
+The final split was assigned at inferred-group level toward a deterministic
+70/15/15 target. Table~\ref{tab:dataset-splits} gives the resulting composition.
+The training partition fits model parameters. The validation partition selects
+checkpoints, confidence thresholds and the validation interpretation. The test
+partition was sealed until those choices and their hashes were frozen.
+
+\begin{table}[H]
+  \centering
+  \caption{Frozen fire-only version-7 composition. A background image contains
+  no retained fire box.}
+  \label{tab:dataset-splits}
+  \begin{tabular}{lrrr}
+    \toprule
+    Split & Positive images & Background images & Total images \\
+    \midrule
+    Training & 1,731 & 1,827 & 3,558 \\
+    Validation & 319 & 381 & 700 \\
+    Test & 354 & 379 & 733 \\
+    \midrule
+    Total & 2,404 & 2,587 & 4,991 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The authoritative records JSONL has SHA-256
+\path{478803efb7f8f4f6c3fe74d58658958bccfa2d0f58ec50a1a5c16535e393a7dd}.
+The COCO annotations are separately hashed for training, validation and test.
+The validation and test annotation hashes are respectively
+\path{1a93f800d63bf355bb586039da245cd612cbdd7052102cbfd6da1409312ab7c6}
+and
+\path{651e2782db96cbbdf2ba718494f7b57447f96aea6d7719fac350132f1b72a06d}.
+These anchors allow generated YOLO, COCO and TFRecord materializations to be
+checked without treating generated copies as new datasets.
+
+The one-time test split was opened on 9 August 2026 only after the six
+validation outputs, checkpoint identities, confidence thresholds, evaluator
+hash and selection interpretation were frozen. All six candidates were then
+evaluated once at their validation-selected thresholds. No test-driven
+threshold tuning, checkpoint reselection or retraining followed. Chapter~7
+reports the predictive outcomes and the rank reversal observed between
+validation and test; the present chapter records only the procedural boundary.
+
+\subsection{External-evaluation eligibility}
+
+External UAV and industrial-like sources are reserved for RQ5. They did not
+enter training, validation or the one-time internal test. At the final evidence
+freeze, no external inference result was admitted. FASDD-UAV has a
+publisher-reported CC~BY-SA~4.0 licence and 25,097 UAV samples, but the exact
+archive was not acquired, hashed, decoded, audited for overlap and
+frozen locally. These publisher values are not substituted for verified local
+counts.
+
+The MmodalFire archive is retained and hash-verified, and all 28 videos were
+decoded to their ends without a decoder failure. However, only eight of 28
+video ranges passed the strict consolidated timestamp-alignment rule; the
+remaining ranges did not complete event/condition review and overlap checks.
+Optical
+character recognition is used only as review assistance. Until eligible
+non-overlapping manifests are frozen, these sources cannot contribute model
+metrics. Any later outcomes should be described as external UAV-domain and
+industrial-domain proxy evaluations, not as operational industrial-site
+validation.
+
+\section{Candidate detectors and training protocol}
+\label{sec:data-models:4}
+
+\subsection{Controlled candidate matrix}
+
+The experiment compares six pretrained single-stage detectors. Four YOLOv8
+configurations form a $2\times2$ capacity/resolution comparison: nano and small
+variants at 416 and 640 pixels. SSD MobileNet V2 FPNLite and
+EfficientDet-Lite0 provide mobile-oriented non-YOLO comparators
+\cite{UltralyticsYOLOv8,Liu2016SSD,Sandler2018MobileNetV2,Tan2020EfficientDet}.
+The screening seed is \texttt{20260729} for every candidate. Input resolution
+is part of the candidate configuration; comparisons between 416, 640 and
+320 pixels are therefore deployment-oriented comparisons rather than pure
+architecture ablations.
+
+\begin{table}[H]
+  \centering
+  \caption{Six controlled detector configurations and their recorded training
+  completion. Predictive and runtime results are presented in Chapter~7.}
+  \label{tab:candidate-training}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.13\textwidth}p{0.21\textwidth}p{0.11\textwidth}p{0.10\textwidth}p{0.12\textwidth}X@{}}
+    \toprule
+    ID & Model / framework & Input & Batch & Completion & Training lineage \\
+    \midrule
+    N416 & YOLOv8n / PyTorch & 416 px & 16 & 48 epochs & Early stopping under the 100-epoch, patience-20 policy \\
+    N640 & YOLOv8n / PyTorch & 640 px & 4 & 87 epochs & Optimizer-state resume from epoch 51 \\
+    S416 & YOLOv8s / PyTorch & 416 px & 8 & 33 epochs & Early stopping under the same policy \\
+    S640 & YOLOv8s / PyTorch & 640 px & 4 & 33 epochs & Early stopping under the same policy \\
+    SSD320 & SSD MobileNet V2 FPNLite / TensorFlow OD API & 320 px & 8 & 44,500 steps & One-class pipeline; corrected bounded validation signature \\
+    EDL0 & EfficientDet-Lite0 / TFLite Model Maker & 320 px & 4 & 100 epochs & Full-state recovery through checkpoints 50 and 90 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+All candidates use the same version-7 record allocation. Pretrained
+initialization, environment locks, dataset hashes, checkpoints and failure
+lineage are retained per run. The four YOLO configurations ran in an isolated
+Windows Python~3.12 environment with PyTorch~2.12, Ultralytics~8.4.45 and an
+NVIDIA RTX~3050 Laptop GPU. Their starting weights were hash-verified. The
+training request specified 100 maximum epochs, early-stopping patience 20,
+automatic mixed precision and the largest stable recorded batch for each
+configuration.
+
+SSD training used TensorFlow~2.15.1 and a pinned TensorFlow Object Detection
+API revision under WSL Python~3.11. The pipeline used a 320-pixel input,
+batch size 8, 445 steps per epoch, 100 maximum epochs and a cosine-decay
+momentum schedule. An initial common validation attempt created excessive
+TensorFlow retracing as image shapes changed, reaching 7.5~GB WSL resident
+memory and severe swap activity. That attempt was preserved. The predictor was
+corrected with one dynamic-spatial-dimension signature; the bounded retry used
+two concrete traces and completed normally. This was a runtime/evaluator
+correction, not a change to the model or ground truth.
+
+EfficientDet-Lite0 used TFLite Model Maker~0.4.3 and TensorFlow~2.8.1 in a
+separate WSL Python~3.9 environment. The legacy loader initially failed on
+genuine zero-box background examples. Instead of deleting 2,587 background
+records or generating artificial boxes, I introduced a source-controlled
+empty-safe mask with the same semantics for non-empty examples. A one-epoch
+gate confirmed non-zero training and validation box loss before the full run.
+The full-state lineage, including optimizer iterations, was preserved through
+interruption and resume; checkpoint 90 supplied the final ten epochs, and the
+epoch-100 run ended normally.
+
+The six runs constitute a single-seed screen. A three-seed finalist stage was
+originally planned, but it was not executed before the selection freeze.
+Consequently, between-seed variance cannot be estimated and no claim of
+statistical superiority is based on the training runs. Failed, interrupted and
+superseded attempts remain part of the engineering record and are excluded
+from accepted predictive comparisons unless a protocol explicitly adopts a
+recovered run.
+
+\section{Validation-based selection and held-out evaluation}
+\label{sec:data-models:5}
+
+Each native framework generated COCO-format predictions down to confidence
+0.001 on the same 700 validation images. A common evaluator computed COCO AP
+over IoU thresholds 0.50:0.05:0.95 and AP50. For each candidate, the reporting
+confidence threshold was selected from 0.01 to 0.99 by maximizing object-level
+F1 at IoU 0.50. A numerical tie was resolved by higher recall and then by the
+lower threshold. The selected threshold was frozen before the test split was
+opened.
+
+For a confidence threshold $t$, greedy class-aware matching at IoU 0.50 gives
+true positives $TP(t)$, false positives $FP(t)$ and false negatives $FN(t)$.
+The selection quantities are
+\begin{align}
+  P(t) &= \frac{TP(t)}{TP(t)+FP(t)}, \\
+  R(t) &= \frac{TP(t)}{TP(t)+FN(t)}, \\
+  F_1(t) &= \frac{2P(t)R(t)}{P(t)+R(t)}.
+  \label{eq:threshold-f1}
+\end{align}
+An object detector has no unique count of true-negative boxes. Negative
+behaviour is therefore reported as the fraction of background images with at
+least one prediction at $t$, together with false-positive counts, rather than
+as a fabricated box-level specificity.
+
+Model selection considered AP50--95, validation-selected F1, recall,
+precision, background rejection, observed host latency, artifact size and
+demonstrated device feasibility as separate dimensions. No post-hoc weighted
+score was introduced. A candidate is Pareto-efficient when another candidate
+cannot match or improve every selected dimension and strictly improve at least
+one. Sentinel interpretation emphasizes recall subject to its device
+constraints; Scout interpretation emphasizes precision and rejection of
+background alerts. These role preferences do not convert laptop screening
+into evidence of deployment.
+
+The selection freeze was written before the test opening and records all six
+thresholds and checkpoint lineages. The test runner verified the freeze and
+test-annotation hashes, refused silent overwrites and retained per-image
+predictions and timing. A Windows-to-WSL path-normalization defect stopped the
+first invocation after the first model's inference. The raw predictions were
+preserved, the artifact-level path handling was corrected, and evaluation
+continued without rerunning or changing those predictions. This recovery is
+part of the evidence lineage rather than an unreported clean run.
+
+\section{Export, optimization and deployment fidelity}
+\label{sec:data-models:6}
+
+\subsection{Fidelity before performance}
+
+A converted model is not assumed to be equivalent to its native checkpoint.
+The deployment registry requires comparison on the same 64 hashed validation
+calibration images before a converted artifact can enter device timing. Native
+and converted predictions use declared preprocessing and decoding. Within each
+image and class, detections are matched at box IoU at least 0.50. The frozen
+conversion rule requires a detection match rate of at least 0.95 and a mean
+absolute matched-confidence difference no greater than 0.02. A failure on
+either condition blocks performance ranking for that converted artifact.
+
+The four YOLO checkpoints were exported as fixed batch-1, fixed-input FP32 ONNX
+graphs at opset 12 without simplification. ONNX~1.22 accepted all graph
+structures, but graph validity is distinct from prediction fidelity. Table
+\ref{tab:export-fidelity} records the current prepared form and disposition.
+The detailed counts belong to Chapter~7; here, \texttt{FIDELITY\_FAILED} means
+that the frozen conversion gate was not met.
+
+\begin{table}[H]
+  \centering
+  \caption{Prepared candidate artifacts and conversion-fidelity disposition.
+  These are laptop preparation results, not edge-device benchmarks.}
+  \label{tab:export-fidelity}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}p{0.18\textwidth}p{0.15\textwidth}X@{}}
+    \toprule
+    Candidate & Prepared form & Fidelity disposition & Permitted next step \\
+    \midrule
+    YOLOv8n-416 & FP32 ONNX, opset 12 & Pass & TensorRT build/validation on Sentinel; ONNX Runtime attempt on Scout \\
+    YOLOv8n-640 & FP32 ONNX, opset 12 & Failed & Independent TensorRT candidate may be built; current ONNX is rejected \\
+    YOLOv8s-416 & FP32 ONNX, opset 12 & Pass & TensorRT build/validation on Sentinel; ONNX Runtime attempt on Scout \\
+    YOLOv8s-640 & FP32 ONNX, opset 12 & Failed & Independent TensorRT candidate may be built; current ONNX is rejected \\
+    SSD MobileNet V2 FPNLite-320 & Float32 TFLite & Failed & Audit another native/conversion path or classify as unsupported \\
+    EfficientDet-Lite0-320 & Native TFLite & Not applicable & Attempt only where a compatible TFLite runtime is available \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The SSD conversion produced the expected number of outputs after its tensor
+roles and resize semantics were corrected, but only 87.14\% of detections
+matched the native predictions, below the fixed 95\% requirement. Its small
+matched-confidence error did not override the unmatched detections. The
+EfficientDet artifact is the native TFLite output of its training toolchain, so
+a separate source-to-converted comparison is not applicable; device runtime
+support and resource cost still require measurement.
+
+\subsection{Historical deployed models versus screened candidates}
+
+The six frozen checkpoints are research-screening artifacts. They must not be
+silently substituted for the models already exercised in the two-device
+system. The final Sentinel workspace contains a distinct YOLOv8n TensorRT
+engine with input shape $[1,3,640,640]$, output shape $[1,6,8400]$ and SHA-256
+\path{16f9018ac299c6f525610a877d798392ec26d53fccb84b589ff6533d76589bf2}.
+Earlier 416-pixel measurements refer to a different engine with output shape
+$[1,6,3549]$ and cannot be applied to this deployment.
+
+The historical Scout deployment uses a distinct TFLite artifact with input
+$[1,640,640,3]$, output $[1,7,8400]$ and SHA-256
+\path{d533e320081be17ac91fb77c20a9de09f4bffada0d7f88c88326d57cd893bc35}.
+The tensor interface is float32 and the seven output channels are consistent
+with four box values and three class scores. It belongs to the historical
+multi-class development line, rather than to the one-class six-model freeze.
+
+The strengthened exact-device campaign for the six new candidates was not
+executed before the final evidence freeze. Its protocol requires 20 warm-up and
+200 measured inferences over the same 64-image calibration manifest, one-second
+resource sampling, artifact and image hash verification, and separate
+preprocessing, runtime, postprocessing and complete-pipeline timing. None of
+the twelve candidate/platform pairs has a frozen outcome. The existing
+historical Sentinel and Scout measurements establish the demonstrated pair;
+they do not fill the six-model device matrix.
+
+\section{Chapter evidence boundary}
+
+This chapter establishes a reproducible data and model-development lineage:
+the version-7 dataset is frozen, all six single-seed candidates completed,
+validation-based thresholds were frozen, and the test split was evaluated once
+without post-test tuning. The chapter does not claim that the dataset is
+capture-session independent, that all annotations are error free, that any
+model family is universally superior, or that the six candidates have been
+validated on both edge devices. External transfer and the strengthened
+exact-device matrix remain explicit evidence gaps. These boundaries determine
+which numerical results can be interpreted in Chapters~7 and 8.

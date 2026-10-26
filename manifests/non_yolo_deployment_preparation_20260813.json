@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "manifest_id": "non_yolo_deployment_preparation_20260813",
+  "access_class": "NO LAB",
+  "completed_utc": "2026-08-13T18:34:27.480734+00:00",
+  "calibration": {
+    "image_count": 64,
+    "source": "config/deployment_calibration_manifest_v1.json",
+    "materialized_annotations": "artifacts/experiments/deployment_candidates_non_yolo_v1/calibration_annotations_64.json",
+    "materialized_annotations_sha256": "86d0cc5815779547fd5f97aab04ce7182176e2094fc75c96eaafd80050d4b3aa"
+  },
+  "ssd_mobilenet_v2_fpnlite_320": {
+    "training_status": "completed",
+    "candidate_format": "TensorFlow Lite float32",
+    "candidate_status": "FIDELITY_FAILED",
+    "selected_diagnostic_candidate": {
+      "path": "artifacts/experiments/deployment_candidates_non_yolo_v1/ssd_tflite_export_v3_regular_nms/ssd_mobilenet_v2_fpnlite_320_float32.tflite",
+      "sha256": "3ecfcdf1e9ed88e483c65aaee1f3421413eae2242567814eb82a64e2ae9684c0",
+      "bytes": 11492712,
+      "max_detections": 100,
+      "regular_nms_requested": true
+    },
+    "selected_export_summary": {
+      "path": "artifacts/experiments/deployment_candidates_non_yolo_v1/ssd_tflite_export_v3_regular_nms/export_summary.json",
+      "sha256": "f733bd5ddac1cc3d73eb6d8f8073405534521ef01e02d4057e1821cd85f0d173"
+    },
+    "tensor_interface": {
+      "path": "artifacts/experiments/deployment_candidates_non_yolo_v1/ssd_tflite_export_v3_regular_nms/tflite_interface.json",
+      "sha256": "6cbaa194785e64f9dbb33a5daa067f2ee41676385725aa5e6ad51e3930fde3ad"
+    },
+    "fidelity": {
+      "path": "artifacts/experiments/deployment_candidates_non_yolo_v1/ssd_tflite_fidelity_v4_regular_nms.json",
+      "sha256": "89516fabb49cf8aa2955aafbe9b453f4f8c79a70da7936dd26e26f3ab143919d",
+      "native_detection_count": 6400,
+      "converted_detection_count": 6400,
+      "matched_detection_count": 5577,
+      "detection_match_rate": 0.87140625,
+      "minimum_detection_match_rate": 0.95,
+      "mean_absolute_confidence_difference": 0.003913393986182779,
+      "maximum_mean_absolute_confidence_difference": 0.02,
+      "status": "FIDELITY_FAILED"
+    },
+    "retained_lineage": [
+      {
+        "attempt": "v1_default_max10_wrong_tensor_roles",
+        "summary_sha256": "f0f0895fd7aed423c8c97789a71482cf1a0ca16a5473a1130a88b3198518d52b",
+        "observation": "graph executed but decoded zero predictions"
+      },
+      {
+        "attempt": "v2_corrected_tensor_roles_max10",
+        "summary_sha256": "7b765d3cd433ba8dc7bb219b19e0134463d7e67848a9238f473182c2ca64dc2c",
+        "observation": "640 predictions; incompatible with native 100-per-image contract"
+      },
+      {
+        "attempt": "v2_max100_raw_pixel_preprocessing",
+        "fidelity_sha256": "f07562291d8038b5fe288222a47576cf91b4a01ec3d042db82bb2e2fa241e6e0",
+        "detection_match_rate": 0.22484375
+      },
+      {
+        "attempt": "v2_max100_normalized_pil_resize",
+        "fidelity_sha256": "8adcc38f463bc20b9ed65016c3eb0372f0301994975f3e74f33aaf1238e3cd51",
+        "detection_match_rate": 0.84859375
+      },
+      {
+        "attempt": "v2_max100_normalized_tensorflow_resize",
+        "fidelity_sha256": "1615afa8019376a1a93c6bae8b97d32871a5e7754b960fd02337c562cfe0e9c2",
+        "detection_match_rate": 0.87140625
+      }
+    ]
+  },
+  "efficientdet_lite0_320": {
+    "training_status": "completed_after_checkpoint_resume",
+    "candidate_format": "TensorFlow Lite",
+    "candidate_status": "NATIVE_TFLITE_READY_FOR_DEVICE_ATTEMPT",
+    "artifact": {
+      "path": "artifacts/experiments/model_screening_v1/efficientdet_lite0_screen_seed_20260729_retry10_resume_ckpt90/export_retry3_cpu/efficientdet_lite0.tflite",
+      "sha256": "948e71fa53fa9a740a2bca45f169280a9c6e6596a49bfcab65d0ad9cfda2f12c",
+      "bytes": 4443288
+    },
+    "export_summary_sha256": "1c14a917c35110f8a3dac3c3e786ca16627af015034a351b3e255ddacee99123",
+    "tensor_interface_sha256": "86b66506322dcc7dd64e70d9cabc75551d46d43c995da16a948746378ad0fcc3",
+    "native_calibration_manifest_sha256": "82b2d6523f025655547de6a7e939394f63216aca8fd3d16d845b7eb67aa9c444",
+    "conversion_fidelity_applicability": "not_applicable_same_native_tflite_artifact",
+    "device_disposition": "PENDING_EXACT_DEVICE_TEST"
+  },
+  "tool_hashes": {
+    "tools/export_ssd_tflite_candidate.py": "a3fbd5e97f08af1ed12909afe65d13593a589f15b4878e74496b408f431aa940",
+    "tools/materialize_coco_calibration_subset.py": "78a1e08da08f8c8117293b039746f386d12a25e506edbf20b7fee02567a2e689",
+    "tools/predict_tflite_coco.py": "deb872b497ef275ee2756f3f8d0f2a3bd377cba9c7b7156eee2d436040b0241d",
+    "tools/probe_tflite_outputs.py": "bd3411ae1e4f60fe7a42e6005a470825e3907e1f1f3b59de39062c199056cca8",
+    "tools/validate_prediction_fidelity.py": "6cc91f2dc7dcba2648e5b5a7df5079b463cfb991f4b360956f73a29ff54e675b"
+  },
+  "claim_boundary": "These are laptop export, tensor-interface, and conversion-fidelity results. They do not establish Jetson Nano or VOXL 2 runtime support, latency, resource use, thermals, concurrency, or deployment."
+}

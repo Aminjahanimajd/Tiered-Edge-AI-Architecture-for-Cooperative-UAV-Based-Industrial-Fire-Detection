@@ -1,0 +1,55 @@
+{
+  "access_class": "NO LAB",
+  "annotations_sha256": "651e2782db96cbbdf2ba718494f7b57447f96aea6d7719fac350132f1b72a06d",
+  "created_utc": "2026-08-09T10:39:08.614569+00:00",
+  "group_count": 306,
+  "image_count": 733,
+  "interval_method": "grouped nonparametric percentile bootstrap",
+  "intervals": {
+    "background_false_positive_image_rate": {
+      "lower_95_percentile": 0.0026139410187667597,
+      "point_estimate": 0.055408970976253295,
+      "upper_95_percentile": 0.1243863037752414,
+      "valid_resamples": 2000
+    },
+    "f1": {
+      "lower_95_percentile": 0.23562373225152133,
+      "point_estimate": 0.38618925831202044,
+      "upper_95_percentile": 0.5442612699675969,
+      "valid_resamples": 2000
+    },
+    "precision": {
+      "lower_95_percentile": 0.35344827586206895,
+      "point_estimate": 0.5412186379928315,
+      "upper_95_percentile": 0.6666666666666666,
+      "valid_resamples": 2000
+    },
+    "recall": {
+      "lower_95_percentile": 0.16896906026321865,
+      "point_estimate": 0.30019880715705766,
+      "upper_95_percentile": 0.4878762353998203,
+      "valid_resamples": 2000
+    }
+  },
+  "limitations": [
+    "Group identifiers were inferred because original capture-session identifiers were unavailable.",
+    "Intervals quantify resampling variability within retained groups and do not correct source-domain bias or annotation error.",
+    "The percentile interval is descriptive and no statistical-significance claim is made."
+  ],
+  "model_id": "yolov8n_416",
+  "point_counts": {
+    "background_images": 379,
+    "background_images_with_prediction": 21,
+    "fn": 352,
+    "fp": 128,
+    "tp": 151
+  },
+  "predictions_sha256": "58fbf9ce1242e2adec9e4951b5868a010eba5aad98160d74bf608b39b9145376",
+  "records_jsonl_sha256": "478803efb7f8f4f6c3fe74d58658958bccfa2d0f58ec50a1a5c16535e393a7dd",
+  "resamples": 2000,
+  "schema_version": 1,
+  "seed": 20260729,
+  "split": "test",
+  "threshold": 0.45,
+  "tool_sha256": "137396c87e60472cf4ab7b8acb1908129e0f1ea8eac15d1da99b396ca42e0d9e"
+}

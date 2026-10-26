@@ -1,0 +1,557 @@
+\chapter{Experimental Methodology and Data Analysis}
+\label{ch:methodology}
+
+Chapters~\ref{ch:data-models} and \ref{ch:implementation} defined the frozen
+data, candidate models, deployed software and integration boundaries. This
+chapter specifies how those artifacts are evaluated. Its purpose is to make
+the unit of analysis, timing boundary, decision rule and execution status
+explicit before numerical outcomes are reported in Chapter~\ref{ch:results}.
+The distinction is important because the repository contains both completed
+experiments and strengthened protocols prepared after limitations were found
+in earlier work.
+
+The five research questions require different evidence. Offline images can
+compare predictive behaviour, but cannot establish sustained operation on an
+edge device. A camera-free device replay can measure a processing path, but
+cannot include acquisition latency. A stationary lighter trial can establish
+that the integrated request--verdict path executed under one bounded
+condition, but cannot estimate autonomous-flight reliability or industrial
+transfer. The methodology therefore preserves each evidence category rather
+than combining unlike observations into one performance claim.
+
+\section{Study design and evidence hierarchy}
+\label{sec:methodology:1}
+
+The study uses a staged engineering-evaluation design. Each stage answers a
+different part of the research questions and admits evidence only when its
+configuration, raw records and acceptance decision are retained. The stages
+are:
+
+\begin{enumerate}
+  \item \textbf{offline predictive evaluation}, using the frozen validation
+  and test manifests to compare six detector configurations;
+  \item \textbf{exact-device measurement}, using a fixed image replay to
+  measure executable model--runtime--platform combinations;
+  \item \textbf{stationary integrated evaluation}, using synchronized event
+  identifiers and manually marked visible-flame intervals on the physical
+  Sentinel and Scout;
+  \item \textbf{application communication evaluation}, using correlated ROS~2
+  requests and replies on the SwarmNet network;
+  \item \textbf{mission simulation}, using two namespaced PX4/Gazebo vehicles
+  and scenario-defined local-ENU truth; and
+  \item \textbf{external proxy evaluation}, admitted only after licensing,
+  annotation alignment and overlap checks pass.
+\end{enumerate}
+
+Evidence is ordered by traceability rather than by how favourable it appears.
+Raw machine-readable records and immutable manifests are the primary
+observations. Deterministic analysis outputs derived from those records are
+calculated evidence. Tables and figures in Chapter~\ref{ch:results} transcribe
+accepted derived evidence, while engineering interpretations are reserved for
+Chapter~\ref{ch:discussion}. Screenshots and operator notes provide context,
+but they do not replace a missing log, configuration or ground-truth interval.
+
+Table~\ref{tab:methodology-status} records the execution boundary at this
+chapter release. ``Executed'' means that the retained protocol produced an
+accepted evidence bundle. ``Development only'' means that an executable path
+was demonstrated but the planned repeated campaign was not completed.
+``Pending'' means that the protocol exists but cannot contribute a result.
+
+\begin{table}[H]
+  \centering
+  \caption{Experimental evidence classes and execution status at the Chapter 6
+  release.}
+  \label{tab:methodology-status}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}p{0.18\textwidth}X@{}}
+    \toprule
+    Evidence class & Status & Admissible scope \\
+    \midrule
+    Six-model validation and frozen test & Executed & Predictive comparison on
+    the curated internal data under the specified object-matching and operating
+    point rules. \\
+    Historical deployed-device replay & Executed & Camera-free processing
+    measurements for the exact historical model, runtime, shape and device;
+    not the strengthened six-model device matrix. \\
+    Twelve model/platform device cells & Pending & The strengthened protocol is
+    frozen, but no cell is admitted until conversion, fidelity and device gates
+    pass. \\
+    Concurrent-service endurance & Executed with limitations & A stationary
+    30-minute complete-stack run combined both live perception paths, ROS~2,
+    logging, Scout PX4 services and Sentinel Pixhawk/MAVProxy telemetry; the
+    Scout latency and strict Jetson swap criteria were not met. \\
+    Stationary integrated flame trials & Executed, bounded & Proof of the
+    correlated physical perception workflow under marked laboratory exposure;
+    no flight, localization or industrial-site inference. \\
+    ROS~2 request--reply trials & Executed & Separate 300-event camera-free
+    campaigns and a 1,000-event campaign under concurrent live inference load;
+    all timing uses one Sentinel monotonic clock. \\
+    Dual-vehicle mission scenarios & Development only & Executable nominal and
+    selected fault paths with simulator-local truth; no formal reliability
+    estimate. \\
+    External proxy evaluation & Pending & No transfer result is admitted until
+    archive, licensing, alignment and contamination gates close. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The mapping in Table~\ref{tab:rq-method-map} prevents an unanswered question
+from receiving an inferred positive answer. It also identifies the experimental
+unit used by each protocol. Images, source-family groups, application events,
+physical exposures and simulation runs are not interchangeable independent
+samples.
+
+\begin{table}[H]
+  \centering
+  \caption{Research-question mapping to protocols, experimental units and
+  final evidence disposition.}
+  \label{tab:rq-method-map}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.07\textwidth}p{0.35\textwidth}p{0.25\textwidth}X@{}}
+    \toprule
+    RQ & Principal protocol & Unit of analysis & Status \\
+    \midrule
+    RQ1 & Frozen offline validation/test and exact-device screening & Object,
+    image, source-family group; model--platform cell & Offline comparison
+    executed; strengthened device matrix not executed. \\
+    RQ2 & Full-service endurance with camera, inference, communication and
+    logging active & Device run and time-indexed resource sample & Thirty-minute
+    accepted complete-stack evidence exists; the run passed duration and
+    process-survival gates but failed the Scout latency and strict swap gates. \\
+    RQ3 & Common-stimulus stage ablation and synchronized stationary trials &
+    Labelled frame sequence or marked physical exposure; correlated event &
+    Integrated proof-of-function executed; comparative effect not evaluated. \\
+    RQ4 & Preregistered two-vehicle simulation campaign & Retained run with a
+    unique seed and attempt identifier & Development paths executed; formal
+    310-run campaign not executed. \\
+    RQ5 & Frozen-model inference on eligible external proxy datasets & Eligible
+    image or independently defined video event & Admission work recorded;
+    inference evaluation not executed. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Offline predictive evaluation}
+\label{sec:methodology:2}
+
+The internal predictive comparison uses the curated fire-only manifest from
+Chapter~\ref{ch:data-models}. Its validation split contains 700 images,
+392 annotated fire boxes and 381 background images distributed across 307
+reconstructed source-family groups. The one-time test split contains 733
+images and 503 fire boxes. All six detector configurations use the same
+manifests, label policy and prediction floor of 0.001. The validation data are
+used to choose an operating threshold; the test data are evaluated once with
+that frozen threshold and cannot be used for later tuning.
+
+\subsection{Object matching and detection metrics}
+
+Predictions are sorted by confidence and matched greedily to unmatched
+ground-truth boxes in the same image. A pair is a true positive when its
+intersection over union is at least 0.50. For predicted box \(B_p\) and
+ground-truth box \(B_g\), intersection over union is
+\begin{equation}
+  \operatorname{IoU}(B_p,B_g)=
+  \frac{|B_p\cap B_g|}{|B_p\cup B_g|}.
+  \label{eq:method-iou}
+\end{equation}
+An unmatched prediction is a false positive and an unmatched ground-truth box
+is a false negative. Precision, recall and F1 are then
+\begin{align}
+  P &= \frac{TP}{TP+FP}, &
+  R &= \frac{TP}{TP+FN}, &
+  F_1 &= \frac{2PR}{P+R}.
+  \label{eq:method-prf}
+\end{align}
+The denominator is stated whenever a metric is reported. Object precision is
+not described as an image-level false-alarm probability. For the background
+subset, the reported background-image false-positive proportion is
+\begin{equation}
+  p_{\mathrm{BG,FP}}=
+  \frac{\#\{\text{background images with at least one retained prediction}\}}
+       {\#\{\text{eligible background images}\}}.
+  \label{eq:method-bgfp}
+\end{equation}
+This proportion measures whether an image contains any retained false
+detection. It is not a false-positive rate per hour or per video frame.
+
+Average precision follows the COCO convention across IoU thresholds from 0.50
+to 0.95 in steps of 0.05, with AP50 reported separately
+\cite{Lin2014COCO}. These ranking metrics are threshold-integrated and are
+therefore distinguished from the single operating-point counts used to compare
+deployed decisions.
+
+\subsection{Operating-point selection and scale analysis}
+
+For each model, thresholds from 0.01 through 0.99 in increments of 0.01 are
+evaluated on validation data. The selected threshold maximizes object-level
+F1 at IoU 0.50. A tie is resolved first in favour of higher recall and then in
+favour of the lower threshold. This deterministic rule prevents a later manual
+choice based on the test set. The selected threshold and model hash are written
+to the frozen evaluation record before the one-time test pass.
+
+Recall is also stratified by ground-truth box area relative to image area:
+less than 1\%, 1--5\%, 5--20\% and at least 20\%. The bins describe apparent
+target scale in the curated images; they are not physical fire-size categories
+because camera distance and calibration are unavailable. Laptop inference
+timing uses batch size one after ten excluded warm-up iterations. It is a
+software-screening measure and is not transferred to either edge platform.
+
+Uncertainty intervals are calculated by a grouped nonparametric percentile
+bootstrap. The resampling unit is the reconstructed source-family group, not
+the individual image. Two thousand bootstrap samples use seed 20260729 and
+resample the 307 validation groups with replacement. The 2.5th and 97.5th
+percentiles form the descriptive 95\% interval. This follows the bootstrap
+principle of resampling observed units \cite{Efron1979Bootstrap} while retaining
+within-group dependence \cite{Harden2011ClusterBootstrap}. The intervals do
+not correct annotation error, source-selection bias or imperfect group
+reconstruction, and overlapping intervals are not treated as a formal
+significance test.
+
+\section{Exact-device screening and resource measurement}
+\label{sec:methodology:3}
+
+Two device-evidence programmes must remain separate. The first consists of
+completed historical measurements of the deployed Sentinel and Scout
+configurations. Those runs use their recorded runtimes, tensor interfaces,
+model hashes and input shapes. Their camera-free replay begins with a fixed
+\(480\times640\) black BGR image, applies the deployed preprocessing, executes
+the runtime and decodes the output. Earlier baseline runs used five warm-up
+and 50 measured iterations; later retained deployed measurements used their
+own documented 100-iteration configuration. Each result is reported only with
+its exact protocol.
+
+The second programme is the strengthened cross-platform screen specified after
+the six-model offline study. It defines 12 candidate cells: each of six models
+on each of two edge platforms. A frozen, hashed sequence of 64
+validation-calibration images is replayed in manifest order and cycled as
+needed. Each admitted cell requires 20 warm-up iterations followed by 200
+measured iterations at batch size one. Resource telemetry is sampled at 1~Hz.
+The timed pipeline includes preprocessing, runtime execution and decoding;
+camera acquisition, network transport and event coordination are excluded.
+
+Each cell records source model hash, converted-artifact hash, runtime and
+version, precision, input and output shapes, preprocessing, decoder, threshold,
+device identity, power mode, cooling state and concurrent services. Conversion
+success alone is insufficient. A fidelity check must establish that the
+converted runtime behaves within the frozen acceptance rules on the calibration
+set before latency or resource values are ranked. The final status vocabulary
+is \texttt{DEPLOYED}, \texttt{TOO\_SLOW}, \texttt{OUT\_OF\_MEMORY},
+\texttt{CONVERSION\_FAILED}, \texttt{RUNTIME\_UNSUPPORTED} or
+\texttt{FIDELITY\_FAILED}. A failed cell remains part of the comparison rather
+than disappearing from its denominator.
+
+None of the 12 strengthened cells was admitted to the final evidence set. The
+registered campaign was not executed before the evidence freeze.
+Chapter~\ref{ch:results} may therefore report historical exact-deployment
+measurements, but it cannot present them as the completed strengthened matrix.
+
+\subsection{Timing boundaries}
+
+Figure~\ref{fig:timing-boundaries} defines the timing quantities used across
+the thesis. Runtime inference measures only the framework call. Device-pipeline
+time includes preprocessing, runtime and decoding. The historical replay and
+strengthened device screen are camera-free, so neither includes exposure,
+driver buffering or image acquisition. Application round-trip time begins when
+the Sentinel publishes an alert and ends when the matching verdict callback is
+received on the Sentinel. Alert-to-decision time continues until the terminal
+decision is recorded.
+
+\begin{figure}[H]
+  \centering
+  \resizebox{\textwidth}{!}{\input{figures/timing_boundaries.tex}}
+  \caption{Timing boundaries used by the evaluation. Brackets identify
+  different measured quantities; they must not be compared as if they covered
+  the same processing path.}
+  \label{fig:timing-boundaries}
+\end{figure}
+
+For an ordered sample \(x_1,\ldots,x_n\), each latency or resource series is
+summarized by sample size, arithmetic mean, median, minimum, maximum, range and
+sample standard deviation
+\begin{equation}
+  s=\sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2}.
+  \label{eq:method-sd}
+\end{equation}
+Percentiles are added where the retained sample size supports them. Throughput
+is computed from the complete measured interval rather than as the reciprocal
+of a rounded mean latency. Warm-up observations are retained separately but
+excluded from the reported steady measurement. No outlier is removed solely
+because it is slow; exclusions require a recorded protocol violation or
+invalid run state.
+
+The two Sentinel engines require particular care. Historical Test~1 used a
+416-pixel engine with tensors \( [1,3,416,416] \rightarrow [1,6,3549] \).
+The final ROS workspace uses a distinct 640-pixel engine with tensors
+\( [1,3,640,640] \rightarrow [1,6,8400] \). Latency or throughput from the
+416-pixel artifact is never assigned to the deployed 640-pixel engine without
+a new controlled measurement of the matching hash.
+
+\section{Full-service endurance}
+\label{sec:methodology:4}
+
+RQ2 asks whether a selected configuration can operate sustainably with its
+required concurrent services. A short backend loop cannot answer that
+question. The registered endurance protocol therefore ran each device for at
+least 30 minutes with the services required by its role active: camera input, deployed
+preprocessing and inference, ROS~2 communication, asynchronous evidence
+logging and the platform services needed for the test. The model hash, input
+shape, runtime, power mode, cooling arrangement, ambient conditions and service
+list must be frozen before the run.
+
+Resource samples were requested at 1~Hz where the platform exposes the signal.
+The retained fields include CPU load, GPU or accelerator load, resident and
+available memory, temperature, power when a calibrated or platform-supported
+reading is available, processing time, achieved throughput, camera-read
+failures, inference errors, dropped log records and communication outcomes.
+Unavailable measurements are marked unavailable; they are not estimated from
+nominal hardware specifications.
+
+Acceptance required completion of the full interval without process death,
+unbounded memory growth, thermal shutdown, silent evidence loss or a safety
+state violation. A time series is inspected for warm-up behaviour, sustained
+drift and discrete failures. Temperature and processing time are plotted
+against elapsed time, while resource summaries retain their units and sample
+counts. A trend may be described, but a causal thermal-throttling claim requires
+corresponding frequency or platform throttle evidence.
+
+A later complete-stack run operated the live D435i/TensorRT Sentinel path, the
+live Scout camera/TFLite path, ROS~2 transport, asynchronous logging, Scout PX4
+services, Sentinel Pixhawk/MAVProxy telemetry and approximately 1~Hz
+host-resource sampling for more than 30 minutes. The preregistered 360-alert
+probe used a mismatched trial identifier and was correctly rejected by the
+Scout. This setup failure is retained. A corrected 36-alert probe exercised
+current-frame Scout inference during the final 180.245~s without treating the
+synthetic alerts as camera-detection accuracy observations. Chapter
+\ref{ch:results} therefore reports duration, service coexistence and resource
+behaviour across the full interval, but request--verdict latency only for the
+separate corrected three-minute probe.
+
+\section{Temporal-filter and tiered-workflow evaluation}
+\label{sec:methodology:5}
+
+RQ3 requires a common-stimulus comparison of three decision stages:
+
+\begin{enumerate}
+  \item a single Sentinel frame at the frozen confidence threshold;
+  \item the same Sentinel sequence with the three-consecutive-frame temporal
+  filter; and
+  \item the retained Sentinel alert followed by a correlated Scout verdict.
+\end{enumerate}
+
+A valid comparative unit must contain a complete ordered frame sequence or a
+synchronized physical exposure with event-level ground truth. The same frames,
+thresholds and eligibility rules are applied to all stages. The analysis then
+counts ground-truth events retained, unsupported alerts removed and additional
+decision delay introduced by filtering and verification. Event sensitivity is
+the proportion of eligible hazard events that reach the relevant stage.
+False-alert burden must use a declared exposure denominator, such as per
+eligible negative event, per labelled negative sequence or per observed hour.
+These denominators cannot be reconstructed from a handful of selected alert
+records.
+
+For the implemented filter, an observation qualifies when its highest retained
+fire confidence reaches threshold \(\tau\). The run length resets after a
+non-qualifying observation, and an alert is created when the run length reaches
+three. Filter delay can be measured in processed observations. Conversion to
+seconds requires the actual observation timestamps because the inference rate
+is not assumed constant.
+
+The accepted physical trials use stationary, propeller-free vehicles and a
+handheld lighter positioned approximately 20--25~cm from cameras mounted at
+approximately 19~cm for the Sentinel and 9.5~cm for the Scout. Ignition and
+extinction intervals were marked separately from node startup. Correlated
+event identifiers join the Sentinel alert, Scout verdict and Sentinel decision.
+The analysis script verifies those joins and hashes the input logs before
+writing a derived JSON result; raw records are not edited.
+
+Only post-correction trials are eligible. Early Scout trials used an incorrect
+image-decoding or output-decoding assumption and are retained as diagnostic
+history. The later 0.05 Scout threshold was selected after diagnostic evidence,
+so the physical trials using it are bounded engineering observations rather
+than a preregistered accuracy estimate. The strong visible-flame exposure, the
+small-flame exposure and six deliberately forced unlit requests answer
+different questions and are reported separately. Forced unlit requests check
+the correlated rejection path; they do not estimate an environmental
+false-positive rate.
+
+The older unsynchronized lighter recordings remain historical
+proof-of-function only. Ignition was not synchronized to script or log start,
+so script-start-to-detection time is invalid. Unlit intervals cannot be counted
+as false negatives, and trial-level success rates cannot be inferred without
+known exposure ground truth. Because the retained physical evidence is small,
+heterogeneous and dependent, no confidence interval or significance test is
+attached to it. The complete comparative tiered-workflow ablation was not executed.
+
+\section{Communication and fault experiments}
+\label{sec:methodology:6}
+
+The completed communication protocol consists of three sequential,
+camera-free ROS~2 trials with 100 request--response events each. The trials use
+isolated domain identifiers 43, 44 and 45, Cyclone DDS bound to
+\texttt{wlan0}, reliable volatile event topics, queue depth 100 and a 1-second
+application timeout. The Sentinel publishes one request only after the previous
+event has completed or timed out, which avoids uncontrolled queue growth but
+also means that the observations form a serial sequence on one network setup.
+
+Response completeness is
+\begin{equation}
+  C=\frac{N_{\mathrm{matching\ replies}}}{N_{\mathrm{published\ requests}}}.
+  \label{eq:method-completeness}
+\end{equation}
+This is an application-level measure. It is not packet loss: DDS may retransmit,
+and the experiment does not capture every link-layer packet. Application RTT
+for event (i) is calculated entirely on the Sentinel monotonic clock,
+\begin{equation}
+  RTT_i=\frac{t^{S}_{\mathrm{callback},i}-
+                    t^{S}_{\mathrm{publish},i}}{10^6}\;\mathrm{ms}.
+  \label{eq:method-rtt}
+\end{equation}
+The superscript (S) indicates the Sentinel clock. Scout and Sentinel
+monotonic epochs are never subtracted.
+
+All 300 intended observations, including slow tails, remain in the summary.
+The analysis reports the descriptive statistics defined in
+Equation~\ref{eq:method-sd}, counts above 10, 20, 50 and 100~ms, and identifies
+Tukey tail observations for inspection without deleting or winsorizing them.
+No confidence interval or significance claim is made because the events are
+serial, share one radio environment and do not represent independent network
+deployments.
+
+A separate loaded protocol publishes 1,000 sequential correlated events on an
+isolated ROS~2 domain while both camera/inference nodes, asynchronous loggers,
+resource samplers and an independent periodic tiered-workflow probe remain active.
+The same Sentinel-clock RTT definition is used. Completeness receives a
+two-sided Wilson interval because the outcome is a bounded delivery proportion;
+latency remains descriptive because the serial events share one run and one
+radio environment. The Sentinel Pixhawk is excluded from this loaded protocol,
+so it does not become complete-stack evidence.
+
+A separate 30-sample-per-device clock-offset probe uses midpoint estimates
+based on a request and response timestamp. The minimum-RTT sample is retained
+as the least-queued offset indication. This supports chronology checks only;
+it does not justify retroactively subtracting unsynchronized cross-host wall
+times for fine-grained latency.
+
+Fault evidence is categorized by layer. The physical coordinator tests retain
+duplicate, mismatched, stale and timed-out verdict behaviour. Simulation tests
+exercise mission-level cases such as lost alert, Scout unavailable, delayed
+verdict, sensor or inference error, low battery, invalid geofence and
+duplicate/stale verdicts. A software unit test or mocked process handoff is not
+reported as a physical-network or Gazebo fault result.
+
+Four stationary hardware fault protocols use five unique event identifiers per
+condition. Removing the Scout ROS camera interface tests fail-closed
+\texttt{ERROR/no\_frame}; proving a live preflight and then stopping only the
+bridge tests \texttt{ERROR/stale\_frame}. Removing the Scout verification
+process tests the Sentinel's unchanged 10~s timeout. Finally, injecting two
+\texttt{CONFIRMED} verdicts after each event has already finalized as
+\texttt{TIMEOUT} tests idempotent rejection of late and duplicate outcomes.
+These are deliberate interface or dispatch-boundary faults, not estimates of
+natural fault frequency or wireless-delay distributions.
+
+\section{Simulation and external-evaluation protocols}
+\label{sec:methodology:7}
+
+\subsection{Two-vehicle mission simulation}
+
+The simulation unit is one retained run with a unique scenario, seed and
+attempt identifier. Each run starts two namespaced PX4 v1.17 SITL instances and
+the corresponding ROS~2 Jazzy mission processes. Vehicle identity, local-ENU
+scenario coordinates, geofence, battery conditions, fault injection, expected
+state path and terminal acceptance rule are fixed in the manifest. Simulator
+truth is used only to assess the commanded mission path; it is not presented as
+vision-based localization.
+
+Development runs exercised nominal confirmed and rejected branches on
+provisional vehicle dynamics, together with selected bounded faults. A later
+accepted visual confirmed-hazard run used distinct X500 V2-derived Sentinel and
+ModalAI/Starling-derived Scout proxies and retained synchronized mission events,
+video and hashes. These records show that the software path can execute in that
+development environment. The
+formal campaign is a separate preregistered programme of 310 runs: 50 nominal
+confirmed, 50 nominal rejected, 50 repeated-confounder runs and 20 repetitions
+for each of eight fault scenarios. Seeds and run identifiers are unique and
+deterministic. Automatic retry is prohibited; a rerun receives a new attempt
+identifier so that failed attempts remain visible.
+
+Formal acceptance requires the scenario preflight, expected state sequence,
+terminal vehicle state, safety invariant checks, complete logs and artifact
+hashes to pass. Selected runs also require visual captures, but video does not
+replace telemetry. The accepted visual run closes that requirement for one
+  confirmed-hazard pilot. A final qualitative review additionally accepted the
+  continuous recording from the v17 run for presentation after checking role
+  labels, continuity and framing; this disposition adds no mission trial to the
+  denominator. In the final evidence set, the repeated campaign was not executed
+because measured airframe parameters, the full fault set and the retained-run
+matrix have not all passed. Consequently, development traces cannot be
+converted into a mission success percentage.
+
+\subsection{External proxy evaluation}
+
+External evaluation freezes the internal models, preprocessing and operating
+thresholds. A dataset is eligible only after five gates close: a compatible
+licence is recorded; the acquired archive and extracted files are hashed; files
+decode successfully or every failure is enumerated; labels or event intervals
+can be mapped to the fire-only policy; and exact, perceptual and source-family
+overlap with training, validation and test data is checked. The eligible
+manifest is frozen before inference.
+
+The FASDD publisher reports 25,097 UAV samples under CC BY-SA 4.0, but the
+archive has not been acquired and admitted. Its sample count is therefore
+dataset context rather than an evaluated denominator. The MmodalFire archive
+and licence checks passed for 28 videos. Decoding produced 2,974,209 frames
+against 2,974,228 container-reported frames, with 19 one-frame warnings. These
+are readiness observations, not detector results. Condition and event alignment
+is incomplete: the stricter timestamp consolidation validated eight of 28
+ranges and left 20 for review. No external inference is admitted while those
+gates remain open.
+
+If admitted, video analysis defines independent events or condition intervals
+before computing metrics; millions of neighbouring frames are not treated as
+independent trials. Results are stratified by eligible dataset, acquisition
+condition and apparent target scale. Any finding is described as transfer to a
+specific UAV or industrial-like proxy dataset. It does not establish operation
+at an industrial site.
+
+\section{Statistics, reproducibility and exclusions}
+\label{sec:methodology:8}
+
+Every reported table must identify the artifact and configuration, sample
+size, unit, threshold, timing boundary and evidence source. Raw observations
+remain append-only. Derived files record their input paths and SHA-256 hashes,
+analysis command or script version, configuration hash, creation time and
+acceptance outcome. A correction creates a new derived artifact; it does not
+silently edit the source log.
+
+Data cleaning is rule-based. A record is excluded only when a predefined
+eligibility condition fails or a documented protocol violation makes the
+quantity uninterpretable. Examples include pre-correction Scout decoding,
+missing formal identifiers, a mismatched model hash, an incomplete camera
+preflight or a run outside its marked ground-truth interval. Runtime failures,
+timeouts, conversion failures and out-of-memory outcomes are substantive
+outcomes and remain in the experiment register. Missing values are reported as
+missing rather than imputed from neighbouring samples.
+
+Descriptive statistics are the default because several experiments are bounded
+engineering studies rather than random samples from a defined population.
+Confidence intervals are used only where the resampling unit and dependence
+structure are defensible, as in the grouped bootstrap for internal predictive
+metrics. Statistical significance is not claimed merely because two point
+estimates differ or two intervals fail to overlap. For repeated simulation, a
+binomial success proportion and interval may be reported only after the formal
+campaign is admitted and the denominator includes every retained attempt.
+
+The evidence cutoff for this final controlled revision is 30 September 2026,
+after admission and author visual acceptance of the v17 mission delivery. Late evidence
+entered only through coordinated revisions of
+the affected methodology status, result table, research-question answer,
+abstract and conclusion. This rule prevents a late number from being inserted
+without updating the assumptions and limitations that give it meaning.
+
+\reviewstatus{The offline six-model evaluation, historical deployed-device
+measurements, loaded ROS~2 round-trip trial, 30-minute complete-stack endurance
+run, accepted visual mission and four repeated hardware fault cases are
+executed evidence. The strengthened 12-cell device screen, common-stimulus
+ablation, formal 310-run simulation campaign and external transfer evaluation
+were not executed. Chapter \ref{ch:results} preserves these boundaries and
+does not infer a full positive answer for RQ1, RQ3, RQ4 or RQ5.}

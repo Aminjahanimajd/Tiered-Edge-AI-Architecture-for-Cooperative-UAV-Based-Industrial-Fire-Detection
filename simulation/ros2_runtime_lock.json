@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "distribution": "jazzy",
+  "runtime_strategy": "isolated_container",
+  "image_reference": "ros:jazzy-ros-base",
+  "image_digest": "sha256:da725acf8b0f9f30c683e33ffbdcd6482d077af96d6fdc7688c5f4f280b7d923",
+  "host_native_install_status": "NOT_INSTALLED_SUDO_AUTHENTICATION_REQUIRED",
+  "workspace": "ros2_ws",
+  "build_command": "source /opt/ros/jazzy/setup.bash && colcon build --merge-install --event-handlers console_direct+",
+  "build_status": "PASS",
+  "px4_msgs_repository": "https://github.com/PX4/px4_msgs.git",
+  "px4_msgs_ref": "release/1.17",
+  "px4_msgs_commit": "86d8239e962f6939e05c3737784f60c02fa884db",
+  "px4_msgs_container_build_status": "PASS_16M53S",
+  "micro_xrce_dds_agent_ref": "v2.4.3",
+  "micro_xrce_dds_agent_commit": "73622810d984349b80bbac0ef55fc0b694d62222",
+  "micro_xrce_dds_agent_binary_sha256": "ccfa58e515c49db8ce0a019ea728f6cdc5e218feac715c67d26dcfd5e4d62fd6",
+  "built_packages": [
+    "drone_enhanced_interfaces",
+    "drone_enhanced_nodes",
+    "px4_msgs"
+  ],
+  "interface_and_single_container_topic_probe": "PASS",
+  "dual_px4_agent_client_keys_probe": "PASS_KEYS_0X00000002_AND_0X00000003",
+  "dual_px4_ros_graph_probe": "PASS_132_TOPICS_65_PER_VEHICLE",
+  "dual_px4_vehicle_status_delivery_probe": "PASS_ONE_TYPED_SAMPLE_PER_VEHICLE",
+  "registered_executables": [
+    "drone_enhanced_nodes scout_node",
+    "drone_enhanced_nodes sentinel_node"
+  ],
+  "claim_boundary": "This proves the Jazzy workspace build, local HazardAlert exchange, distinct dual-PX4 XRCE clients, simultaneous namespaced PX4 ROS graph visibility, and one typed status sample per SITL vehicle. It does not prove command execution, mission behavior, repeated-run reliability, physical flight, or edge-device deployment."
+}

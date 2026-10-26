@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-07-29",
+  "reviewer_role": "principal engineer",
+  "queue_csv_sha256": "4302dbbdc008e2d9c8a5b0cc97db9e0bccf5214e41a8bf09884235ca33734856",
+  "queue_row_numbering": "one-based data-row order, excluding the CSV header",
+  "viewing_method": "eight generated contact sheets with derived fire boxes rendered in red at original sheet resolution",
+  "classification_definitions": {
+    "acceptable": "visible fire is plausibly covered by the rendered box or the background image correctly contains no localized fire target",
+    "questionable": "a label may cover smoke, graphics, a boundary artifact, an ambiguous tiny target, or cannot be judged reliably at contact-sheet resolution",
+    "incorrect": "no visible fire is covered by the rendered box at contact-sheet resolution"
+  },
+  "classifications": {
+    "acceptable": "1-5,7,9-13,15,17,19-34,39-42,44-50",
+    "questionable": "6,8,14,16,18,35-38,43,51-58"
+  },
+  "interpretation": [
+    "The queue is deterministic and stratified by split and smallest normalized box area; it is not a simple random prevalence sample.",
+    "Eighteen ambiguous records require full-resolution adjudication before the curated manifest can be frozen.",
+    "Single-reviewer judgments do not establish whole-dataset label-error prevalence."
+  ]
+}

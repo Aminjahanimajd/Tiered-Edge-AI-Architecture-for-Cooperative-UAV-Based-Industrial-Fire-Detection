@@ -1,0 +1,26 @@
+{
+  "access_class": "NO LAB",
+  "created_utc": "2026-08-09T10:25:07.400307+00:00",
+  "latency_csv_sha256": "53dadce7a66b8f1d7cff9f97a21063da07c8cacbf77995d8d98b3c1aebfccc56",
+  "limitations": [
+    "Throughput is the reciprocal of mean single-image inference latency.",
+    "This summary does not include preprocessing or postprocessing unless the selected source column does."
+  ],
+  "maximum": 1651.3835099999596,
+  "mean": 1263.8637182214356,
+  "median": 1248.8711159999184,
+  "metric": "inference_ms",
+  "minimum": 1146.619548999979,
+  "model_id": "efficientdet_lite0_320",
+  "p05": 1197.3461683999403,
+  "p95": 1386.7993402500813,
+  "p99": 1438.8943594102193,
+  "range": 504.76396099998055,
+  "sample_count": 700,
+  "schema_version": 1,
+  "standard_deviation_sample": 56.927538200766584,
+  "throughput_from_mean_fps": 0.7912245486461498,
+  "tool_sha256": "3be55934a21bc3ede9d34761ae9cea0c0ed440e923fdd922fb3ccd74950b95fc",
+  "unit": "milliseconds",
+  "variance_sample": 3240.744605599739
+}

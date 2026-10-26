@@ -1,0 +1,33 @@
+\begin{tikzpicture}[
+  state/.style={draw,rounded corners=2pt,minimum width=27mm,minimum height=10mm,
+    align=center,font=\small,fill=blue!4},
+  terminal/.style={state,fill=orange!10},
+  reset/.style={state,fill=gray!10},
+  flow/.style={-{Latex[length=2mm]},thick},
+  return/.style={-{Latex[length=2mm]},thick,gray!70},
+  edge/.style={font=\scriptsize,align=center,fill=white,inner sep=1.5pt}
+]
+  \node[state] (search) at (0,0) {SEARCHING};
+  \node[state] (track) at (5.30,0) {TRACKING};
+  \node[state] (await) at (10.60,0) {AWAITING\\SCOUT};
+
+  \draw[flow] (search.east) -- (track.west);
+  \node[edge] at (2.65,0.72) {qualifying candidate};
+  \draw[flow] (track.east) -- (await.west);
+  \node[edge] at (7.95,0.78) {three-frame trigger;\\publish alert};
+
+  \node[terminal] (confirm) at (3.10,-2.40) {CONFIRMED\\matching verdict};
+  \node[terminal] (reject) at (8.25,-2.40) {REJECTED\\matching verdict};
+  \node[terminal] (fail) at (13.40,-2.40) {TIMEOUT / ERROR\\deadline or fault};
+  \node[reset] (record) at (8.25,-4.70) {record one terminal\\decision and reset};
+
+  \draw[flow] (await.south west) -- (confirm.north);
+  \draw[flow] (await.south) -- (reject.north);
+  \draw[flow] (await.south east) -- (fail.north);
+
+  \draw[return] (confirm.south) |- (record.west);
+  \draw[return] (reject.south) -- (record.north);
+  \draw[return] (fail.south) |- (record.east);
+  \draw[return] (record.west) -- ++(-8.25,0) -|
+    node[edge,near start,below]{next event} (search.south);
+\end{tikzpicture}

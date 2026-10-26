@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-07-29",
+  "reviewer_role": "principal engineer",
+  "queue_csv_sha256": "a9824ae1c39a0602d7335f8594644a8a2d6e35e0afd9aa87666af4eef17cd034",
+  "queue_row_numbering": "one-based data-row order, excluding the CSV header",
+  "viewing_method": "nine generated side-by-side contact sheets at original rendered resolution",
+  "classifications": {
+    "visually_same_scene": "1-4",
+    "not_visibly_same_scene_at_contact_sheet_resolution": "5-98"
+  },
+  "interpretation": [
+    "Visually same scene includes near-identical derivatives whose shared scene is clear in the side-by-side rendering.",
+    "Not visibly same scene does not prove independent provenance or sequence membership.",
+    "These decisions apply only to the version-5 98-pair deterministic review queue, not all 816 cross-split candidates."
+  ]
+}

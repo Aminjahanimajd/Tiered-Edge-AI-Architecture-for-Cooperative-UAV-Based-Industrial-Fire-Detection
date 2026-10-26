@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "decision_date": "2026-07-29",
+  "reviewer_role": "principal engineer",
+  "source_records_jsonl_sha256": "e990a09652d8889959fd73b930260cc3337c4189ca03ee59f17a03dfc6b4f324",
+  "excluded_source_family_group_ids": [
+    "base/source_family:firedetectionimage_noisewebfire#_jpg",
+    "base/source_family:noisewebsmoke#_jpg",
+    "base/source_family:videos-show-massive-explosion-from-fatal-detroit-warehouse-fire_mp#-#_jpg",
+    "base/source_family:webfire#_jpg",
+    "base/source_family:whatsapp-video-#-#-#-at-#_#_#_mp#-#_jpg"
+  ],
+  "rationale": "Repeated stratified and full-resolution review found systematic smoke-only, broadcast-overlay, boundary-artifact, or ambiguous-fire annotations in sibling augmentations from these source families.",
+  "known_limitations": [
+    "This conservative family-level rule removes some visually acceptable records together with their unreliable siblings.",
+    "The rule is based on single-reviewer enriched-sample adjudication and is not an estimated whole-dataset error rate.",
+    "Original images, labels, and all earlier manifest versions remain unchanged."
+  ]
+}

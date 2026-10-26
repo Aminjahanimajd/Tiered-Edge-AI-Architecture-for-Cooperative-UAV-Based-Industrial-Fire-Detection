@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "campaign_id": "m8_dual_px4_formal_v1",
+  "status": "PREREGISTERED_PENDING_READY_GATE",
+  "created_date": "2026-09-09",
+  "base_seed": 20260909,
+  "scenario": "config/simulation_scenarios_v2.json",
+  "readiness_command": "python tools/audit_formal_simulation_readiness.py",
+  "ordering": "Sort all run definitions by SHA-256 of campaign ID, stratum, fault, and one-based repetition.",
+  "run_strata": {
+    "nominal_confirmed": {
+      "count": 50,
+      "event_id": "scenario-fire-tank-a",
+      "fault": "none",
+      "runner_mode": "single_event"
+    },
+    "nominal_rejected": {
+      "count": 50,
+      "event_id": "scenario-reflection-pipe-b",
+      "fault": "none",
+      "runner_mode": "single_event"
+    },
+    "repeated_confounder": {
+      "count": 50,
+      "event_id": "scenario-reflection-pipe-b",
+      "fault": "none",
+      "runner_mode": "repeated_confounder"
+    }
+  },
+  "fault_stratum": {
+    "count_per_fault": 20,
+    "event_id": "scenario-fire-tank-a",
+    "runner_mode": "single_event"
+  },
+  "visual_capture_policy": {
+    "nominal_confirmed_repetitions": [1, 25, 50],
+    "nominal_rejected_repetitions": [1, 25, 50],
+    "repeated_confounder_repetitions": [1, 25, 50],
+    "fault_repetitions": [1],
+    "source_capture_required": true,
+    "machine_log_link_required": true,
+    "capture_failure_does_not_replace_machine_run_result": true
+  },
+  "retry_policy": {
+    "automatic_retry": false,
+    "preserve_every_attempt": true,
+    "rerun_requires_new_attempt_id": true,
+    "pre_fix_and_post_fix_versions_must_remain_distinguishable": true
+  },
+  "claim_boundary": "The plan defines simulator runs only. Results apply only to the frozen modeled conditions and do not validate physical flight, industrial deployment, or vision-derived localization."
+}

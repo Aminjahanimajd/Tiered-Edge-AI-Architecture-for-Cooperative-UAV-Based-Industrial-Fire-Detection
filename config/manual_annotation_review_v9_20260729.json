@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-07-29",
+  "reviewer_role": "principal engineer",
+  "queue_csv_sha256": "983c7c06e4546e7d0999fa36c28fbbe09fb65fee5bea558592a71621774f6703",
+  "queue_row_numbering": "one-based data-row order, excluding the CSV header",
+  "viewing_method": "six generated contact sheets with derived fire boxes rendered in red at original sheet resolution",
+  "classification_definitions": {
+    "acceptable": "visible fire is plausibly covered by the rendered box or the background image correctly contains no localized fire target",
+    "questionable": "a label may include smoke/non-fire content, be unusually fragmented, or cannot be judged reliably at the rendered resolution",
+    "incorrect": "no visible fire is covered by the rendered box at the review resolution"
+  },
+  "classifications": {
+    "acceptable": "1-9,11-12,16-25,27,31-43",
+    "questionable": "10,13,44-45",
+    "incorrect": "14-15,26,28-30"
+  },
+  "interpretation": [
+    "The queue is deterministic and stratified by split and smallest normalized box area; it is not a simple random prevalence sample.",
+    "Single-reviewer contact-sheet judgments do not establish whole-dataset label-error prevalence.",
+    "Questionable and incorrect samples require full-resolution adjudication before correction, exclusion, or final split freeze."
+  ]
+}

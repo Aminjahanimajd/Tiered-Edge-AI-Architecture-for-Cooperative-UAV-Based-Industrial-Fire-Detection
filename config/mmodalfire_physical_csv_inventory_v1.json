@@ -1,0 +1,819 @@
+{
+  "claim_boundary": "publisher physical-data file and timestamp inventory; filename pairing and condition-to-video mapping still require explicit alignment",
+  "created_utc": "2026-08-13T19:11:46+00:00",
+  "csv_file_count": 70,
+  "errors": [],
+  "manifest_id": "mmodalfire_physical_csv_inventory_v1",
+  "measurement_csv_count": 35,
+  "records": [
+    {
+      "bytes": 317608,
+      "data_row_count": 11761,
+      "file_name": "Control Group1-1.csv",
+      "sha256": "af92f08376e25941277790f4abbde9e68afe8d3b0663809aee38b2b709afb895",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 646870,
+      "data_row_count": 11761,
+      "file_name": "Control Group1-2.csv",
+      "first_timestamps": [
+        "2022-08-10 08:38:51.656630",
+        "2022-08-10 16:38:51.656630"
+      ],
+      "last_timestamps": [
+        "2022-08-10 08:41:54.935516",
+        "2022-08-10 16:41:54.935516"
+      ],
+      "sha256": "3f7537268b1997531a3cd71e4ecad0e74828e9399a508b93d33e55d0a2352df8",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 2131141,
+      "data_row_count": 38748,
+      "file_name": "Cotton rope10-1.csv",
+      "first_timestamps": [
+        "2022-08-03 06:37:56.702216",
+        "2022-08-03 14:37:56.702216"
+      ],
+      "last_timestamps": [
+        "2022-08-03 06:48:40.553616",
+        "2022-08-03 14:48:40.553616"
+      ],
+      "sha256": "5a7134f91be096afb0c2cdf023b6d3fd1b7a6bcc0006c0585ac8f57ce3cac639",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 1112607,
+      "data_row_count": 38748,
+      "file_name": "Cotton rope10-2.csv",
+      "sha256": "d93496c08e529c9bd2b40d0c34becaa90a582f8dc7d1877c07b3ff89a76663ab",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 2560705,
+      "data_row_count": 46558,
+      "file_name": "Cotton rope11-1.csv",
+      "first_timestamps": [
+        "2022-08-03 07:22:02.384308",
+        "2022-08-03 15:22:02.384308"
+      ],
+      "last_timestamps": [
+        "2022-08-03 07:34:55.819716",
+        "2022-08-03 15:34:55.819716"
+      ],
+      "sha256": "f394dbf978e582c44704932385d817b47239309509ddab2a78d52e56032a42d9",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 1335593,
+      "data_row_count": 46558,
+      "file_name": "Cotton rope11-2.csv",
+      "sha256": "81bf936aaec1eb23e00ab2645d39638755ca14274e59f81751671100bdccb92f",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1413350,
+      "data_row_count": 25697,
+      "file_name": "Cotton rope3-1.csv",
+      "first_timestamps": [
+        "2022-08-02 08:27:01.180957",
+        "2022-08-02 16:27:01.180957"
+      ],
+      "last_timestamps": [
+        "2022-08-02 08:33:41.411902",
+        "2022-08-02 16:33:41.411902"
+      ],
+      "sha256": "93f470b73f43ab852c8414a43d58a69b3459d023ed593df5640abd12e04aa15a",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 738722,
+      "data_row_count": 25697,
+      "file_name": "Cotton rope3-2.csv",
+      "sha256": "b50165d1ea2efc5d4c39286fde557ebd3b0b52e1c91ebafe8084a0b2780c715b",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 2135170,
+      "data_row_count": 38821,
+      "file_name": "Cotton rope4-1.csv",
+      "first_timestamps": [
+        "2022-08-02 09:22:40.045321",
+        "2022-08-02 17:22:40.045321"
+      ],
+      "last_timestamps": [
+        "2022-08-02 09:32:50.711043",
+        "2022-08-02 17:32:50.711043"
+      ],
+      "sha256": "d40de3fde96aaf194114eedb713208eaa6aab56061341b8f977f2611ef9a225c",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 1114270,
+      "data_row_count": 38821,
+      "file_name": "Cotton rope4-2.csv",
+      "sha256": "e5399e8d684468500be2ed92892669f0c3b0c21fc9995391b943bd6b11907ae6",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 2239780,
+      "data_row_count": 40723,
+      "file_name": "Cotton rope5-1.csv",
+      "first_timestamps": [
+        "2022-08-02 10:40:20.808841",
+        "2022-08-02 18:40:20.808841"
+      ],
+      "last_timestamps": [
+        "2022-08-02 10:51:03.715585",
+        "2022-08-02 18:51:03.715585"
+      ],
+      "sha256": "3858e46e01135a339a9b7317392536d97bed11d54b550066f97425a83b4e2b81",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 1168283,
+      "data_row_count": 40723,
+      "file_name": "Cotton rope5-2.csv",
+      "sha256": "f849a8c196834c80a926e153ea4f4b5c9353234956a1528845ab3b256740b1c4",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1560145,
+      "data_row_count": 28366,
+      "file_name": "Cotton rope6-1.csv",
+      "first_timestamps": [
+        "2022-08-02 11:25:27.887232",
+        "2022-08-02 19:25:27.887232"
+      ],
+      "last_timestamps": [
+        "2022-08-02 11:32:54.359396",
+        "2022-08-02 19:32:54.359396"
+      ],
+      "sha256": "7d7de2b37c51affd10fedc5e234034c23ac672f619061038ab51c90e673b4854",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 811155,
+      "data_row_count": 28366,
+      "file_name": "Cotton rope6-2.csv",
+      "sha256": "c507649aa840d643afe8e4af092529afd326e1eff78fa58801fa90ad46d9b2e6",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1700010,
+      "data_row_count": 30909,
+      "file_name": "Cotton rope7-1.csv",
+      "first_timestamps": [
+        "2022-08-03 02:08:07.153168",
+        "2022-08-03 10:08:07.153168"
+      ],
+      "last_timestamps": [
+        "2022-08-03 02:16:50.502830",
+        "2022-08-03 10:16:50.502830"
+      ],
+      "sha256": "01e9a6fc5abab7a97aab855803c04a652725bdfdc6c7bfa60a68f9d9f8e7b3cc",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 885481,
+      "data_row_count": 30909,
+      "file_name": "Cotton rope7-2.csv",
+      "sha256": "4b1541bc48cb1f0724e022ae28d9d89bf1f927889f2db449f64ae5e9233d8d38",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 2119385,
+      "data_row_count": 38534,
+      "file_name": "Cotton rope8-1.csv",
+      "first_timestamps": [
+        "2022-08-03 02:59:46.707855",
+        "2022-08-03 10:59:46.707855"
+      ],
+      "last_timestamps": [
+        "2022-08-03 03:09:59.235096",
+        "2022-08-03 11:09:59.235096"
+      ],
+      "sha256": "662803a21fcda9e2937878cf9e383184095aa2596ed0061a0f4282d650933b10",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 1118346,
+      "data_row_count": 38534,
+      "file_name": "Cotton rope8-2.csv",
+      "sha256": "998d053ca760c78b4187f3eba6e0daa13d4d04b5a72c3c78d900a617df4dccdc",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 2728950,
+      "data_row_count": 49617,
+      "file_name": "Cotton rope9-1.csv",
+      "first_timestamps": [
+        "2022-08-03 03:37:44.057703",
+        "2022-08-03 11:37:44.057703"
+      ],
+      "last_timestamps": [
+        "2022-08-03 03:51:28.481028",
+        "2022-08-03 11:51:28.481028"
+      ],
+      "sha256": "a9cf5ba87ca4592afcbbb4976f9e47b34dd73ed67f7e9b4f641e70819718e08d",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 1421655,
+      "data_row_count": 49617,
+      "file_name": "Cotton rope9-2.csv",
+      "sha256": "f1b364c8a75805e5c0b6f4e18d333d81f749f4a3a2f78f9b8aa00b501a13a838",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1667491,
+      "data_row_count": 30318,
+      "file_name": "Dry Ice1-1.csv",
+      "first_timestamps": [
+        "2022-08-04 07:11:38.001063",
+        "2022-08-04 15:11:38.001063"
+      ],
+      "last_timestamps": [
+        "2022-08-04 07:20:04.133709",
+        "2022-08-04 15:20:04.133709"
+      ],
+      "sha256": "edd638d1014dd0619a2de94420a0459a2bf71572d6760b88b506afed6f74b276",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 848965,
+      "data_row_count": 30318,
+      "file_name": "Dry Ice1-2.csv",
+      "sha256": "e73436d57b881a3a14feff273b26e4582aadf7028bddd7d1b08ef1d26798d489",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1043640,
+      "data_row_count": 18975,
+      "file_name": "Dry Ice2-1.csv",
+      "first_timestamps": [
+        "2022-08-04 07:22:58.922315",
+        "2022-08-04 15:22:58.922315"
+      ],
+      "last_timestamps": [
+        "2022-08-04 07:28:16.075767",
+        "2022-08-04 15:28:16.075767"
+      ],
+      "sha256": "24e61c7c7ae7b15c4ddc98c4f92086b82684dcc2b016bf309204fa488464a761",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 531361,
+      "data_row_count": 18975,
+      "file_name": "Dry Ice2-2.csv",
+      "sha256": "a262ee70268a4c461bc0aa584b4095765c00efc9e7740a23083493b6a500538e",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1976110,
+      "data_row_count": 35929,
+      "file_name": "Dry Ice3-1.csv",
+      "first_timestamps": [
+        "2022-08-04 07:40:59.563009",
+        "2022-08-04 15:40:59.563009"
+      ],
+      "last_timestamps": [
+        "2022-08-04 07:50:58.492911",
+        "2022-08-04 15:50:58.492911"
+      ],
+      "sha256": "e67d3c6c5639e09ed7924a65f0af462a2d0cad274b06a21e63b1d1e7b9d4c135",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 1006073,
+      "data_row_count": 35929,
+      "file_name": "Dry Ice3-2.csv",
+      "sha256": "6e9e4c36c8d3d8d39ca9f5520e7a084e55779d228985968f0e4fc0b9e735586a",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1352960,
+      "data_row_count": 24599,
+      "file_name": "Dry Ice4-1.csv",
+      "first_timestamps": [
+        "2022-08-04 07:56:31.575469",
+        "2022-08-04 15:56:31.575469"
+      ],
+      "last_timestamps": [
+        "2022-08-04 08:03:22.093241",
+        "2022-08-04 16:03:22.093241"
+      ],
+      "sha256": "dbadb799f36d6e1977b78cbdef5794ca523dba2f6bc3d5d2eee4734220163ea0",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 688833,
+      "data_row_count": 24599,
+      "file_name": "Dry Ice4-2.csv",
+      "sha256": "9a672d729bda0aeb59295b98018bca1f9fe7653aed44fc0af57f7df26df0c24f",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1770080,
+      "data_row_count": 32183,
+      "file_name": "Humidifier1-1.csv",
+      "first_timestamps": [
+        "2022-08-10 08:01:25.588897",
+        "2022-08-10 16:01:25.588897"
+      ],
+      "last_timestamps": [
+        "2022-08-10 08:09:46.975542",
+        "2022-08-10 16:09:46.975542"
+      ],
+      "sha256": "92b97a01c8da02515a485614a776ea2771a6de344461cf0dea22aea75f58675c",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 869002,
+      "data_row_count": 32183,
+      "file_name": "Humidifier1-2.csv",
+      "sha256": "d18885c6a833ce79606076ecf88e9f1f2ccab83d565893448af21d66b2924a07",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1752315,
+      "data_row_count": 31860,
+      "file_name": "Humidifier2-1.csv",
+      "first_timestamps": [
+        "2022-08-10 08:11:57.485746",
+        "2022-08-10 16:11:57.485746"
+      ],
+      "last_timestamps": [
+        "2022-08-10 08:20:14.279547",
+        "2022-08-10 16:20:14.279547"
+      ],
+      "sha256": "a3d789d0420f5cd1bc05a843f5906fde1400b977a4a9e0f36dbdc6a5554f1fcc",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 860281,
+      "data_row_count": 31860,
+      "file_name": "Humidifier2-2.csv",
+      "sha256": "ee1ef98cb7240bef31f01a47e001bd5857665ff5d42a8503aaada23cfd3b5591",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1500690,
+      "data_row_count": 27285,
+      "file_name": "Humidifier3-1.csv",
+      "first_timestamps": [
+        "2022-08-10 08:22:33.322270",
+        "2022-08-10 16:22:33.322270"
+      ],
+      "last_timestamps": [
+        "2022-08-10 08:29:38.580162",
+        "2022-08-10 16:29:38.580162"
+      ],
+      "sha256": "a9a41982f76a7e6657f1f9a3bc97d859adfe3157d90918ce531d49840a5d14f6",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 736756,
+      "data_row_count": 27285,
+      "file_name": "Humidifier3-2.csv",
+      "sha256": "819094890c90e4705852f8c277486b5accc61bd8a6bed9228d49ab362d9c11c0",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1254840,
+      "data_row_count": 22815,
+      "file_name": "Humidifier4-1.csv",
+      "first_timestamps": [
+        "2022-08-10 08:31:23.167321",
+        "2022-08-10 16:31:23.167321"
+      ],
+      "last_timestamps": [
+        "2022-08-10 08:37:19.846596",
+        "2022-08-10 16:37:19.846596"
+      ],
+      "sha256": "3b8cf615faaf2a704d55a4abcba5b182c39608e73741672cbc67c942ca89918a",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 616066,
+      "data_row_count": 22815,
+      "file_name": "Humidifier4-2.csv",
+      "sha256": "b17bc1323a50ef4a9844b05f217a811cd720bb03edd07928d7697d61844e13ed",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 111500,
+      "data_row_count": 2027,
+      "file_name": "N-Heptane (after burnning)1.csv",
+      "first_timestamps": [
+        "2022-08-04 04:13:43.082145",
+        "2022-08-04 12:13:43.082145"
+      ],
+      "last_timestamps": [
+        "2022-08-04 04:14:16.987542",
+        "2022-08-04 12:14:16.987542"
+      ],
+      "sha256": "2eb3974110d78c79f22a68910a1e6c9b4b4658c05a3c9ee5c7ee7e4df4c9f584",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 56817,
+      "data_row_count": 2027,
+      "file_name": "N-Heptane (after burnning)2.csv",
+      "sha256": "ef3a80b6d37db1d366f222dd718ef5d338584bd7205d866cb064061f3ee97402",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 3891210,
+      "data_row_count": 70749,
+      "file_name": "N-Heptane1-1 2-1.csv",
+      "first_timestamps": [
+        "2022-08-03 08:03:29.857532",
+        "2022-08-03 16:03:29.857532"
+      ],
+      "last_timestamps": [
+        "2022-08-03 08:22:17.399042",
+        "2022-08-03 16:22:17.399042"
+      ],
+      "sha256": "10e91bea02ae6e32c5840bfa1a41de7ddb934eb0afcc01f51d7af84c0b728a0a",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 2022142,
+      "data_row_count": 70749,
+      "file_name": "N-Heptane2-1 2-2.csv",
+      "sha256": "38a14298cc95a894b1d330a236bbe0fad0db88e8b5c1f09efe68bfcb52735fcb",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 3920745,
+      "data_row_count": 71286,
+      "file_name": "N-Heptane3-1 4-1.csv",
+      "first_timestamps": [
+        "2022-08-03 08:39:02.303036",
+        "2022-08-03 16:39:02.303036"
+      ],
+      "last_timestamps": [
+        "2022-08-03 08:57:56.719582",
+        "2022-08-03 16:57:56.719582"
+      ],
+      "sha256": "c6b0c32f7def3e3dd1818d0483f05160ded61ebee037c8106358d0411443d26b",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 2051768,
+      "data_row_count": 71286,
+      "file_name": "N-Heptane3-2 4-2.csv",
+      "sha256": "7ba533cf6ffa3747dd7502db1cd7e7efc6d04d33e064632f5c9d37c864540ad5",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1818865,
+      "data_row_count": 33070,
+      "file_name": "N-Heptane5-1 6-1.csv",
+      "first_timestamps": [
+        "2022-08-03 09:17:03.531331",
+        "2022-08-03 17:17:03.531331"
+      ],
+      "last_timestamps": [
+        "2022-08-03 09:25:49.797383",
+        "2022-08-03 17:25:49.797383"
+      ],
+      "sha256": "fc8513a2f26919429df51b153da86aa2042286f3ffaa481e785566e3244652b2",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 928194,
+      "data_row_count": 33070,
+      "file_name": "N-Heptane5-2 6-2.csv",
+      "sha256": "0d0143f46486fc85ef133096af62674f595256a39f3af5418c3217c91e8ae42f",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 4724020,
+      "data_row_count": 85891,
+      "file_name": "N-Heptane7-1 8-1.csv",
+      "first_timestamps": [
+        "2022-08-04 03:48:19.541487",
+        "2022-08-04 11:48:19.541487"
+      ],
+      "last_timestamps": [
+        "2022-08-04 04:11:58.580783",
+        "2022-08-04 12:11:58.580783"
+      ],
+      "sha256": "2d430b8623a28dfd33b3a764870ad5213ca7cad608a32737d31261b884d706df",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 2480892,
+      "data_row_count": 85891,
+      "file_name": "N-Heptane7-2 8-2.csv",
+      "sha256": "0dc9dae907f5b3bc581a203ac53d1e763a5b721622c87c0ae1b4789ff24af638",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 2990420,
+      "data_row_count": 54371,
+      "file_name": "Occlusion--N-Heptane-1.csv",
+      "first_timestamps": [
+        "2022-08-10 08:48:26.223580",
+        "2022-08-10 16:48:26.223580"
+      ],
+      "last_timestamps": [
+        "2022-08-10 09:02:33.760254",
+        "2022-08-10 17:02:33.760254"
+      ],
+      "sha256": "ceaad310680a10b10b24dea09f9375a177a0125a4781cd44c1e68d2a11e5ef1a",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 1538514,
+      "data_row_count": 54371,
+      "file_name": "Occlusion--N-Heptane-2.csv",
+      "sha256": "cd881e1fabf0fcb493acd22097b7a853e3f9fa6621fecadd27cc8e12cbc991cf",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1707105,
+      "data_row_count": 31038,
+      "file_name": "Occlusion--Polyurethane-1.csv",
+      "first_timestamps": [
+        "2022-08-10 09:05:43.581688",
+        "2022-08-10 17:05:43.581688"
+      ],
+      "last_timestamps": [
+        "2022-08-10 09:13:46.965127",
+        "2022-08-10 17:13:46.965127"
+      ],
+      "sha256": "124a266daa3792bfe3ed2466eaae484784417f6df76ef70abd5d9db45ea701a7",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 899547,
+      "data_row_count": 31038,
+      "file_name": "Occlusion--Polyurethane-2.csv",
+      "sha256": "9eb9ca7c9bc7aa0736b50cd4dc88bec355a00b0200a141d6b34ef7f581b05358",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1078235,
+      "data_row_count": 19604,
+      "file_name": "Polyurethane1-1.csv",
+      "first_timestamps": [
+        "2022-08-08 02:00:19.560881",
+        "2022-08-08 10:00:19.560881"
+      ],
+      "last_timestamps": [
+        "2022-08-08 02:05:42.980586",
+        "2022-08-08 10:05:42.980586"
+      ],
+      "sha256": "4dc60da7e3976bf5529672d385873ceb2813a679c37271b5f7da8113a7dbf9b2",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 554713,
+      "data_row_count": 19604,
+      "file_name": "Polyurethane1-2.csv",
+      "sha256": "23deb121a0f6c2d52914bc3a94048b2d89f79e2e029ed9ce8b7c93eab03cb698",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1461750,
+      "data_row_count": 26577,
+      "file_name": "Polyurethane2-1.csv",
+      "first_timestamps": [
+        "2022-08-08 07:37:19.417475",
+        "2022-08-08 15:37:19.417475"
+      ],
+      "last_timestamps": [
+        "2022-08-08 07:44:19.047693",
+        "2022-08-08 15:44:19.047693"
+      ],
+      "sha256": "fd85ae7ea0c9a901ceb3701f6c48a11216b31151afaeb19cb6329e5433cb8374",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 754362,
+      "data_row_count": 26577,
+      "file_name": "Polyurethane2-2.csv",
+      "sha256": "35116b34a45a671bfd6aa77be942f315eeecb8f4d266a6bb31e4ae46f2198c59",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1592540,
+      "data_row_count": 28955,
+      "file_name": "Polyurethane3-1.csv",
+      "first_timestamps": [
+        "2022-08-08 08:25:20.442662",
+        "2022-08-08 16:25:20.442662"
+      ],
+      "last_timestamps": [
+        "2022-08-08 08:32:56.749736",
+        "2022-08-08 16:32:56.749736"
+      ],
+      "sha256": "f9f0b371c020a80dd09acc902ac9ac83759ace12751f5452b7ac85cf687aa0d4",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 835739,
+      "data_row_count": 28955,
+      "file_name": "Polyurethane3-2.csv",
+      "sha256": "5cd8d75c738a61979baf0212fd9bcc64a474ee4bc502b7cb1eb6addcbd79086d",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 1919185,
+      "data_row_count": 34894,
+      "file_name": "Polyurethane4-1.csv",
+      "first_timestamps": [
+        "2022-08-08 09:20:39.045692",
+        "2022-08-08 17:20:39.045692"
+      ],
+      "last_timestamps": [
+        "2022-08-08 09:29:47.598890",
+        "2022-08-08 17:29:47.598890"
+      ],
+      "sha256": "230133428821f785a2eb8f4477b68ac82d5f23f4f3c9d54ba30f5f0debf08bca",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 1003896,
+      "data_row_count": 34894,
+      "file_name": "Polyurethane4-2.csv",
+      "sha256": "fbf062dc07f0322a6fc444acefa31fba2ff4b3c1478abd7ee788fb3f547598eb",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 867915,
+      "data_row_count": 15780,
+      "file_name": "Polyurethane5-1.csv",
+      "first_timestamps": [
+        "2022-08-08 10:24:03.894419",
+        "2022-08-08 18:24:03.894419"
+      ],
+      "last_timestamps": [
+        "2022-08-08 10:29:56.439857",
+        "2022-08-08 18:29:56.439857"
+      ],
+      "sha256": "9d31b0d92a056b0f3b6fd87ebc197195ab7ce734a758dcdbc96a39b2e49ecbcf",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 453819,
+      "data_row_count": 15780,
+      "file_name": "Polyurethane5-2.csv",
+      "sha256": "97db1146c47b40fcc305afd47aba169273982d36531bfe142104656d0f0c5921",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 40990,
+      "data_row_count": 745,
+      "file_name": "test1.csv",
+      "first_timestamps": [
+        "2022-08-02 02:05:17.762091",
+        "2022-08-02 10:05:17.762091"
+      ],
+      "last_timestamps": [
+        "2022-08-02 02:05:31.099845",
+        "2022-08-02 10:05:31.099845"
+      ],
+      "sha256": "6ecd16d9d0448607824b16c736f8971293425c8e91022e8e7d3be73ff675d2c4",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 16415,
+      "data_row_count": 629,
+      "file_name": "test2.csv",
+      "sha256": "3abb6074c35c785eee57a00b1ecc84635592f938176ac0cefa32dfd9502c60e1",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 9741271,
+      "data_row_count": 177114,
+      "file_name": "Wood1-1.csv",
+      "first_timestamps": [
+        "2022-08-10 01:51:10.433539",
+        "2022-08-10 09:51:10.433539"
+      ],
+      "last_timestamps": [
+        "2022-08-10 02:37:26.136043",
+        "2022-08-10 10:37:26.136043"
+      ],
+      "sha256": "26506346772b54197c0f40f8c9af5ff932932faed26a79ff7f1a0a895fc6ea75",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 4957961,
+      "data_row_count": 177114,
+      "file_name": "Wood1-2.csv",
+      "sha256": "562f646e1667e82b203369917375cd41808e3b0081c294395c518da728e55645",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 5834250,
+      "data_row_count": 106077,
+      "file_name": "Wood2-1.csv",
+      "first_timestamps": [
+        "2022-08-10 03:08:41.034369",
+        "2022-08-10 11:08:41.034369"
+      ],
+      "last_timestamps": [
+        "2022-08-10 03:36:14.362375",
+        "2022-08-10 11:36:14.362375"
+      ],
+      "sha256": "6b7952693340e383889dd3ab98744680c541ad38b2fa0814a7fb6d7c2038d34c",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 2952658,
+      "data_row_count": 106077,
+      "file_name": "Wood2-2.csv",
+      "sha256": "d63cd55ede93440744aa28c94443a37511abebb8340985e72ffcca37e2b7986a",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 7850000,
+      "data_row_count": 142727,
+      "file_name": "Wood3-1.csv",
+      "first_timestamps": [
+        "2022-08-10 05:59:39.300814",
+        "2022-08-10 13:59:39.300814"
+      ],
+      "last_timestamps": [
+        "2022-08-10 06:36:43.267688",
+        "2022-08-10 14:36:43.267688"
+      ],
+      "sha256": "b3dde37c457842b9137082af5c2e2456c27df02fc038293debc1074ab67b9bef",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 3953653,
+      "data_row_count": 142727,
+      "file_name": "Wood3-2.csv",
+      "sha256": "09af5fdf8dd5629ccb9a0a0e0e36cb194aaad09ca3f6028085811f98e5c8753c",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    },
+    {
+      "bytes": 5497210,
+      "data_row_count": 99949,
+      "file_name": "Wood4-1.csv",
+      "first_timestamps": [
+        "2022-08-10 07:04:52.138340",
+        "2022-08-10 15:04:52.138340"
+      ],
+      "last_timestamps": [
+        "2022-08-10 07:30:50.043087",
+        "2022-08-10 15:30:50.043087"
+      ],
+      "sha256": "37bfcc0bcf867b8991e85e65262356d88dc81eaacdf4e14d3a7c50bc4eee2e5c",
+      "timestamp_column_count": 2,
+      "timestamp_status": "PASS"
+    },
+    {
+      "bytes": 2779908,
+      "data_row_count": 99949,
+      "file_name": "Wood4-2.csv",
+      "sha256": "70e7b3b8e015e56fec5c4701d7c1594c91866cc0e4a6e04b3823be7581ef0273",
+      "timestamp_status": "NO_TIMESTAMP_COLUMNS"
+    }
+  ],
+  "schema_version": 1,
+  "source_root": "D:\\Drones\\Drone_Enhanced\\external_data\\extracted\\mmodalfire_v1\\原始数据\\Physical sensing",
+  "status": "PASS",
+  "timestamp_csv_count": 35
+}

@@ -1,0 +1,45 @@
+{
+  "claim_boundary": "Stationary ROS 2/DDS alert-verdict communication under the observed concurrent camera/inference load; the Sentinel Pixhawk was unpowered, so this is not complete-stack, flight, one-way-latency, or industrial-site evidence.",
+  "correlation_mismatch_count": 0,
+  "delivery_fraction": 1.0,
+  "delivery_fraction_wilson_95_ci": [
+    0.996173241514445,
+    1.0
+  ],
+  "derived_evidence": {
+    "samples_csv": "roundtrip_samples.csv",
+    "samples_csv_sha256": "41eb4def9b1d2aa9b28beb5bd1b112974340227258f4394b8837b2f2187e9a6e"
+  },
+  "experiment_id": "hardware-network-20260925",
+  "identity_matches": {
+    "event_prefix": true,
+    "experiment_id": true,
+    "trial_id": true
+  },
+  "missing_count": 0,
+  "network_condition": "SwarmNet laboratory network with concurrent live D435i/TensorRT Sentinel inference, live Scout camera/TFLite verification, asynchronous logging, resource sampling, and periodic domain-85 hierarchy traffic",
+  "one_way_latency_claim_permitted": false,
+  "raw_evidence": {
+    "initiator_path": "D:\\Drones\\recovery_images\\sentinel_sd_20260909\\hardware_evidence_20260928\\ros2_loaded_20260928\\sentinel\\ros2_loaded_20260928\\ros2-loaded-1000-20260928-r2\\sentinel_initiator.jsonl",
+    "initiator_sha256": "b0b66ea9bc31ff83ee9da944e14512cd70b059a0ae4767475236cb9a68680316",
+    "responder_path": "D:\\Drones\\recovery_images\\sentinel_sd_20260909\\hardware_evidence_20260928\\ros2_loaded_20260928\\scout\\ros2_loaded_20260928\\ros2-loaded-1000-20260928-r2\\scout_responder.jsonl",
+    "responder_sha256": "3ee08c4f6d420504684611be80da4bb71e7c94de3d50f7d5524d03bcb7f637ce"
+  },
+  "received_count": 1000,
+  "requested_count": 1000,
+  "responder_duplicate_count": 0,
+  "rtt_ms": {
+    "maximum": 44.011,
+    "mean": 4.897489049,
+    "median": 4.392897,
+    "minimum": 2.670796,
+    "n": 1000,
+    "p95": 7.983640899999998,
+    "population_standard_deviation": 2.166744423357306
+  },
+  "sample_unit": "one correlated HazardAlert-to-HazardVerdict round trip",
+  "schema_version": 1,
+  "status": "PASS",
+  "trial_id": "ros2-loaded-1000-20260928-r2",
+  "unexpected_event_count": 0
+}

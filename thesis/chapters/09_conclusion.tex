@@ -1,0 +1,187 @@
+\chapter{Conclusions and Future Work}
+\label{ch:conclusion}
+
+This thesis investigated whether a tiered edge architecture can divide
+visual hazard-detection responsibilities between two heterogeneous,
+resource-constrained drone platforms. The Sentinel was assigned initial hazard
+detection, temporal filtering and target designation; the Scout was assigned
+secondary visual hazard verification. The work combined dataset curation,
+six-model screening, deployment conversion, device-specific integration,
+ROS~2/DDS communication, stationary two-node trials and development
+simulation. The evidence supports a functioning division of responsibilities,
+but only within the completed offline, stationary and simulated conditions.
+
+\section{Contributions and principal findings}
+\label{sec:conclusion:1}
+
+The first contribution is an explicit tiered edge architecture whose
+roles, messages and decision states are traceable. A Sentinel alert carries a
+unique event identity and image-space context; a Scout verdict returns the
+corresponding identity, outcome and score; and the Sentinel records the final
+decision. This interface converts two detector executions into a correlated
+workflow and makes confirmation, rejection, timeout and degraded behaviour
+observable. The contribution is architectural and implementation-oriented: it
+does not by itself prove that a two-stage system is more accurate or reliable
+than a single detector.
+
+The second contribution is an evidence-controlled model-development process.
+The curated fire-only study froze source-family-aware splits, screened six
+configurations, selected operating points from validation data and reserved the
+test split for one-time evaluation. YOLOv8n-416 led the validation comparison
+with AP50--95 of 0.236 and F1 of 0.612, while EfficientDet led the one-time test
+comparison with AP50--95 of 0.168 and F1 of 0.442. The reversal, overlapping
+grouped-bootstrap intervals and single training seed preclude a universal
+ranking. Conversion fidelity added another selection constraint: both
+416-pixel YOLO exports passed the frozen match-rate gate, whereas the two
+640-pixel YOLO exports and the SSD export did not. Predictive ranking, runtime
+availability and deployment fidelity must therefore be evaluated separately.
+
+The third contribution is the integration and profiling of the historical
+deployed pair. The final Sentinel TensorRT path used a 640-pixel engine and
+averaged 58.151~ms in the retained camera-free 100-iteration benchmark. The
+Scout TFLite path averaged 999.431~ms under its corresponding protocol. These
+measurements establish executable platform-specific paths, not a controlled
+model or hardware comparison. The older 416-pixel Sentinel benchmark remains a
+separate historical result and is not attributed to the final deployment.
+Decoder profiling further showed that software around the neural network can
+dominate end-to-end cost: vectorization reduced the historical Sentinel
+complete-pipeline mean from 204.324 to 57.049~ms, while the Scout remained
+inference-bound.
+
+This deployed decision path was onboard in the computational sense: each
+vehicle acquired and processed its own camera stream, and the Sentinel hosted
+coordination and final-decision handling. The laboratory laptop supported
+configuration, observation and evidence retrieval but was not required for
+inference. This property strengthens the edge-computing contribution without
+changing the experimental boundary: the accepted physical trials remained
+stationary, and aerial mission execution remained simulated.
+
+The fourth contribution is a bounded stationary demonstration of secondary
+verification. The Scout confirmed 13 of 13 correlated requests in a marked
+stronger-flame interval, confirmed one of ten in a smaller unstable-flame
+interval and rejected six of six forced unlit requests. Mean
+alert-to-final-decision time was approximately 1.44--1.46~s in the accepted
+positive conditions, with Scout inference accounting for most of the delay.
+These are condition-specific observations, not estimates of industrial
+accuracy. The forced unlit requests bypassed Sentinel detection, and the logs
+did not retain the complete pre-filter candidate sequence needed to measure the
+effect of the temporal filter.
+
+The fifth contribution is a documented coordination and simulation boundary.
+Two 300-event ROS~2/DDS campaigns returned all application-level replies, with
+median round-trip times of 5.878 and 5.257~ms; the earlier campaign also
+retained a 400.453~ms tail. A separate 1,000-event campaign under concurrent
+live inference load delivered every reply with 7.984~ms p95 RTT. Four
+five-repetition hardware fault cases demonstrated fail-closed camera-interface,
+stale-stream and unavailable-Scout paths plus idempotent rejection of ten
+post-timeout verdicts. Development simulation completed two nominal and four
+selected-fault pilots and exposed a mission-state defect that was corrected and
+rerun. One later hash-linked visual run completed the confirmed-hazard sequence
+from patrol through Scout dispatch, verification, alarm publication and landing
+with distinct Sentinel and Scout proxies. Its final continuous delivery was
+reviewed and accepted for thesis and defence presentation, while the synchronized
+logs remained authoritative for event timing. These bounded cases do not provide
+a general reliability estimate, and the incomplete formal campaign does not
+support a claim of physical mission correctness.
+
+\section{Assessment of the central hypothesis}
+\label{sec:conclusion:2}
+
+The central hypothesis is supported to a limited and conditional degree. The
+tested heterogeneous edge nodes can execute different perception roles, exchange
+correlated events and produce both confirmations and rejections in a stationary
+two-node workflow. The results also demonstrate that the division has a
+measurable cost: secondary verification adds roughly a second of Scout
+inference and increases final-decision latency. Typical communication time was
+small relative to that inference cost under the retained laboratory network,
+although the observed tail prevents a general low-latency guarantee.
+
+The evidence does not establish four stronger interpretations of the
+hypothesis. First, the complete stationary service configuration survived a
+registered 30-minute run with both perception paths, communication, logging and
+flight services active, but it did not satisfy every criterion: the Scout p95
+alert-to-verdict time was 2.618~s and Sentinel swap increased by 0.922~MiB.
+This supports bounded coexistence, not unlimited or airborne sustainability.
+Second, no
+common-sequence ablation measured whether the temporal filter and Scout stage
+reduce false alerts while retaining labelled hazards. Third, the simulation
+pilots and stationary physical trials do not demonstrate autonomous
+two-vehicle flight, geographic localization or industrial-site operation.
+Fourth, transfer performance was not evaluated because neither external data
+source reached a frozen eligible inference manifest.
+
+The answer to the research problem is consequently narrower than the intended
+application. The project establishes a traceable prototype and a reproducible
+evaluation framework for heterogeneous role division. It does not establish a
+validated industrial hazard-response system. In particular, the final physical
+evidence concerns visible flame appearance in RGB imagery; physical smoke,
+heat, gas and particulate sensing were not evaluated.
+
+\section{Prioritized future work}
+\label{sec:conclusion:3}
+
+Future work should first close the evidence gaps that prevent answers to the
+existing research questions. Architectural extensions should follow only after
+the current prototype has passed those checks.
+
+\subsection{Complete the registered validation programme}
+
+The first priority is the strengthened candidate-by-device screen. Each model
+admitted to a device must first pass the frozen conversion-fidelity gate, then
+complete the registered warm-up and measured iterations with artifact,
+configuration and runtime hashes. The completed 30-minute full-service study
+should then be repeated across controlled ambient and power conditions, adding
+calibrated power measurement and a sustained tiered-workflow load. One-second
+resource records should cover memory, temperature, CPU/GPU load, power, dropped
+frames, queue depth and service failures. These tests are required to answer
+RQ1 fully and to strengthen the conditional answer to RQ2.
+
+The second priority is a common-stimulus stage ablation. A frozen labelled
+sequence should be replayed through single-frame Sentinel detection, the
+three-consecutive-frame temporal filter and Scout verification. The analysis
+should report event retention, false-alert burden, false-negative burden and
+decision latency at every stage, with the experimental unit and uncertainty
+method defined in advance. This directly answers the unresolved part of RQ3
+without inferring filter performance from incomplete live logs.
+
+The third priority is to complete the registered simulation campaign using
+frozen airframe parameters, scenario seeds, mission timeouts and pass/fail
+rules. Failures and retries must remain in the retained denominator. After the
+software and simulation gates pass, physical work should proceed in stages:
+bench integration with both flight controllers, restrained or propeller-free
+tests, controlled single-vehicle flight and finally supervised two-vehicle
+missions under approved safety procedures. This sequence is necessary before
+RQ4 can extend beyond development simulation.
+
+The fourth priority is external evaluation. FASDD-UAV requires acquisition,
+licence and provenance checks. MmodalFire requires closure of timestamp,
+event-label, overlap and eligibility gates. Only a frozen eligible manifest
+should enter inference. Results should be reported per source domain and target
+scale, with overlap exclusions and unavailable conditions visible, so that RQ5
+measures transfer rather than hidden data relatedness.
+
+\subsection{Improve perception, localization and operational readiness}
+
+After the validation programme, perception should expand beyond a second RGB
+fire detector. Calibrated thermal, particulate or gas sensing would supply a
+measurement with a different physical basis and reduce dependence on correlated
+visual errors. New data collection should cover smoke, larger standoff
+distances, small targets, glare, clouds, occlusion, motion blur and industrial
+backgrounds. Repeated frozen seeds and independent evaluation sources would
+separate model-selection effects from training and split variability.
+
+The current target designation must also be converted from image-space metadata
+to a shared spatial estimate. This requires camera calibration, vehicle pose,
+time synchronization, frame transforms, uncertainty propagation and a validated
+safe-standoff planner. The Scout should use the resulting region or world
+estimate for directed observation rather than full-frame inference alone.
+
+Operational readiness additionally requires hazard-specific alarm deadlines,
+human oversight, fail-safe policies, persistent artifact staging, radio
+planning, data governance, environmental qualification and compliance with
+applicable aviation and site procedures. These are requirements for future
+evaluation, not properties of the current implementation.
+
+\reviewstatus{No new result is introduced. RQ2 has a bounded answer and RQ5 was not evaluated;
+physical smoke verification, geographic localization, autonomous industrial
+flight and universal reliability remain outside the evidence.}

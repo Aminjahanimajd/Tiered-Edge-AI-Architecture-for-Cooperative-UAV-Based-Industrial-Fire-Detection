@@ -1,0 +1,12 @@
+{
+  "decision": "CONFIRMED",
+  "event": "INDUSTRIAL_ALARM_ACTION_EMITTED",
+  "event_id": "scenario-fire-tank-a",
+  "evidence_boundary": "scenario-defined simulated verdict; no Gazebo camera detector or physical alarm actuator",
+  "interface": "drone_enhanced_interfaces/msg/HazardDecision",
+  "monotonic_ns": 29371535626367,
+  "phase": "VERIFYING",
+  "simulator_time_ns": 1790782470250885000,
+  "topic": "/swarm/hazard_decision",
+  "utc": "2026-09-30T15:34:30.269497+00:00"
+}

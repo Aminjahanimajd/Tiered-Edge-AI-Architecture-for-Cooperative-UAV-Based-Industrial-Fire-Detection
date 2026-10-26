@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "status": "preregistered_not_executed",
+  "experiment_id": "full-service-20260929",
+  "planned_trial_id": "fullstack-20260929-r1",
+  "device_runner_duration_seconds": 1920,
+  "measured_overlap_duration_seconds": 1800,
+  "hierarchy_probe_duration_seconds": 1800,
+  "resource_sampling_interval_seconds": 1,
+  "safety": {
+    "stationary": true,
+    "propellers_removed": true,
+    "physical_flight": false,
+    "enable_flight_commands": false,
+    "command_publisher_allowed": false
+  },
+  "sentinel": {
+    "workspace": "/home/unime-nano/deployments/drone_enhanced_2a0b4dd_20260924",
+    "runner": "tools/run_sentinel_full_service_endurance.sh",
+    "runner_sha256": "c756c84fb373d3503ca1b419966dbb9f6487554269d0d72e1a86deb25f243bb5",
+    "model": "/home/unime-nano/ros2_ws/sentinel_v1.engine",
+    "model_sha256": "16f9018ac299c6f525610a877d798392ec26d53fccb84b589ff6533d76589bf2",
+    "camera_device": "/dev/video2",
+    "camera_stream_service_required_state": "inactive",
+    "mavproxy_service_required_state": "active"
+  },
+  "scout": {
+    "workspace": "/home/root/deployments/drone_enhanced_scout_20260925_r2",
+    "runner": "tools/run_scout_full_service_endurance.sh",
+    "runner_sha256": "bcb27da4818df9372a47137d407d54296033c65c4bd96e6c2206a530cae2eb46",
+    "node_runner": "tools/run_scout_rebuild_validation.sh",
+    "node_runner_sha256": "62adae0bd8d28cb75dbab9f40c542b0d9f95e8d7a8c7990afc9a7ce8bce40145",
+    "model": "/home/root/colcon_ws/best.tflite",
+    "camera_topic": "/tracking",
+    "interpreter_threads": 1
+  },
+  "hierarchy_probe": {
+    "runner": "tools/run_live_scout_endurance_probe_sentinel.sh",
+    "runner_sha256": "b242521b43322dbaa91240e0cb7c74144ed55f55ea3419d6ac56aaa74e6f6eaa",
+    "interval_seconds": 5,
+    "verdict_timeout_seconds": 3,
+    "ros_domain_id": 85
+  },
+  "acceptance_criteria": {
+    "crash_oom_or_silent_stop_count": 0,
+    "growing_swap_allowed": false,
+    "sustained_thermal_throttling_allowed": false,
+    "maximum_dropped_input_frame_fraction": 0.01,
+    "minimum_jetson_mem_available_mib": 512,
+    "maximum_sentinel_p95_pipeline_latency_ms": 200,
+    "maximum_scout_p95_verification_latency_ms": 2000
+  },
+  "interpretation_boundary": "Stationary complete-stack coexistence evidence only; not physical-flight, localization, power-consumption, or industrial-site validation. Every unmet criterion is retained as a measured constraint."
+}

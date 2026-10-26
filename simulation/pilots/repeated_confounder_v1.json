@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "pilot": "repeated_confounder",
+  "status": "NOT_RUN",
+  "required_acceptance": "A rejected dual-PX4 mission logs six passing rejection-memory policy probes, then both vehicles land and disarm without identity cross-talk.",
+  "claim_boundary": "The policy probes do not represent six additional Scout flights."
+}

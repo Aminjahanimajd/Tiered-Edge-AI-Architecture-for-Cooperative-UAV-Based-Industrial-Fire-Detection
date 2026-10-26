@@ -1,0 +1,141 @@
+1
+00:00:00,000 --> 00:00:50,729
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+SIMULATION INITIALIZATION
+Scenario truth; not camera-detector or physical-flight evidence
+
+2
+00:00:50,729 --> 00:01:00,830
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+PRE-FLIGHT: dual PX4 SITL mission initialized
+Scenario truth; not camera-detector or physical-flight evidence
+
+3
+00:01:00,830 --> 00:01:02,830
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION PHASE: SENTINEL_PRIME
+both vehicle identities verified
+Scenario truth; not camera-detector or physical-flight evidence
+
+4
+00:01:02,830 --> 00:01:25,931
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION PHASE: SENTINEL_TAKEOFF
+20 setpoints primed
+Scenario truth; not camera-detector or physical-flight evidence
+
+5
+00:01:25,931 --> 00:02:26,730
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION PHASE: SENTINEL_PATROL
+takeoff altitude reached
+Scenario truth; not camera-detector or physical-flight evidence
+
+6
+00:02:26,730 --> 00:02:26,830
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+SCENARIO-DEFINED LOW-CONFIDENCE FIRE CANDIDATE
+Sentinel alert and target tracking start
+Scenario truth; not camera-detector or physical-flight evidence
+
+7
+00:02:26,731 --> 00:02:26,831
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+SENTINEL TRACKING (SCENARIO TRUTH)
+Scout dispatch in progress
+Scenario truth; not camera-detector or physical-flight evidence
+
+8
+00:02:26,731 --> 00:02:26,831
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION PHASE: SUSPECT_HOLD
+scenario-defined hazard trigger accepted
+Scenario truth; not camera-detector or physical-flight evidence
+
+9
+00:02:26,830 --> 00:02:28,832
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION PHASE: SCOUT_PRIME
+Sentinel holding; Scout dispatch starts
+Scenario truth; not camera-detector or physical-flight evidence
+
+10
+00:02:28,832 --> 00:02:52,632
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION PHASE: SCOUT_TAKEOFF
+20 Scout setpoints primed
+Scenario truth; not camera-detector or physical-flight evidence
+
+11
+00:02:52,632 --> 00:03:03,332
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION PHASE: SCOUT_TRANSIT
+Scout takeoff complete
+Scenario truth; not camera-detector or physical-flight evidence
+
+12
+00:03:03,332 --> 00:03:03,432
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+SCOUT REACHED SAFE STANDOFF
+Target acquisition uses scenario truth
+Scenario truth; not camera-detector or physical-flight evidence
+
+13
+00:03:03,332 --> 00:03:03,432
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+SCOUT HAS ACQUIRED TARGET
+Sentinel resumes independent patrol
+Scenario truth; not camera-detector or physical-flight evidence
+
+14
+00:03:03,333 --> 00:03:06,431
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION PHASE: VERIFYING
+Scout acquired target; Sentinel resumed independent patrol
+Scenario truth; not camera-detector or physical-flight evidence
+
+15
+00:03:06,431 --> 00:03:06,531
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+SCOUT VERDICT: CONFIRMED (SCENARIO-DEFINED)
+Scenario truth; not camera-detector or physical-flight evidence
+
+16
+00:03:06,431 --> 00:03:06,531
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+CONFIRMED: HazardDecision published to alarm interface
+Scenario truth; not camera-detector or physical-flight evidence
+
+17
+00:03:06,431 --> 00:03:10,931
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION PHASE: CONFIRMED_HOLD
+Scout confirmed hazard
+Scenario truth; not camera-detector or physical-flight evidence
+
+18
+00:03:10,931 --> 00:03:22,529
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION PHASE: RTL_TRANSIT
+bounded confirmed-hazard hold complete
+Scenario truth; not camera-detector or physical-flight evidence
+
+19
+00:03:22,529 --> 00:03:25,632
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION PHASE: RTL_HOLD
+all active vehicles reached RTL points
+Scenario truth; not camera-detector or physical-flight evidence
+
+20
+00:03:25,632 --> 00:04:06,531
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION PHASE: LANDING
+bounded home-position stabilization complete
+Scenario truth; not camera-detector or physical-flight evidence
+
+21
+00:04:06,531 --> 00:04:10,028
+PX4/Gazebo SITL - PROVISIONAL AIRFRAME PROXIES
+MISSION COMPLETE: both vehicles landed and disarmed
+Scenario truth; not camera-detector or physical-flight evidence

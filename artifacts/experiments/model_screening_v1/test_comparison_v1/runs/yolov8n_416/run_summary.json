@@ -1,0 +1,33 @@
+{
+  "access_class": "NO LAB",
+  "annotations_sha256": "651e2782db96cbbdf2ba718494f7b57447f96aea6d7719fac350132f1b72a06d",
+  "checkpoint": {
+    "bytes": 6218538,
+    "path": "D:\\Drones\\Drone_Enhanced\\artifacts\\experiments\\model_screening_v1\\yolov8n_416_screen_seed_20260729\\weights\\best.pt",
+    "sha256": "854482d0fbd320e51575f0141a479e517d721ff6cd512d12c60d0acf30a35ff3"
+  },
+  "elapsed_seconds": 60.60999999998603,
+  "ended_utc": "2026-08-09T10:37:04.199665+00:00",
+  "framework": "Ultralytics YOLO",
+  "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+  "latency_sha256": "e8d72e72e1defe45c93a0b33763533d501048613e13bca25bd673083c21ab53d",
+  "model_id": "yolov8n_416",
+  "parameter_count": 3011043,
+  "parameters": {
+    "batch": 1,
+    "device": "0",
+    "image_count": 733,
+    "input_size": 416,
+    "iou_nms": 0.7,
+    "score_floor": 0.001,
+    "warmup_iterations": 10
+  },
+  "prediction_count": 8199,
+  "predictions_sha256": "58fbf9ce1242e2adec9e4951b5868a010eba5aad98160d74bf608b39b9145376",
+  "python": "3.12.13",
+  "schema_version": 1,
+  "started_utc": "2026-08-09T10:36:03.392750+00:00",
+  "status": "completed",
+  "torch": "2.12.0+cu130",
+  "ultralytics": "8.4.45"
+}

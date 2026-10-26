@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "capture_date": "2026-07-30",
+  "environment_id": "wsl_effdet_lite0_py39_v1",
+  "runtime_location": "/home/sefroyek/.venvs/drone_enhanced_effdet_py39",
+  "python": "3.9.25",
+  "tensorflow": "2.8.1",
+  "tflite_model_maker": "0.4.3",
+  "tensorflow_addons": "0.16.1",
+  "cuda_runtime": "11.8.89",
+  "cudnn": "8.9.6.50",
+  "setuptools": "80.9.0",
+  "package_lock": "config/model_training_effdet_wsl_py39.lock.txt",
+  "package_lock_sha256": "e2c19031373b8dd7b7190604d26f54c4d074c37f09a09eca6891b8ed82f2d5fe",
+  "model_spec": "efficientdet-lite0",
+  "input_size": [320, 320],
+  "cuda_kernel_gate": "passed on NVIDIA GeForce RTX 3050 Laptop GPU",
+  "background_record_gate": "passed with 8 of 8 zero-positive samples in the recorded probe batch",
+  "compatibility_layer": "tools/effdet_background_compat.py",
+  "limitations": [
+    "Python 3.9 is end-of-life but is required by this legacy official toolchain.",
+    "The compatibility layer replaces an empty-unsafe gather with an equivalent guarded mask; it does not alter annotations.",
+    "The existing duplicate user.default warning in /etc/wsl.conf was observed but not modified.",
+    "pycocotools 2.0.11 was added after the first completed FP32 sanity epoch reached COCO evaluation and exposed the missing evaluator dependency."
+  ]
+}

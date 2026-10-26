@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "adjudication_date": "2026-07-29",
+  "reviewer_role": "principal engineer",
+  "review_decisions_csv_sha256": "08b787c8c5bb57434c04b01a5e4523a9f80d71807087c72c233812d177ad4ae1",
+  "adjudication_render_manifest_sha256": "1c5a6caef652f42e3182879d8cfe30041eeafa95ad9bfa26006a5e494fdac792",
+  "queue_row_numbering": "one-based queue_index from annotation_review_decisions.csv",
+  "exclude_record_indices": "6,8,52-54,58",
+  "keep_box_indices_by_queue_index": {
+    "16": "2",
+    "18": "1",
+    "35": "1",
+    "38": "1",
+    "43": "1-2",
+    "51": "2",
+    "55": "1-2",
+    "56": "1,5-6",
+    "57": "1,5-6"
+  },
+  "rationale": {
+    "exclude_record": "no clearly localized visible fire is covered at full source resolution; exclusion is safer than relabelling ambiguous video frames as background",
+    "filter_boxes": "retain boxes covering visible flame while removing smoke-only regions, broadcast graphics, vehicle lights, boundary artifacts, and redundant ambiguous fragments"
+  },
+  "interpretation": [
+    "All actions create a new derived manifest and leave original images, labels, and version-5 records unchanged.",
+    "Legitimate fire-free hard negatives remain in the dataset; only erroneous or ambiguous positive annotations are removed.",
+    "The adjudication is single-reviewer and the stratified queue is not a prevalence sample."
+  ]
+}

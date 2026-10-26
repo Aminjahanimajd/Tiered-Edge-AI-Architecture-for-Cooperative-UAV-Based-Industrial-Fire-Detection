@@ -1,0 +1,78 @@
+\ProvidesPackage{packages}[2026/08/04 Bachelor thesis packages]
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathpazo}
+\usepackage[scaled=.95]{helvet}
+\usepackage{courier}
+\usepackage{amsmath,amssymb,mathtools}
+\numberwithin{equation}{section}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{setspace}
+\usepackage[a4paper,top=3cm,bottom=2.5cm,left=2cm,right=2cm,bindingoffset=15mm]{geometry}
+\usepackage{chngpage}
+\usepackage[font=small,format=hang,labelfont={sf,bf}]{caption}
+\captionsetup[table]{position=top}
+\usepackage{subfig}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,fit,shapes.geometric}
+\usepackage[Sonny]{fncychap}
+\usepackage{fancyhdr}
+\usepackage{csquotes}
+\usepackage{xurl}
+\usepackage[colorlinks=true,allcolors=black]{hyperref}
+\usepackage[backend=biber,style=ieee,sorting=none]{biblatex}
+\renewcommand*{\bibfont}{\small}
+\addbibresource{bibliography.bib}
+
+\graphicspath{{frontmatter/figure/},{figures/},{generated/}}
+\hypersetup{
+  pdftitle={Tiered Edge AI Architecture for Cooperative UAV-Based Industrial Fire Detection},
+  pdfsubject={Bachelor's thesis, University of Messina},
+  pdfauthor={Mohammadamin Jahanimajd},
+  pdfkeywords={edge AI, cooperative UAVs, hierarchical architecture, fire detection, ROS 2, Jetson Nano, VOXL 2}
+}
+
+\definecolor{codegreen}{rgb}{0,0.45,0}
+\definecolor{codegray}{rgb}{0.45,0.45,0.45}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+\lstdefinestyle{thesiscode}{
+  backgroundcolor=\color{backcolour},
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{blue},
+  numberstyle=\tiny\color{codegray},
+  basicstyle=\ttfamily\footnotesize,
+  frame=single,
+  breaklines=true,
+  numbers=left,
+  showstringspaces=false,
+  tabsize=2
+}
+\lstset{style=thesiscode}
+
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{14.5pt}
+\fancyhead[R]{\thepage}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0.4pt}
+\frenchspacing
+\setstretch{1.12}
+\setlength{\emergencystretch}{3em}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+\newcommand{\placeholder}[1]{\textcolor{red}{[#1]}}

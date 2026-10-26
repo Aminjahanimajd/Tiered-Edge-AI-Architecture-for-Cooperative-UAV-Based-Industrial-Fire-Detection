@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "measurement_date": null,
+  "measurement_status": "AWAITING_LAB_2026-08-24",
+  "units": {
+    "mass": "kg",
+    "length": "m",
+    "angle": "deg"
+  },
+  "sentinel": {
+    "physical_platform": "Holybro X500 V2",
+    "simulation_model": "x500_v2_sentinel_proxy",
+    "mass_with_test_battery_kg": null,
+    "rotor_diagonal_m": null,
+    "body_length_m": null,
+    "body_width_m": null,
+    "body_height_m": null,
+    "camera_translation_body_frd_m": [null, null, null],
+    "camera_rotation_body_frd_deg": [null, null, null],
+    "camera_model": "Intel RealSense D435i",
+    "flight_controller_airframe_id": null,
+    "evidence_photo_ids": []
+  },
+  "scout": {
+    "physical_platform": "ModalAI PX4 Development Kit/Starling-class",
+    "simulation_model": "modalai_devkit_scout_proxy",
+    "mass_with_test_battery_kg": null,
+    "rotor_diagonal_m": null,
+    "body_length_m": null,
+    "body_width_m": null,
+    "body_height_m": null,
+    "camera_translation_body_frd_m": [null, null, null],
+    "camera_rotation_body_frd_deg": [null, null, null],
+    "camera_model": "ModalAI onboard high-resolution camera",
+    "flight_controller_airframe_id": null,
+    "evidence_photo_ids": []
+  },
+  "formal_model_generation_allowed": false,
+  "formal_asset_status": "NOT_GENERATED"
+}

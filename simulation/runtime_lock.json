@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "host_os": "Ubuntu 24.04",
+  "px4_repository": "https://github.com/PX4/PX4-Autopilot.git",
+  "px4_ref": "v1.17.0",
+  "px4_runtime_path": "/home/sefroyek/drone_enhanced_sim/PX4-Autopilot-v1.17.0",
+  "px4_commit": "d6f12ad1c4f70ad3230afd7d86e971421e02fef4",
+  "px4_sitl_binary_sha256": "a04edce74bd8472df0c021f18ceb1c3b46d8c78bde1b08ef3d5eb2b60755daa6",
+  "px4_sitl_build_status": "BUILT_AND_HASHED",
+  "gazebo_major": 8,
+  "gazebo_observed_version": "8.11.0",
+  "ros_distribution": "jazzy",
+  "ros2_runtime_status": "ISOLATED_JAZZY_CONTAINER_BUILT_AND_DUAL_PX4_TELEMETRY_PROBED_2026-08-11",
+  "existing_dirty_px4_tree_must_remain_unchanged": "/home/sefroyek/PX4-Autopilot",
+  "formal_runs_require_clean_runtime": true
+}

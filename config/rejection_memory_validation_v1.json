@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "manifest_id": "rejection_memory_validation_v1",
+  "time_unit": "seconds",
+  "coordinate_frame": "scenario_local_ENU",
+  "baseline_rejection": {
+    "event_id": "rejected-base",
+    "target_id": "pipe-reflection-a",
+    "east_m": 10.0,
+    "north_m": 4.0,
+    "up_m": 0.0,
+    "confidence": 0.60,
+    "time_s": 0.0
+  },
+  "candidate_ttl_s": [0, 15, 30, 60],
+  "candidate_radius_m": [0.5, 1.0, 1.5, 2.0],
+  "override_consecutive_frames": 6,
+  "override_confidence_increase": 0.20,
+  "maximum_new_hazard_delay_s": 5.0,
+  "repeated_confounder_observations": [
+    {"time_s": 3.0, "east_m": 10.10, "north_m": 4.00, "confidence": 0.64, "consecutive_frames": 3},
+    {"time_s": 8.0, "east_m": 9.75, "north_m": 4.10, "confidence": 0.67, "consecutive_frames": 3},
+    {"time_s": 14.0, "east_m": 10.35, "north_m": 3.85, "confidence": 0.69, "consecutive_frames": 3}
+  ],
+  "safety_observations": [
+    {
+      "case": "new_target_same_location",
+      "time_s": 3.0,
+      "target_id": "new-fire-a",
+      "east_m": 10.0,
+      "north_m": 4.0,
+      "confidence": 0.70,
+      "consecutive_frames": 3,
+      "must_dispatch": true
+    },
+    {
+      "case": "persistent_override",
+      "time_s": 4.0,
+      "target_id": "pipe-reflection-a",
+      "east_m": 10.1,
+      "north_m": 4.0,
+      "confidence": 0.65,
+      "consecutive_frames": 6,
+      "must_dispatch": true
+    }
+  ],
+  "selection_rule": "Among settings that suppress all preregistered repeated-confounder observations and immediately dispatch every safety observation, select minimum radius then minimum TTL."
+}

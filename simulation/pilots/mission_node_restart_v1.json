@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "pilot": "mission_node_restart",
+  "status": "NOT_RUN",
+  "required_acceptance": "The first coordinator process exits at VERIFYING with RESTART_REQUIRED; a distinct replacement process reacquires both PX4 identities without arming either vehicle, commands safe RTL/landing, and finishes with both typed states LANDED.",
+  "claim_boundary": "This is simulator process-recovery evidence, not physical flight-controller certification."
+}

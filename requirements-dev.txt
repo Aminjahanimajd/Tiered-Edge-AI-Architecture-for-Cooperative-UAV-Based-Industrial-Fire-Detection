@@ -1,0 +1,5 @@
+# Host tests only. These versions were exercised for the public release.
+pytest==8.4.2
+numpy==2.5.4
+Pillow==13.0.0
+PyYAML==6.0.3

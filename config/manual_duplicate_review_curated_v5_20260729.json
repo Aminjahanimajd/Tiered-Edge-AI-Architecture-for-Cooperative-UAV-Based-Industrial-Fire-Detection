@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-07-29",
+  "reviewer_role": "principal engineer",
+  "queue_csv_sha256": "54f2f87b7b81792a61db9b21fad2a02e1dd4095d4d842dd710f70384226ced45",
+  "queue_row_numbering": "one-based data-row order, excluding the CSV header",
+  "viewing_method": "nine generated side-by-side contact sheets; 102 pairs inherited from the immediately preceding reviewed queue by canonical record-pair identity and six newly admitted pairs inspected on pages 7-8",
+  "classifications": {
+    "not_visibly_same_scene_at_contact_sheet_resolution": "1-108"
+  },
+  "interpretation": [
+    "No queued pair in the stabilized split was judged to show the same scene or capture sequence.",
+    "All queued background/fire pairs were visually distinct.",
+    "The enriched queue is not a prevalence sample and does not prove independence for every unreviewed candidate."
+  ]
+}

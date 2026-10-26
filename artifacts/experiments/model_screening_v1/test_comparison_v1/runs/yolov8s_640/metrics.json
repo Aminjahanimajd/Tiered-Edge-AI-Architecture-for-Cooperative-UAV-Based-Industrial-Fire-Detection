@@ -1,0 +1,85 @@
+{
+  "access_class": "NO LAB",
+  "coco": {
+    "ap_50": 0.3593780480870723,
+    "ap_50_95": 0.13277798133052204,
+    "ap_75": 0.056488498318189286,
+    "ap_large": 0.11447382923117033,
+    "ap_medium": 0.1971604459039853,
+    "ap_small": 0.01103253182461103,
+    "ar_1": 0.17415506958250498,
+    "ar_10": 0.3570576540755467,
+    "ar_100": 0.4606361829025844,
+    "ar_large": 0.46724137931034476,
+    "ar_medium": 0.4526315789473684,
+    "ar_small": 0.075
+  },
+  "created_utc": "2026-08-09T10:40:14.130074+00:00",
+  "evaluator_sha256": "8afc3b528ba55f43392e4e1028509598a13a03bedf36ad115522287d977f7095",
+  "ground_truth_box_count": 503,
+  "ground_truth_sha256": "651e2782db96cbbdf2ba718494f7b57447f96aea6d7719fac350132f1b72a06d",
+  "image_count": 733,
+  "limitations": [
+    "One controlled training seed is available.",
+    "Confidence-threshold metrics are object-level greedy matches at IoU 0.50.",
+    "COCO AP is the primary threshold-independent predictive metric.",
+    "Relative-size recall bins are descriptive strata defined before test evaluation; they do not establish performance on lighter-sized flames."
+  ],
+  "model_id": "yolov8s_640",
+  "prediction_count_at_floor": 27175,
+  "predictions_sha256": "46f1f8078355ac46a2e02afc8b2772bf51298545031a77aabb3c65b41655c5cf",
+  "schema_version": 1,
+  "selection_data": "validation only",
+  "split": "test",
+  "thresholded_iou50": {
+    "background_false_positive_image_rate": 0.03430079155672823,
+    "background_images": 379,
+    "background_images_with_prediction": 13,
+    "f1": 0.40942928039702237,
+    "fn": 338,
+    "fp": 138,
+    "ground_truth_recall_by_relative_box_area": {
+      "large_ge_20pct": {
+        "area_fraction_interval": [
+          0.2,
+          null
+        ],
+        "ground_truth_boxes": 89,
+        "matched_boxes": 22,
+        "recall": 0.24719101123595505
+      },
+      "medium_5_to_lt_20pct": {
+        "area_fraction_interval": [
+          0.05,
+          0.2
+        ],
+        "ground_truth_boxes": 144,
+        "matched_boxes": 31,
+        "recall": 0.2152777777777778
+      },
+      "small_1_to_lt_5pct": {
+        "area_fraction_interval": [
+          0.01,
+          0.05
+        ],
+        "ground_truth_boxes": 216,
+        "matched_boxes": 91,
+        "recall": 0.4212962962962963
+      },
+      "very_small_lt_1pct": {
+        "area_fraction_interval": [
+          0.0,
+          0.01
+        ],
+        "ground_truth_boxes": 54,
+        "matched_boxes": 21,
+        "recall": 0.3888888888888889
+      }
+    },
+    "iou_threshold": 0.5,
+    "precision": 0.5445544554455446,
+    "recall": 0.32803180914512925,
+    "threshold": 0.22,
+    "tp": 165
+  }
+}

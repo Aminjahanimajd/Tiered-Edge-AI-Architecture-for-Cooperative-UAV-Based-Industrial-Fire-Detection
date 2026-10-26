@@ -1,0 +1,298 @@
+\chapter{Reproducibility Configuration and Interfaces}
+\label{app:reproducibility}
+
+This appendix identifies the repository contracts required to reproduce the
+accepted analyses. It is an index to the preserved source and evidence rather
+than a replacement for the raw bundles. Repository-relative paths are given so
+that a result can be traced without copying large logs or model artifacts into
+the manuscript. Every rerun should use a new output directory and must not
+overwrite the source evidence.
+
+\section{Evidence and configuration hierarchy}
+
+The reproduction hierarchy has four layers. Raw device, training and simulator
+outputs are the primary observations. Machine-readable manifests bind those
+outputs to file identities and hashes. Analysis scripts derive tables and
+figures from the manifests. The thesis reports the accepted values and their
+interpretation boundaries. When these layers disagree, the raw artifact and
+its contemporaneous manifest take precedence over prose summaries.
+
+\begin{table}[H]
+  \centering
+  \caption{Principal frozen contracts used by the integrated thesis.}
+  \label{tab:appendix-contracts}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.30\textwidth}p{0.23\textwidth}X@{}}
+    \toprule
+    Repository-relative path & Role & Status represented in this thesis \\
+    \midrule
+    \path{manifests/fire_only_curated_v7.freeze.json} & Dataset identity,
+    counts and audit hashes & Frozen fire-only source-family split used for the
+    final six-model study. \\
+    \path{config/six_model_validation_v1.json} & Common validation contract &
+    Frozen 700-image validation evaluation and threshold-selection rule. \\
+    \path{config/model_deployment_registry_v1.json} & Native model registry &
+    Six screened native artifacts; the strengthened platform matrix was not
+    executed. \\
+    \path{config/exact_device_screening_v1.json} & Device-screen protocol &
+    Registered 20-warm-up/200-measurement protocol; not completed as a six by
+    two matrix. \\
+    \path{ros2_ws/src/drone_enhanced_nodes/config/runtime.yaml} & Node defaults
+    and safety controls & Versioned defaults only; executed trials retain their
+    own launch parameters and logs. \\
+    \path{config/formal_simulation_campaign_v1.json} & Formal simulation
+    campaign & Preregistered campaign; development pilots are reported
+    separately because the complete campaign was not executed. \\
+    \path{config/external_evaluation_sources_v1.json} & External-source gates &
+    Readiness and eligibility contract; no external inference result was
+    admitted. \\
+    \path{evidence/manifests/evidence_manifest_20260804.csv} & Evidence
+    inventory & File size, UTC modification time and SHA-256 inventory for the
+    preserved evidence snapshot. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The frozen dataset contains 4,991 records: 3,558 training, 700 validation and
+733 test images. The record manifest SHA-256 is
+\path{478803efb7f8f4f6c3fe74d58658958bccfa2d0f58ec50a1a5c16535e393a7dd}.
+The validation COCO annotation SHA-256 recorded in the common contract is
+\path{1a93f800d63bf355bb586039da245cd612cbdd7052102cbfd6da1409312ab7c6}.
+These identities distinguish the final curated experiment from the earlier
+historical Sentinel and Scout datasets.
+
+\section{Reproduction stages and entry points}
+
+A complete rerun proceeds in the following order. Each stage consumes the
+preserved output of the preceding stage and writes a new derived bundle.
+
+\begin{enumerate}
+  \item \textbf{Validate the contracts.} Use
+  \path{tools/validate_strengthening_config.py},
+  \path{tools/validate_screening_contract.py} and
+  \path{tools/validate_deployment_and_external_contracts.py} before training or
+  evaluation.
+  \item \textbf{Materialize the frozen data.} Dataset construction and export
+  are implemented by \path{tools/build_curated_research_manifest.py},
+  \path{tools/materialize_training_dataset.py},
+  \path{tools/export_training_coco.py} and
+  \path{tools/export_training_tfrecord.py}. The generated counts and hashes
+  must match the frozen manifest.
+  \item \textbf{Run model evaluation.} The framework-specific prediction entry
+  points are \path{tools/predict_yolo_coco.py},
+  \path{tools/predict_tfod_coco.py} and
+  \path{tools/predict_tflite_coco.py}. Common metric calculation uses
+  \path{tools/evaluate_coco_predictions.py}; grouped F1 intervals use
+  \path{tools/grouped_bootstrap_detection.py}. Thresholds are chosen on the
+  validation split and must not be retuned on the opened test split.
+  \item \textbf{Validate conversion fidelity.} Candidate generation and checks
+  use \path{tools/export_yolo_onnx_candidates.py},
+  \path{tools/export_ssd_tflite_candidate.py},
+  \path{tools/validate_yolo_onnx_fidelity.py} and
+  \path{tools/validate_prediction_fidelity.py}. A converted artifact that
+  fails the frozen fidelity rule is excluded from equivalent-model device
+  ranking.
+  \item \textbf{Analyze retained device evidence.} Backend, communication and
+  integrated-workflow bundles are processed by
+  \path{tools/analyze_backend_benchmarks.py},
+  \path{tools/analyze_ros_roundtrip.py} and
+  \path{tools/analyze_integrated_trial.py}. These tools operate on completed
+  evidence; they do not turn an incomplete run into an accepted result.
+  \item \textbf{Check thesis transcription.} The numerical cross-check entry
+  point is \path{tools/verify_thesis_numeric_contract.py}. The manuscript is
+  then compiled with pdfLaTeX and Biber, and its pages are inspected visually.
+\end{enumerate}
+
+The scripts expose their current arguments in the repository and should be run
+from the repository root in the environment recorded for the corresponding
+experiment. Environment locks are stored under \path{config/} and
+\path{simulation/}. This appendix intentionally does not prescribe a single
+global Python environment because Ultralytics, TensorFlow Object Detection API,
+EfficientDet and ROS~2 were executed in distinct compatible environments.
+
+\section{Deployment artifact identities}
+
+Table~\ref{tab:appendix-artifacts} records the six native candidates used by
+the deployment-preparation register. A native training artifact and a converted
+runtime artifact are different identities; neither may inherit the other's
+performance result without a recorded conversion and fidelity check.
+
+\begin{table}[H]
+  \centering
+  \caption{Native candidate identities from the deployment registry.}
+  \label{tab:appendix-artifacts}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.23\textwidth}p{0.12\textwidth}X@{}}
+    \toprule
+    Model ID & Input & Native artifact SHA-256 \\
+    \midrule
+    \path{yolov8n_416} & 416 &
+    \path{854482d0fbd320e51575f0141a479e517d721ff6cd512d12c60d0acf30a35ff3} \\
+    \path{yolov8n_640} & 640 &
+    \path{1c49f90ee7e635b9011ae1ec34a9cfccfea75f9b08941d7475d031587a0c0a33} \\
+    \path{yolov8s_416} & 416 &
+    \path{7bf6137add173f51d015c18841b5903300db909d31fb82ea3f51f3498ee366c5} \\
+    \path{yolov8s_640} & 640 &
+    \path{53019aa916dcbfa11f3f38a3cc16579270436e44fa7bd80ccd1fc37afb60f0f0} \\
+    \path{ssd_mobilenet_v2_fpnlite_320} & 320 &
+    \path{ee20414e69c0473e17989f19724709708c9a49303e2e26e8eabe4d771cf9e229}
+    (checkpoint index; the registry also records the data shard). \\
+    \path{efficientdet_lite0_320} & 320 &
+    \path{948e71fa53fa9a740a2bca45f169280a9c6e6596a49bfcab65d0ad9cfda2f12c} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The final deployed Sentinel engine is the 640-pixel TensorRT artifact with
+input shape $[1,3,640,640]$ and output shape $[1,6,8400]$. The historical
+416-pixel engine has output shape $[1,6,3549]$. The two identities remain
+separate throughout Chapters~\ref{ch:implementation}--\ref{ch:conclusion}; the
+older latency measurements are never assigned to the final engine.
+
+\section{Correlated ROS 2 interfaces}
+
+The enhanced message definitions are stored under
+\path{ros2_ws/src/drone_enhanced_interfaces/msg/}. Table
+\ref{tab:appendix-interfaces} groups the fields by analytical purpose. Field
+names and types remain defined by the message files, which are the authoritative
+interface source.
+
+\begin{table}[H]
+  \centering
+  \caption{Analytical purpose of the enhanced ROS~2 message fields.}
+  \label{tab:appendix-interfaces}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.21\textwidth}p{0.31\textwidth}X@{}}
+    \toprule
+    Message & Principal fields & Purpose \\
+    \midrule
+    \texttt{HazardAlert} & \texttt{experiment\_id}, \texttt{trial\_id},
+    \texttt{event\_id}, hazard type, confidence, temporal count, frame/alert
+    monotonic times, model hash and normalized target box & Identifies the
+    Sentinel request and preserves the detection context. \\
+    \texttt{HazardVerdict} & matching IDs, verdict, hazard type, Scout
+    confidence, receipt/frame/verdict monotonic times, model hash and reason &
+    Returns a correlated Scout outcome without claiming independent physical
+    ground truth. \\
+    \texttt{HazardDecision} & matching IDs, final decision, both confidences,
+    detection/alert/verdict/decision monotonic times and reason & Records the
+    terminal system decision and supports latency decomposition. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Both physical nodes retained \texttt{enable\_flight\_commands=false} in the
+evaluated stationary workflow. Image-space target coordinates were logged for
+traceability; the Scout used its latest full frame and did not navigate to or
+crop around the transferred box.
+
+\section{Platform integration and environment inventory}
+
+Table~\ref{tab:appendix-physical-integration} records the physical integration
+facts admitted to the thesis and prevents an undocumented installation detail
+from becoming a quantitative claim. The topology is reproducible at the
+component level; the missing electrical and geometric measurements remain
+explicit.
+
+\begin{table}[H]
+  \centering
+  \caption{Physical integration record and measurement boundary.}
+  \label{tab:appendix-physical-integration}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.39\textwidth}X@{}}
+    \toprule
+    Item & Retained fact & Unmeasured or unverified detail \\
+    \midrule
+    Sentinel airframe & Customized Holybro X500 V2 with Pixhawk~6C & Installed
+    mass, dimensions, rotor spacing, centre of gravity and payload margin \\
+    Companion power & Jetson Nano supplied from airframe power distribution
+    through an intermediate DC--DC regulator & Regulator identity, input/output
+    time series, efficiency and energy per inference \\
+    Flight-controller link & Three-conductor physical link; retained service
+    uses \path{/dev/ttyTHS1} at 57,600~baud & Connector-level pin map and
+    electrical signal verification \\
+    Sentinel camera & D435i attached to the Sentinel and connected to the
+    Jetson; colour endpoint exercised & Camera-to-body translation/rotation,
+    depth use and vibration response \\
+    Scout platform & ModalAI development platform with integrated VOXL~2,
+    camera and PX4 services & Independently measured mass, geometry and
+    flight-performance parameters \\
+    Physical safety state & Stationary aircraft with propellers removed and
+    flight commands disabled & No physical integrated flight result \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Table~\ref{tab:appendix-environment-inventory} freezes the software-generation
+facts used to interpret the deployment. An unavailable version is stated as
+such rather than reconstructed from a later vendor image.
+
+\begin{table}[H]
+  \centering
+  \caption{Onboard operating-environment inventory.}
+  \label{tab:appendix-environment-inventory}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.34\textwidth}X@{}}
+    \toprule
+    Layer & Sentinel & Scout \\
+    \midrule
+    Compute & Jetson Nano 4~GB & VOXL~2 / QRB5165 \\
+    Host OS & Ubuntu 18.04.6 on Jetson Linux R32.7.6 / JetPack 4.6.6,
+    kernel \texttt{4.9.337-tegra} & Exact base distribution/version not
+    retained in the accepted inventory \\
+    ROS~2 & Foxy inside
+    \path{dustynv/ros:foxy-ros-base-l4t-r32.7.1} & Native Foxy at
+    \path{/opt/ros/foxy} \\
+    Build/runtime boundary & Docker 20.10.21, NVIDIA runtime, host networking,
+    bind-mounted workspace & Native \texttt{colcon} workspace and vendor
+    services \\
+    Perception dependencies & D435i, GStreamer, CUDA, TensorRT and Python node &
+    MPA camera server/bridge, YUV/RGB decoder, TensorFlow Lite and Python node \\
+    DDS configuration & \multicolumn{2}{p{0.73\textwidth}@{}}{Cyclone DDS; SwarmNet
+    \texttt{wlan0}; multicast; isolated domain per experiment; matching enhanced
+    interfaces} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Table~\ref{tab:appendix-node-deployment} maps the principal processes to their
+host and communication role. Helper probes used in individual experiments are
+excluded because they are measurement tools rather than required members of
+the deployed hazard-decision path.
+
+\begin{table}[H]
+  \centering
+  \caption{Principal onboard node and service deployment.}
+  \label{tab:appendix-node-deployment}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}p{0.17\textwidth}p{0.24\textwidth}X@{}}
+    \toprule
+    Process or service & Host & Publishes & Subscribes / dependency \\
+    \midrule
+    Sentinel perception/coordinator & Jetson Foxy container &
+    \path{/swarm/hazard_alert}, \path{/swarm/hazard_decision} & D435i frame,
+    \path{/swarm/hazard_verdict}, TensorRT engine \\
+    Scout verifier & VOXL~2 native Foxy & \path{/swarm/hazard_verdict} &
+    \path{/swarm/hazard_alert}, latest MPA image, TFLite model \\
+    MPA-to-ROS~2 bridge & VOXL~2 vendor environment & Scout image topic & ModalAI
+    camera pipe and camera-server service \\
+    MAVProxy telemetry service & Jetson host & Laboratory telemetry forwarding &
+    Pixhawk serial endpoint; not a perception-decision dependency \\
+    Asynchronous evidence writers & Respective edge node & Device-local JSONL
+    and manifest files & Local node-event queues \\
+    SwarmNet access point & Sentinel host & Local wireless connectivity &
+    Physical radio and access-point service \\
+    Laboratory laptop & External observer & Test commands and retained copies &
+    Not required for onboard inference or final decision \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Reproduction limits}
+
+Reproducibility does not remove the validity limits reported in
+Chapter~\ref{ch:discussion}. The device operating systems, drivers and hardware
+state can affect latency; training used one controlled seed per configuration;
+and the physical trials contain dependent requests within stationary
+exposures. Repeating a script can verify the recorded computation, but it does
+not make the sample representative of industrial conditions.

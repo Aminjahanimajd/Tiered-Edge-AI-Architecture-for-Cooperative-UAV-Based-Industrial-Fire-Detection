@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "experiment_id": "model_screening_v1_20260729",
+  "dataset_id": "fire_only_curated_manifest_v7",
+  "dataset_records_sha256": "478803efb7f8f4f6c3fe74d58658958bccfa2d0f58ec50a1a5c16535e393a7dd",
+  "selection_policy": {
+    "screening_data": "train and validation only",
+    "test_data": "evaluate once after finalist selection and repeated-seed training",
+    "primary_accuracy_metrics": ["precision", "recall", "f1", "ap50", "ap50_95"],
+    "resource_metrics": ["latency_ms", "throughput_fps", "peak_vram_mb", "artifact_bytes", "parameters", "flops"],
+    "decision_rule": "select non-dominated validation candidates subject to target-hardware feasibility; do not claim global optimality"
+  },
+  "screening_seed": 20260729,
+  "finalist_seeds": [20260729, 20260803, 20260811],
+  "models": [
+    {"id": "yolov8n_416", "family": "YOLOv8", "variant": "n", "input_size": 416, "priority": "mandatory"},
+    {"id": "yolov8n_640", "family": "YOLOv8", "variant": "n", "input_size": 640, "priority": "mandatory"},
+    {"id": "yolov8s_416", "family": "YOLOv8", "variant": "s", "input_size": 416, "priority": "mandatory"},
+    {"id": "yolov8s_640", "family": "YOLOv8", "variant": "s", "input_size": 640, "priority": "mandatory"},
+    {"id": "ssd_mobilenet_v2", "family": "SSD", "backbone": "MobileNetV2", "input_size": 320, "priority": "mandatory"},
+    {"id": "efficientdet_lite0", "family": "EfficientDet-Lite", "variant": "0", "input_size": 320, "priority": "user_requested"}
+  ],
+  "controlled_training_policy": {
+    "pretrained_initialization": "documented COCO-compatible weights for every architecture",
+    "maximum_epochs": 100,
+    "early_stopping_patience": 20,
+    "batch_policy": "largest stable batch per model with recorded value; use gradient accumulation where supported to keep effective batch comparable",
+    "augmentation_policy": "one predeclared conservative policy per framework; no test-guided changes",
+    "checkpoint_selection": "best validation checkpoint only",
+    "threshold_selection": "validation predictions only",
+    "mixed_precision_training": true,
+    "determinism": "seed all supported generators and record framework warnings or nondeterministic operations"
+  },
+  "claim_boundary": "best observed trade-off among the six evaluated candidates under the recorded dataset, training, export, and hardware conditions"
+}

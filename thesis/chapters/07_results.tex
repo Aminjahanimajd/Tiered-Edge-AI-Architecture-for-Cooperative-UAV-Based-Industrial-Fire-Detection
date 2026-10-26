@@ -1,0 +1,580 @@
+\chapter{Experimental Results}
+\label{ch:results}
+
+This chapter reports the accepted observations produced by the protocols in
+Chapter~\ref{ch:methodology}. Results are ordered from offline model behaviour
+to device execution, physical integration, communication, simulation and
+external-data readiness. Each numerical result retains its experimental unit
+and configuration. In particular, laptop inference calls, camera-free device
+pipelines and live alert-to-decision paths are not combined into a single
+latency measure.
+
+Table~\ref{tab:results-evidence-status} states the final evidence boundary.
+The distinction prevents a prepared protocol or a successful
+development run from being reported as a completed experiment.
+
+\begin{table}[H]
+  \centering
+  \caption{Results admitted to the final evidence set. A protocol that was not
+  executed or a development-only result remains visible as a limitation rather
+  than being converted into a positive finding.}
+  \label{tab:results-evidence-status}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.25\textwidth}p{0.18\textwidth}X@{}}
+    \toprule
+    Evidence programme & Status & Result admitted in this chapter \\
+    \midrule
+    Six-model internal evaluation & Executed & Validation-selected operating
+    points and one-time frozen-threshold test results. \\
+    Conversion fidelity & Partly executed & Four YOLO ONNX comparisons, SSD
+    TFLite comparison and native EfficientDet artifact readiness. \\
+    Strengthened 12-cell device screen & Not executed & No model--platform ranking;
+    the preparation gate remained blocked. \\
+    Historical device measurements & Executed & Exact recorded pipeline and
+    integrated-node measurements, each with its own configuration boundary. \\
+    Concurrent-service endurance & Executed with limitations & More than 30
+    minutes of live camera, inference, ROS~2, logging and flight-service
+    coexistence; duration and process-survival gates passed, but Scout p95
+    latency and strict Jetson swap gates failed. \\
+    Stationary physical workflow & Executed, bounded & Condition-specific
+    confirmation, rejection and latency observations with propellers removed. \\
+    ROS~2 request--reply trials & Executed & Two distinct 300-event camera-free
+    campaigns and one 1,000-event campaign under concurrent inference load. \\
+    Hardware fault repetitions & Bounded subset executed & Five-repetition camera-
+    interface, stale-frame, unavailable-process and late/duplicate-verdict
+    outcomes; network interruption and rejection-memory tests were not executed. \\
+    Mission simulation & Development evidence only & Two nominal branches, four fault
+    pilots and one accepted end-to-end visual confirmed-hazard run; no formal
+    success probability. \\
+    External proxy evaluation & Not evaluated & Readiness observations only; no
+    external predictive-performance result. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Dataset audit and six-model predictive results}
+\label{sec:results:1}
+
+The common evaluator processed all six candidates on the frozen validation
+split of 700 images and 392 annotated fire boxes. The split contained 381
+background images and 307 reconstructed source-family groups. Table
+\ref{tab:model-validation-results} reports the threshold selected by maximum
+object-level F1 at IoU 0.50 and the metrics observed at that operating point.
+The final column is the mean single-image inference-call time from the laptop
+screen; it is not an edge-device or end-to-end latency.
+
+\begin{table}[p]
+  \centering
+  \caption{Common validation results on 700 images and 392 fire boxes. B-FPI
+  is the proportion of 381 background images containing at least one retained
+  prediction. Each timing row contains 700 post-warm-up inference calls.}
+  \label{tab:model-validation-results}
+  \small
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{@{}lrrrrrrrr@{}}
+    \toprule
+    Candidate & AP50--95 & AP50 & Threshold & Precision & Recall & F1 & B-FPI & Mean (ms) \\
+    \midrule
+    YOLOv8n-416 & 0.236 & 0.566 & 0.45 & 0.681 & 0.556 & 0.612 & 0.0026 & 9.89 \\
+    YOLOv8n-640 & 0.220 & 0.542 & 0.36 & 0.553 & 0.556 & 0.555 & 0.0105 & 7.91 \\
+    YOLOv8s-416 & 0.203 & 0.497 & 0.30 & 0.549 & 0.533 & 0.541 & 0.0079 & 11.14 \\
+    YOLOv8s-640 & 0.213 & 0.532 & 0.22 & 0.576 & 0.548 & 0.562 & 0.0052 & 10.99 \\
+    SSD MobileNet-320 & 0.185 & 0.491 & 0.81 & 0.667 & 0.500 & 0.571 & 0.0052 & 27.44 \\
+    EfficientDet-320 & 0.161 & 0.461 & 0.41 & 0.582 & 0.434 & 0.497 & 0.0000 & 1263.86 \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+YOLOv8n-416 produced the largest validation AP50--95 (0.236), AP50
+(0.566), precision (0.681) and F1 (0.612). YOLOv8n-416 and YOLOv8n-640 tied
+for the largest recall (0.556). EfficientDet produced no above-threshold
+prediction on the 381 validation background images, but it also had the lowest
+validation AP50--95 and recall. The zero background count is limited to this
+retained subset and threshold.
+
+After the checkpoints, thresholds and evaluator were frozen, the one-time test
+pass used 733 images, comprising 354 positive images, 379 background images
+and 503 annotated fire boxes across 306 reconstructed source-family groups.
+No test-driven threshold adjustment or checkpoint reselection followed.
+
+\begin{table}[p]
+  \centering
+  \caption{One-time test results at validation-frozen thresholds. The grouped
+  95\% F1 intervals resample the 306 retained test source-family groups.}
+  \label{tab:model-test-results}
+  \small
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{@{}lrrrrrrrrrr@{}}
+    \toprule
+    Candidate & Thr. & AP50--95 & AP50 & Precision & Recall & F1 & 95\% F1 interval & TP/FP/FN & B-FPI \\
+    \midrule
+    YOLOv8n-416 & 0.45 & 0.119 & 0.303 & 0.541 & 0.300 & 0.386 & [0.236, 0.544] & 151/128/352 & 0.0554 \\
+    YOLOv8n-640 & 0.36 & 0.101 & 0.260 & 0.409 & 0.274 & 0.329 & [0.175, 0.450] & 138/199/365 & 0.0396 \\
+    YOLOv8s-416 & 0.30 & 0.130 & 0.319 & 0.508 & 0.320 & 0.393 & [0.236, 0.537] & 161/156/342 & 0.0792 \\
+    YOLOv8s-640 & 0.22 & 0.133 & 0.359 & 0.545 & 0.328 & 0.409 & [0.245, 0.545] & 165/138/338 & 0.0343 \\
+    SSD MobileNet-320 & 0.81 & 0.114 & 0.303 & 0.546 & 0.237 & 0.330 & [0.162, 0.479] & 119/99/384 & 0.0554 \\
+    EfficientDet-320 & 0.41 & 0.168 & 0.403 & 0.679 & 0.328 & 0.442 & [0.274, 0.596] & 165/78/338 & 0.0343 \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+EfficientDet ranked first on test AP50--95, precision and F1 despite ranking
+last on validation AP50--95. It tied YOLOv8s-640 for the largest test recall.
+F1 decreased from validation to test for every candidate, and the grouped
+intervals were broad and overlapping. Figure~\ref{fig:model-ap-validation-test}
+shows the AP50--95 rank change without altering the frozen selection rule.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{model_ap_validation_test.pdf}
+  \caption{AP50--95 on the 700-image validation split and the one-time
+  733-image test split. Test inference used checkpoints fixed before the test
+  split was opened; AP is integrated over confidence rather than evaluated at
+  the selected operating threshold.}
+  \label{fig:model-ap-validation-test}
+\end{figure}
+
+Only three test boxes met the COCO small-object definition at stored
+resolution. A separate relative-area audit found 54 boxes occupying less than
+1\% of their image. Those counts are insufficient for a general small-fire
+claim and do not validate the approximately 2~cm lighter condition used later.
+
+The two-objective validation screen placed YOLOv8n-416 and YOLOv8n-640 on the
+exploratory AP--latency Pareto front (Figure~\ref{fig:validation-pareto}). The
+four YOLO measurements and SSD used GPU-capable framework paths, whereas the
+EfficientDet export used CPU/XNNPACK. The plot therefore describes available
+runtime paths rather than an architecture-only speed comparison.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{validation_ap_latency_pareto.pdf}
+  \caption[Validation AP50--95 versus laptop inference-call latency.]{Validation
+  AP50--95 versus mean single-image laptop inference-call latency. Blue points
+  identify the two-objective exploratory Pareto front. The logarithmic latency
+  axis and runtime distinction are retained because the six candidates did not
+  use an identical accelerator path.}
+  \label{fig:validation-pareto}
+\end{figure}
+
+\section{Conversion fidelity and deployment outcomes}
+\label{sec:results:2}
+
+All four fixed-batch YOLO checkpoints exported to ONNX and passed the ONNX
+checker. Conversion fidelity was evaluated on the same 64-image calibration
+manifest used to preserve the native reference predictions. Under the frozen
+match-rate and confidence-error gates, the two 416-pixel ONNX candidates
+passed, while both 640-pixel ONNX candidates failed. YOLOv8n-640 missed the
+0.95 match-rate gate by 0.0004; the criterion was not relaxed after inspection.
+
+\begin{table}[H]
+  \centering
+  \caption{Prepared deployment artifacts and laptop conversion-fidelity
+  outcomes. Ready indicates eligibility for a later runtime attempt, not
+  successful execution on either edge device.}
+  \label{tab:conversion-results}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.25\textwidth}p{0.16\textwidth}rrX@{}}
+    \toprule
+    Candidate & Prepared form & Match rate & Conf. MAE & Disposition \\
+    \midrule
+    YOLOv8n-416 & ONNX FP32 & 0.9603 & 0.000056 & Fidelity pass; ready for runtime attempt. \\
+    YOLOv8n-640 & ONNX FP32 & 0.9496 & 0.000255 & \texttt{FIDELITY\_FAILED}. \\
+    YOLOv8s-416 & ONNX FP32 & 0.9598 & 0.000223 & Fidelity pass; ready for runtime attempt. \\
+    YOLOv8s-640 & ONNX FP32 & 0.9169 & 0.000212 & \texttt{FIDELITY\_FAILED}. \\
+    SSD MobileNet-320 & TFLite FP32 & 0.8714 & 0.003910 & \texttt{FIDELITY\_FAILED}. \\
+    EfficientDet-320 & Native TFLite & N/A & N/A & Native artifact ready for device attempt. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The SSD conversion allocated and produced the same number of retained outputs
+as the native evaluator, but only 5,577 of 6,400 detections matched at IoU
+0.50, yielding a 0.8714 match rate. Its small matched-confidence error did not
+override the failed detection-match criterion. EfficientDet was already
+evaluated in its native TFLite form, so cross-format fidelity was not
+applicable. Its artifact was classified ready for a device attempt rather than
+deployed.
+
+The strengthened screen required 12 model--platform outcomes. In the final
+evidence set,
+the executor and all artifact-integrity checks had passed, but both devices
+were not ready for the campaign. Consequently, none of the 12 cells contributes
+latency, memory, thermal or deployment-ranking evidence in this chapter. The
+historical 640-pixel Sentinel TensorRT and Scout TFLite deployments remain
+separate evidence and are not invalidated by the later ONNX experiments.
+
+\section{Exact-device runtime and endurance}
+\label{sec:results:3}
+
+The retained 3 August camera-free benchmark used the exact final deployed
+artifacts, ten excluded warm-up iterations and 100 measured iterations per
+device. The measured pipeline included preprocessing, runtime execution and
+decoding. Table~\ref{tab:device-backend-summary} shows the descriptive results.
+The platforms, models, runtimes and tensor layouts differ, so the ratio is a
+system-role observation rather than a controlled model comparison.
+
+\begin{table}[H]
+  \centering
+  \caption{Exact deployed backend-pipeline results, excluding camera capture,
+  ROS~2 communication and decision handling (100 iterations per device).}
+  \label{tab:device-backend-summary}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{0.21\textwidth}p{0.20\textwidth}Xrrr@{}}
+    \toprule
+    Platform & Runtime & Input tensor & Mean (ms) & Median (ms) & P95 (ms) \\
+    \midrule
+    Sentinel & TensorRT FP16 & $1\!\times\!3\!\times\!640\!\times\!640$ & 58.151 & 57.868 & 59.680 \\
+    Scout & TensorFlow Lite & $1\!\times\!640\!\times\!640\!\times\!3$ & 999.431 & 991.630 & 1105.076 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The reciprocal mean rates were approximately 17.20 and 1.00 pipelines per
+second. The Sentinel row belongs to the final engine with input
+$[1,3,640,640]$, output $[1,6,8400]$ and its recorded engine hash. It is not
+the historical 416-pixel engine with output $[1,6,3549]$; no value from the
+latter is assigned to the final deployment.
+
+Figure~\ref{fig:hardware-latency-ecdf} presents the complete retained
+distributions together with the later communication campaign. Each panel uses
+its own horizontal scale, avoiding the loss of detail that would result from
+placing millisecond and approximately one-second distributions on one linear
+axis.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{hardware_latency_ecdf.pdf}
+  \caption{Empirical cumulative distributions for the exact deployed
+  camera-free backend pipelines and the 3 August correlated ROS~2/DDS
+  request--reply campaign. Dashed and dotted lines identify the median and
+  95th percentile within each panel.}
+  \label{fig:hardware-latency-ecdf}
+\end{figure}
+
+A separate July before-and-after software experiment measured the effect of
+replacing Python anchor iteration with vectorized NumPy decoding. Under its
+own fixed black-frame 5/50 protocol, mean decode time changed from 148.920 to
+1.290~ms on the Sentinel path and from 83.134 to 0.992~ms on the Scout path.
+Mean complete-pipeline time changed from 204.324 to 57.049~ms and from
+1070.811 to 979.667~ms, respectively. These are separate serial code-revision
+runs with incomplete control of background load and starting temperature.
+They establish the measured software bottleneck reduction in that historical
+configuration, not a confidence interval or a replacement for the 3 August
+exact-deployment benchmark.
+
+Trial \path{camera10m-threads1-20260928-r1} operated both live camera and
+deployed inference paths, ROS~2 transport, asynchronous logging and 1~Hz
+host-resource sampling. The periodic probe received 108 of 108 correlated
+current-frame Scout verdicts; both nodes exited normally, no camera error or
+logger drop was recorded, and swap did not grow. Sentinel inference covered
+9,411 frames with 61.239~ms p95 latency. Scout inference covered 108 requests
+with 2,504.387~ms p95 runtime. Alert-to-verdict latency was 2,529.161~ms mean
+and 2,616.852~ms p95, so the run failed the registered Scout p95 target of at
+most 2~s. Minimum host-wide available memory was 1,581.8~MiB on Sentinel and
+4,879.5~MiB on Scout.
+
+The observation is useful but incomplete: the Sentinel Pixhawk was unpowered,
+synthetic alerts bypassed Sentinel detection, and the interval was ten minutes
+rather than the registered thirty. Therefore no synchronized 30-minute
+complete-stack sustainability result is inferred from this ten-minute trial
+alone; the later registered run is reported below.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{camera_inference_no_pixhawk_timeseries.png}
+  \caption[Ten-minute stationary camera and inference baseline.]{Ten-minute
+  stationary camera and edge-inference baseline. The latency panel exposes the
+  failed 2~s Scout target; the remaining panels show host-wide CPU, available
+  memory and maximum reported thermal-zone temperature. The Sentinel Pixhawk
+  was unpowered, so the figure is not complete-stack endurance evidence.}
+  \label{fig:camera-inference-timeseries}
+\end{figure}
+
+The later registered run \path{fullstack-20260929} closed the duration and
+flight-service gaps. The Sentinel resource record lasted 1,939.709~s with 1,552
+samples; the Scout record lasted 1,934.836~s with 1,833 samples. Both wrappers
+exited normally. The Sentinel processed 30,426 frames at 60.035~ms mean and
+61.170~ms p95 inference time. Mean host CPU utilization was 32.65\% on Sentinel
+and 42.44\% on Scout; minimum available memory was 1,589.9 and 4,873.8~MiB,
+respectively, and the largest valid reported temperatures were 51.0 and
+48.2~\(^{\circ}\)C. No logger drop was recorded. MAVProxy was active and
+reported its link as operational before and after the run; a pre-existing
+fence-breach message remained visible, and no vehicle command was sent.
+
+The strict acceptance result was conditional rather than an unqualified pass.
+Jetson swap increased by 0.922~MiB, violating the registered no-growth rule.
+The original 360-alert probe carried the wrong trial identifier and produced
+0/360 accepted requests because the Scout correctly rejected the mismatches.
+That failed setup is retained. The corrected probe returned 36/36 correlated
+verdicts during a separate 180.245~s interval near the end of the run. Its mean
+and p95 alert-to-verdict times were 2,526.056 and 2,617.746~ms, so the registered
+2~s Scout target also failed. These 36 events demonstrate live service
+coexistence but are not a 30-minute continuous tiered-workflow-load result.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{full_service_resource_timeseries_20260929.png}
+  \caption[Thirty-minute complete-stack resource series.]{Stationary
+  complete-stack resource series for the Sentinel and Scout. Coverage exceeds
+  30 minutes on both platforms. CPU, available memory, swap and maximum valid
+  thermal-zone temperature are host observations at their retained sample
+  times; the small Sentinel swap increase is not suppressed.}
+  \label{fig:full-service-resources}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{full_service_latency_distributions_20260929.png}
+  \caption[Complete-stack inference and tiered-workflow latency distributions.]{The
+  Sentinel distribution contains 30,426 inference frames. The Scout and
+  alert-to-verdict distributions contain the 36 corrected probe events from the
+  final 180.245~s and therefore describe that bounded probe, not the full
+  endurance interval. The Scout p95 exceeds the registered 2~s criterion.}
+  \label{fig:full-service-latency}
+\end{figure}
+
+The result partially answers RQ2: the complete stationary service configuration
+survived the registered duration with stable available-memory and temperature
+observations, but it did not satisfy every acceptance criterion. In particular,
+the Scout latency target and strict Sentinel swap rule remain measured resource
+constraints rather than discarded failures.
+
+\section{Stationary workflow, filtering and verification}
+\label{sec:results:4}
+
+The accepted physical trials used stationary vehicles with propellers removed.
+The final Sentinel ran the 640-pixel TensorRT engine and three-consecutive-frame
+temporal filter. The Scout used the retained 640-pixel TFLite model with a 0.05
+threshold selected after diagnostic inspection. Event identifiers matched
+across alert publication, Scout receipt, Scout inference, verdict publication
+and final Sentinel decision.
+
+\begin{table}[H]
+  \centering
+  \caption{Accepted stationary event observations. Fractions are conditional
+  counts within the recorded scene and interval; they are not population
+  recall, specificity or industrial reliability estimates.}
+  \label{tab:integrated-condition-results}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{0.28\textwidth}rrrX@{}}
+    \toprule
+    Condition & Requests & Confirmed & Rejected & Admissible observation \\
+    \midrule
+    Strong visible flame & 13 & 13 & 0 & Complete correlated path accepted every request inside the 28.740~s marked interval. \\
+    Approx. 2~cm unstable flame & 10 & 1 & 9 & The same path was sensitive to the smaller, unstable condition. \\
+    Forced unlit live frame & 6 & 0 & 6 & Correlated requests were rejected in the retained unchanged unlit scene. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The strong-flame run contained 14 total requests when one pre-interval rejected
+request was included. Scout inference had mean 1256.648~ms, median
+1244.841~ms and range 1214.606--1416.544~ms. Sentinel alert-to-final-decision
+time had mean 1438.437~ms, median 1416.765~ms and range
+1405.759--1591.737~ms. During the bounded Sentinel node run, 2,220 inference
+events had mean duration 60.606~ms and maximum 174.018~ms; no logger drop was
+recorded.
+
+The small-flame run contained 11 total requests, including one pre-interval
+rejection. Mean Scout inference and alert-to-final-decision times were
+1278.495 and 1463.527~ms. The maximum raw Scout score was 0.088566 and only
+one visible-interval request exceeded the 0.05 decision threshold. The
+Sentinel again retained 2,220 inference events, with mean duration 60.537~ms,
+and both loggers reported zero dropped records.
+
+The forced unlit observations comprised one request and a five-request
+replication. All six received correlated rejected verdicts. In the five-event
+replication, the maximum raw fire score had mean 0.000890 and range
+0.000441--0.002052; Scout inference had mean 1315.770~ms. These requests were
+injected after Sentinel detection and therefore do not measure Sentinel false
+alerts or environmental specificity.
+
+The temporal filter's reset and third-frame trigger behaviour passed unit
+tests. However, the accepted trials retained post-filter requests rather than
+every frame-level candidate and counter transition. The number of single-frame
+alerts removed, event retention and filter-added time cannot be reconstructed
+without inventing unlogged observations. The planned quantitative three-stage
+ablation is consequently not estimable from this campaign.
+
+\section{Communication and recovery}
+\label{sec:results:5}
+
+Two independent camera-free request--reply campaigns each contained three
+sequential 100-event trials. All 600 requests received one correlated Scout
+verdict, and neither campaign recorded an event-identity mismatch or responder
+duplicate. They are reported separately because their distributions and raw
+records differ.
+
+\begin{table}[H]
+  \centering
+  \caption{Separate bounded ROS~2/DDS application round-trip campaigns. The
+  measurements use the Sentinel monotonic clock and are not one-way latency or
+  packet-loss estimates.}
+  \label{tab:ros-rtt-results}
+  \small
+  \begin{tabular}{@{}lrrrrrr@{}}
+    \toprule
+    Campaign & Replies & Mean & Median & P95 & P99 & Maximum \\
+     &  & \multicolumn{5}{c}{milliseconds} \\
+    \midrule
+    29 July & 300/300 & 8.152 & 5.878 & 12.758 & 32.407 & 400.453 \\
+    3 August & 300/300 & 6.046 & 5.257 & 9.457 & 24.501 & 36.120 \\
+    28 September loaded & 1000/1000 & 4.897 & 4.393 & 7.984 & --- & 44.011 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The 29 July campaign retained one 400.453~ms event below the one-second
+timeout; the next three largest values were below 36~ms. This single event
+raised its pooled mean and standard deviation while leaving the median near
+the later campaign. The 3 August result therefore does not erase the earlier
+tail. Both 300-event campaigns excluded camera acquisition, model inference,
+image traffic, movement, controlled interference and long-duration load.
+
+The 28 September campaign ran while the live D435i/TensorRT Sentinel node, the
+live Scout camera/TFLite verifier, both asynchronous loggers, resource samplers
+and a separate domain-85 tiered-workflow probe were active. All 1,000 events returned
+one correlated response, with zero missing, mismatched, duplicate or unexpected
+events. The observed delivery fraction was 1.0 (two-sided Wilson 95\% interval
+0.99617--1.0). The independent load witness concurrently received 36 of 36
+fresh camera-based Scout verdicts. This remains stationary application-level
+evidence; the Pixhawk was unpowered, no link-layer packet capture was taken and
+one-way latency is not inferred.
+
+\begin{figure}[p]
+  \centering
+  \includegraphics[width=\textwidth]{loaded_ros2_rtt_distribution.png}
+  \caption[Loaded 1,000-event ROS~2/DDS round-trip distribution.]{Distribution
+  and empirical cumulative distribution of the 1,000 Sentinel-clock ROS~2/DDS
+  round trips under concurrent live camera and inference load. The median and
+  p95 markers are descriptive for this stationary SwarmNet run; one-way latency
+  and link-layer loss are not inferred.}
+  \label{fig:loaded-ros2-rtt}
+\end{figure}
+
+A clock-offset probe further showed why cross-host timestamps were not used as
+one-way delay. The minimum-round-trip estimates placed the Sentinel and Scout
+wall clocks approximately 178.535 and 201.010~ms ahead of the laptop,
+respectively, with a derived Scout--Sentinel difference of approximately
+22.475~ms and a conservative combined uncertainty of $\pm5.088$~ms. The
+round-trip results avoid that subtraction by using only one Sentinel monotonic
+clock.
+
+Four repeated fault cases produced accepted evidence. Table
+\ref{tab:hardware-fault-results} reports their specified outcomes; each case
+used five unique events and retained its deliberate fault boundary.
+
+\begin{table}[H]
+  \centering
+  \caption{Stationary hardware fault-injection results. Fractions describe the
+  registered repetitions and are not natural failure-rate estimates.}
+  \label{tab:hardware-fault-results}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.25\textwidth}p{0.25\textwidth}p{0.18\textwidth}X@{}}
+    \toprule
+    Fault & Expected outcome & Result & Boundary \\
+    \midrule
+    ROS camera interface absent & \texttt{ERROR/no\_frame} & 5/5; zero inference & Camera service itself remained active. \\
+    Stream stopped after live preflight & \texttt{ERROR/stale\_frame} & 5/5; zero post-stop inference & Three normal camera/model verdicts first established readiness. \\
+    Scout verifier absent & Sentinel \texttt{TIMEOUT} at 10~s & 5/5; zero Scout verdicts & Synthetic detections entered at the dispatch boundary. \\
+    Two verdicts after each timeout & Reject finalized duplicates & 10/10 rejected; zero extra decisions & Deterministic late/duplicate injection, not network delay. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Mean fault-response latency was 47.389~ms for the unavailable camera interface
+and 35.341~ms for the stale stream. Scout-process absence produced timeout
+decisions at 10,023.481~ms mean. Rejection of the ten post-timeout verdicts
+took 2.631~ms mean and 2.840~ms p95 at the callback. Network interruption and
+repeated rejection-memory cases were not completed; consequently these results
+support specific fail-closed and idempotent paths, not a general recovery-rate
+or mean-time-to-recover claim.
+
+\section{Simulation outcomes}
+\label{sec:results:6}
+
+The dual-PX4 development environment executed both nominal decision branches
+through namespaced ROS~2 Jazzy and PX4 SITL interfaces. The confirmed branch
+completed Sentinel patrol and hold, Scout dispatch, verification, confirmed
+hold, return and landing. The rejected branch returned the Scout to standby,
+resumed Sentinel patrol and ended with both vehicles landed. Table
+\ref{tab:simulation-development-results} also records the retained fault
+pilots.
+
+\begin{table}[H]
+  \centering
+  \caption{Development simulation outcomes using provisional Gazebo airframe
+  proxies and scenario-defined local-ENU targets. Each row is one retained
+  pilot, not a formal repeated campaign.}
+  \label{tab:simulation-development-results}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.14\textwidth}p{0.16\textwidth}X@{}}
+    \toprule
+    Scenario & Outcome & Terminal state & Retained observation \\
+    \midrule
+    Confirmed hazard v1 & Pass & Both \texttt{LANDED} & Confirmed branch completed through the real SITL command interfaces. \\
+    Rejected confounder v1 & Pass & Both \texttt{LANDED} & Rejected branch resumed Sentinel patrol; Scout required six mode/arm attempts after temporary health rejections. \\
+    Lost alert v2 & Pass & Both \texttt{LANDED} & No Scout command attempt; typed \texttt{DEGRADED}, \texttt{RTL}, \texttt{LANDED} sequence retained. \\
+    Scout unavailable v2 & Pass & Both \texttt{LANDED} & No Scout command attempt; distinct failure reason and safe sequence retained. \\
+    Delayed verdict v1 & Pass & Both \texttt{LANDED} & Timeout moved both previously flown vehicles through the safe sequence. \\
+    Sensor/inference error v1 & Pass & Both \texttt{LANDED} & Error retained an unverified-hazard record and initiated the safe sequence. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The first lost-alert and Scout-unavailable pilots exposed premature assignment
+of the Scout \texttt{TAKEOFF} state despite no actuation. The controller was
+corrected and the v2 logs showed a direct \texttt{PREFLIGHT} to
+\texttt{DEGRADED} transition. No wrong-system command or namespace cross-talk
+was observed in the retained pilots. The two nominal and four fault passes do
+not estimate mission reliability. A later accepted visual confirmed-hazard run
+used system ID~2 for the orange X500 V2-derived Sentinel and system ID~3 for the
+blue ModalAI/Starling-derived Scout. It reached \texttt{PATROL} at 39.821~s,
+received the scenario hazard at 105.215~s, began Scout transit at 133.424~s,
+reached the 4.5~m commanded horizontal standoff at 144.124~s, published the
+scenario-defined confirmed verdict and alarm at 147.223~s, and ended with both
+vehicles landed and disarmed at 214.253~s. Figure
+\ref{fig:gazebo-visual-mission} provides the visual sequence; its complete
+continuous video, event log and manifest are hash-linked. The Sentinel resumed
+independent patrol while the Scout verified the target. The red fire marker,
+trigger, target-acquisition event and verdict were simulator scenario truth,
+not outputs of a detector. The accepted v17 run used a recorded 60~s landing
+bound after the retained v16 attempt missed the earlier 30~s bound during
+recording; this threshold change and both attempts remain traceable.
+
+The continuous recording from the final v17 run was subsequently inspected in
+full. The qualitative review established that the retained presentation was
+understandable and role-consistent for thesis and defence use;
+it is not an additional simulator run and does not change the quantitative or
+reliability interpretation. The v6 derived delivery preserves that video's
+hash while replacing the misleading alarm still with a hash-linked event-log
+panel and using the registered safe-standoff capture frame.
+
+The preregistered 310-run campaign was not executed; several formal injectors
+and the final airframe-parameter freeze remain open. The accepted visual run is
+therefore one traceable development observation, not a mission-success rate.
+
+\section{External generalization}
+\label{sec:results:7}
+
+No external predictive-performance result was admitted. FASDD-UAV licensing
+was resolved to CC BY-SA 4.0 and its publisher reported 25,097 UAV samples,
+but the archive had not been acquired, hashed, decoded, mapped or screened for
+overlap. No FASDD-UAV file entered training or evaluation.
+
+The MmodalFire archive and license passed integrity checks. All 28 retained
+videos decoded without a decoder failure, yielding 2,974,209 frames compared
+with 2,974,228 container-reported frames; the nineteen one-frame differences
+remain metadata warnings. The stricter alignment consolidator validated 8 of
+28 video ranges and left 20 for independent review. Event/condition alignment,
+overlap checks and a final eligible manifest remained open.
+
+These readiness observations show why RQ5 has no evaluated result rather than a
+negative result.
+No frozen model was run on an eligible external manifest, so the chapter
+reports neither an external accuracy estimate nor a transfer conclusion.
+
+\reviewstatus{In the final evidence set, RQ2 has a 30-minute complete-stack result with two
+failed acceptance criteria; RQ3 has no common-stimulus temporal/tiered-workflow
+ablation; RQ4 is supported by development simulation and one accepted visual
+mission only; and RQ5 has no admitted external inference result.}

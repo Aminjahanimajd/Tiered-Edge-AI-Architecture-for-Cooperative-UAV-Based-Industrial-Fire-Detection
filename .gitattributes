@@ -1,0 +1,32 @@
+* text=auto eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+*.md text eol=lf
+*.md whitespace=-blank-at-eol
+*.tex text eol=lf
+*.sty text eol=lf
+*.bib text eol=lf
+*.xml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.csv text eol=lf
+*.msg text eol=lf
+*.sdf text eol=lf
+*.cfg text eol=lf
+CMakeLists.txt text eol=lf
+# Evidence bytes and publication hashes must survive checkout unchanged.
+artifacts/** -text
+evidence/** -text
+manifests/** -text
+config/** -text
+publications/** -text
+media/** -text
+thesis/** -text
+*.pdf binary
+*.pptx binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.mp4 binary

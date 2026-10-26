@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "generated_utc": "2026-08-03T13:24:47.476Z",
+  "experiment_id": "hardware-lab-20260803",
+  "configuration": {
+    "scout_model_sha256": "d533e320081be17ac91fb77c20a9de09f4bffada0d7f88c88326d57cd893bc35",
+    "scout_confidence_threshold": 0.05,
+    "scout_output_coordinate_space": "normalized",
+    "resize_mode": "letterbox",
+    "distance_cm_range": [20, 25],
+    "aircraft_stationary": true,
+    "propellers_removed": true,
+    "flight_commands_enabled": false
+  },
+  "positive_trial": {
+    "trial_id": "full-postfix-positive-08",
+    "ground_truth_visible_start_utc": "2026-08-03T11:59:30.488Z",
+    "ground_truth_visible_end_utc": "2026-08-03T11:59:59.228Z",
+    "visible_interval_seconds": 28.74,
+    "alert_requests_total": 14,
+    "pre_visible_interval_rejections": 1,
+    "visible_interval_requests": 13,
+    "visible_interval_confirmations": 13,
+    "visible_interval_rejections": 0,
+    "visible_interval_observed_confirmation_fraction": 1.0,
+    "alarm_outputs": 13,
+    "scout_confirmed_confidence": {
+      "n": 13,
+      "mean": 0.5408579202798697,
+      "median": 0.6485787034034729,
+      "minimum": 0.06303051114082336,
+      "maximum": 0.6916413903236389
+    },
+    "scout_inference_latency_ms": {
+      "n": 14,
+      "mean": 1256.6481142142857,
+      "median": 1244.8405925,
+      "minimum": 1214.605931,
+      "maximum": 1416.544138
+    },
+    "sentinel_alert_to_final_decision_ms": {
+      "n": 14,
+      "mean": 1438.4365078571427,
+      "median": 1416.7646825,
+      "minimum": 1405.758939,
+      "maximum": 1591.737392
+    },
+    "scout_source_frame_age_at_verification_start_ms": {
+      "n": 14,
+      "mean": 53.17439678571428,
+      "median": 51.040993,
+      "minimum": 9.210263,
+      "maximum": 135.651954
+    },
+    "evidence": {
+      "ground_truth": {
+        "path": "raw/full_nodes/full-postfix-positive-08_ground_truth.jsonl",
+        "sha256": "b65f68c8e65ade6ba33e8f2a4017dd1eef2194d2fd76f4721cbd4d3eb27601f5"
+      },
+      "scout_events": {
+        "path": "raw/full_nodes/full-postfix-positive-08/scout/events.jsonl",
+        "sha256": "9583f2f7d54bb6a1ca09e9486ae95694ea941bace52b0439c3e563b447c6f3ce"
+      },
+      "scout_manifest": {
+        "path": "raw/full_nodes/full-postfix-positive-08/scout/session_manifest.json",
+        "sha256": "f7c5f7735decc7df50f011deb8f55dea771707abb98bc59d574f03092ec39253"
+      },
+      "sentinel_events": {
+        "path": "raw/full_nodes/full-postfix-positive-08/sentinel/events.jsonl",
+        "sha256": "9095ba1ebd967c524de906846a7db09b1bcf72a1520911146983e9e2dc62cb95"
+      },
+      "sentinel_manifest": {
+        "path": "raw/full_nodes/full-postfix-positive-08/sentinel/session_manifest.json",
+        "sha256": "0232a4107e04f771a05f4b98e228465f86ddfafad4f0ccadb4eb6fd6b65dde87"
+      },
+      "diagnostic_frames": 14
+    }
+  },
+  "positive_replication_trial": {
+    "trial_id": "full-postfix-positive-13",
+    "condition": "independent stationary small-flame replication; approximately 2 cm maximum flame at 20-25 cm",
+    "ground_truth_visible_start_utc": "2026-08-03T12:54:25.429Z",
+    "ground_truth_visible_end_utc": "2026-08-03T12:55:52.336Z",
+    "visible_interval_seconds": 86.907,
+    "alert_requests_total": 11,
+    "pre_visible_interval_rejections": 1,
+    "visible_interval_requests": 10,
+    "visible_interval_confirmations": 1,
+    "visible_interval_rejections": 9,
+    "visible_interval_observed_confirmation_fraction": 0.1,
+    "alarm_outputs": 1,
+    "confirmed_scout_confidence": 0.08856642246246338,
+    "all_request_raw_fire_max": {
+      "n": 11,
+      "mean": 0.023289439353075893,
+      "median": 0.01117241382598877,
+      "minimum": 0.0007129013538360596,
+      "maximum": 0.08856642246246338
+    },
+    "scout_inference_latency_ms": {
+      "n": 11,
+      "mean": 1278.4953257272728,
+      "median": 1282.279437,
+      "minimum": 1215.389605,
+      "maximum": 1339.705065
+    },
+    "sentinel_alert_to_final_decision_ms": {
+      "n": 11,
+      "mean": 1463.526519,
+      "median": 1472.488416,
+      "minimum": 1407.466683,
+      "maximum": 1531.123704
+    },
+    "evidence": {
+      "ground_truth": {
+        "path": "raw/full_nodes/full-postfix-positive-13_ground_truth.jsonl",
+        "sha256": "344cb61d7ec496c799ee74d6c7dcf6eb90c4bf13139b4f8d9a8f4c5830f63ac8"
+      },
+      "scout_events": {
+        "path": "raw/full_nodes/full-postfix-positive-13/scout/events.jsonl",
+        "sha256": "e2d081b514e1b0823004cee515d07e4dc3231f72a4e4f7a21fd109448477e13b"
+      },
+      "scout_manifest": {
+        "path": "raw/full_nodes/full-postfix-positive-13/scout/session_manifest.json",
+        "sha256": "7cd1323d01f576dc1355c56c513542f0e7e28c28659317095de35ec4722508e0"
+      },
+      "sentinel_events": {
+        "path": "raw/full_nodes/full-postfix-positive-13/sentinel/events.jsonl",
+        "sha256": "0e24912356759126e98a4b4b7937231e4828f0fef54ed81b658424f6b523769a"
+      },
+      "sentinel_manifest": {
+        "path": "raw/full_nodes/full-postfix-positive-13/sentinel/session_manifest.json",
+        "sha256": "694e87c115093e581b618e9473a9f92d481e0f7e34864772ae06d3c64b56bf26"
+      },
+      "diagnostic_frames": 11
+    }
+  },
+  "negative_trial": {
+    "trial_id": "full-postfix-negative-injected-09",
+    "condition": "unlit scene with one correlated synthetic Sentinel alert",
+    "publisher_status": "PASS",
+    "publisher_subscriber_count": 1,
+    "event_id": "injected-negative-09-event-001",
+    "scout_source_frame_age_ms": 64.685072,
+    "scout_inference_latency_ms": 1398.057963,
+    "raw_fire_max": 0.00033417344093322754,
+    "threshold": 0.05,
+    "verdict": "REJECTED",
+    "confirmations": 0,
+    "evidence": {
+      "scout_events": {
+        "path": "raw/full_nodes/full-postfix-negative-injected-09/scout/events.jsonl",
+        "sha256": "b3a9bbf11d3149fe9c3de382ff60ca349e649d34b19ded858a5732cc89a1f418"
+      },
+      "scout_manifest": {
+        "path": "raw/full_nodes/full-postfix-negative-injected-09/scout/session_manifest.json",
+        "sha256": "119dfc1b99b730f59d23668974dc47dd70260119f2141de748d4e19365432c1a"
+      },
+      "diagnostic_frame": {
+        "path": "raw/diagnostic_frames/full-postfix-negative-injected-09/full-postfix-negative-injected-09_injected-negative-09-event-001.jpg",
+        "sha256": "c4e42ade273333df3094957634060b64b2c2108120a82d3092f3e268ffc34e4e"
+      }
+    }
+  },
+  "negative_replication_trial": {
+    "trial_id": "full-postfix-negative-injected-14",
+    "condition": "unchanged unlit laboratory scene with five sequential correlated synthetic Sentinel alerts",
+    "publisher_alerts": 5,
+    "publisher_alerts_with_scout_subscriber": 5,
+    "scout_verification_requests": 5,
+    "scout_rejections": 5,
+    "scout_confirmations": 0,
+    "raw_fire_max": {
+      "n": 5,
+      "mean": 0.0008904993534088135,
+      "median": 0.0006561577320098877,
+      "minimum": 0.00044149160385131836,
+      "maximum": 0.0020517706871032715
+    },
+    "scout_inference_latency_ms": {
+      "n": 5,
+      "mean": 1315.7704942,
+      "median": 1303.414875,
+      "minimum": 1265.969006,
+      "maximum": 1400.459828
+    },
+    "scout_source_frame_age_at_verification_start_ms": {
+      "n": 5,
+      "mean": 24.5007568,
+      "median": 22.26757,
+      "minimum": 16.150699,
+      "maximum": 33.6433
+    },
+    "evidence": {
+      "scout_events": {
+        "path": "raw/repeated_negative/full-postfix-negative-injected-14/scout/events.jsonl",
+        "sha256": "a27f7d898e10abf6baffc156950dda3eaf28c3beda7950074dea509e4a92dd1e"
+      },
+      "scout_manifest": {
+        "path": "raw/repeated_negative/full-postfix-negative-injected-14/scout/session_manifest.json",
+        "sha256": "de6798ac1bda7bf25f9b174f74db42e193a94fb4f9096999a8c8ef1c955dcf5c"
+      },
+      "publisher_records": 5,
+      "diagnostic_frames_recorded": 5,
+      "diagnostic_frames_copied_before_scout_disconnect": 2,
+      "all_five_frame_hashes_preserved_in_scout_events": true
+    }
+  },
+  "acceptance_decision": {
+    "hierarchical_positive_proof_of_function": "PASS",
+    "unlit_scout_rejection_at_selected_threshold": "PASS",
+    "positive_replication": "PASS WITH LIMITATION: one confirmation and alarm among 10 visible-interval requests under the approximately 2 cm flame condition",
+    "negative_replication": "PASS: five of five forced live-frame verification requests were rejected in the unlit scene",
+    "general_accuracy_claim": "NOT PERMITTED"
+  },
+  "limitations": [
+    "The positive evidence comprises two controlled stationary laboratory trials using one handheld lighter; flame size and stability differed materially between trials.",
+    "The observed 13/13 visible-interval confirmation fraction is descriptive for this trial and is not a population-level recall estimate.",
+    "The independent approximately 2 cm flame replication produced one confirmation among 10 visible-interval requests, demonstrating sensitivity to small or unstable flames.",
+    "The negative results used injected alerts to force Scout verification; six total rejections are not an estimate of environmental false-positive rate.",
+    "The Scout disconnected during post-run evidence transfer for the five-event negative replication; the complete structured event log and all five frame hashes were copied, but only two of five JPEG files reached the laptop.",
+    "The 0.05 threshold was selected after diagnostic observations and requires dataset-level calibration before a general accuracy claim.",
+    "No flight, localization, smoke, or industrial-environment claim is supported by these trials."
+  ]
+}

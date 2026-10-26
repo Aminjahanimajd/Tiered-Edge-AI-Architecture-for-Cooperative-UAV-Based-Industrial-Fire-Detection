@@ -1,0 +1,47 @@
+\begin{tikzpicture}[
+  font=\small,
+  actor/.style={draw,rounded corners=2pt,minimum width=30mm,minimum height=9mm,
+    fill=blue!5,font=\bfseries\small,align=center},
+  flow/.style={-{Latex[length=2mm]},thick},
+  timeout/.style={-{Latex[length=2mm]},thick,dashed,gray!75},
+  msg/.style={font=\scriptsize,align=center,fill=white,inner sep=1.2pt,
+    text width=37mm},
+  action/.style={draw,rounded corners=2pt,fill=orange!8,font=\scriptsize,
+    align=center,text width=31mm,minimum height=8mm,inner sep=1.5mm}
+]
+  \node[actor] (perception) at (0,0) {Sentinel\\perception};
+  \node[actor] (coordinator) at (4.75,0) {Sentinel\\coordinator};
+  \node[actor] (dds) at (9.50,0) {ROS 2 / DDS};
+  \node[actor] (scout) at (14.25,0) {Scout\\verifier};
+  \foreach \x in {0,4.75,9.50,14.25}
+    \draw[densely dashed,gray!70] (\x,-0.48) -- (\x,-16.45);
+
+  \node[action] at (0,-1.40) {D435i frame $\rightarrow$ TensorRT\\detection and decoding};
+  \draw[flow] (0,-2.80) --
+    node[msg,above]{candidate: class, confidence, box and source time}
+    (4.75,-2.80);
+
+  \node[action] at (4.75,-4.15) {apply three-frame rule; create\\unique event; start deadline};
+  \draw[flow] (4.75,-5.55) --
+    node[msg,above]{\texttt{HazardAlert}: experiment, trial, event and model IDs}
+    (9.50,-5.55);
+  \draw[flow] (9.50,-6.80) --
+    node[msg,above]{deliver alert with normalized image metadata}
+    (14.25,-6.80);
+
+  \node[action] at (14.25,-8.20) {validate IDs, freshness and duplicate state;\\snapshot own frame; full-frame inference};
+  \draw[flow] (14.25,-10.20) --
+    node[msg,above]{\texttt{HazardVerdict}: matching event, decision, score and reason}
+    (9.50,-10.20);
+  \draw[flow] (9.50,-11.55) --
+    node[msg,above]{deliver correlated confirmation, rejection or error}
+    (4.75,-11.55);
+
+  \node[action] at (4.75,-13.05) {require the active event ID; ignore stale or\\duplicate verdicts; persist one terminal record};
+  \draw[flow] (4.75,-14.65) --
+    node[msg,above]{publish exactly one \texttt{HazardDecision}; reset}
+    (9.50,-14.65);
+  \draw[timeout] (9.50,-16.05) --
+    node[msg,above]{alternative: no matching verdict before deadline}
+    (4.75,-16.05);
+\end{tikzpicture}

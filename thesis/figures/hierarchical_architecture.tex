@@ -1,0 +1,48 @@
+\begin{tikzpicture}[
+  font=\small,
+  block/.style={draw,rounded corners=2pt,align=center,text width=34mm,
+    minimum height=13mm,inner sep=2.2mm,fill=blue!4},
+  decision/.style={block,fill=orange!10},
+  flow/.style={-{Latex[length=2.2mm]},thick},
+  exchange/.style={-{Latex[length=2.2mm]},thick,blue!65!black},
+  future/.style={-{Latex[length=2.2mm]},thick,dashed,gray!75},
+  label/.style={font=\scriptsize,align=center,fill=white,inner sep=1.5pt}
+]
+  % The enlarged device boundaries deliberately provide a visible margin around
+  % every processing block after the complete figure is scaled to text width.
+  \draw[rounded corners=4pt,fill=blue!1] (-2.10,0.30) rectangle (16.15,3.35);
+  \draw[rounded corners=4pt,fill=blue!1] (-2.10,-3.45) rectangle (16.15,-0.30);
+  \node[font=\bfseries\small,fill=blue!1,inner sep=2pt] at (7.05,3.00)
+    {Sentinel --- Jetson Nano};
+  \node[font=\bfseries\small,fill=blue!1,inner sep=2pt] at (7.05,-3.08)
+    {Scout --- VOXL 2};
+
+  \node[block] (scam) at (0,1.65) {D435i camera\\local image stream};
+  \node[block] (sdet) at (4.70,1.65) {YOLOv8n / TensorRT\\initial detection};
+  \node[block] (filter) at (9.40,1.65) {three-frame\\temporal filter};
+  \node[decision] (coord) at (14.10,1.65) {event coordinator\\final decision};
+
+  \node[block] (ccam) at (0,-1.70) {Scout camera\\local image stream};
+  \node[block] (buffer) at (4.70,-1.70) {latest-frame buffer\\freshness gate};
+  \node[block] (cdet) at (9.40,-1.70) {YOLOv8s / TFLite\\full-frame verification};
+  \node[decision] (verdict) at (14.10,-1.70) {correlated verdict\\for active event};
+
+  \draw[flow] (scam) -- (sdet);
+  \draw[flow] (sdet) -- (filter);
+  \draw[flow] (filter) -- (coord);
+  \draw[flow] (ccam) -- (buffer);
+  \draw[flow] (buffer) -- (cdet);
+  \draw[flow] (cdet) -- (verdict);
+
+  \draw[exchange] ([xshift=-4mm]coord.south) --
+    node[label,left=2mm]{\texttt{HazardAlert}\\event identity + metadata}
+    ([xshift=-4mm]verdict.north);
+  \draw[exchange] ([xshift=4mm]verdict.north) --
+    node[label,right=2mm]{\texttt{HazardVerdict}\\confirm, reject or error}
+    ([xshift=4mm]coord.south);
+
+  \node[decision,below=18mm of verdict] (log) {terminal decision\\and persistent log};
+  \node[block,fill=gray!8,left=11mm of log] (flight) {flight-control adapter\\dry-run / simulation only};
+  \draw[flow] (verdict.south) -- (log.north);
+  \draw[future] (log.west) -- (flight.east);
+\end{tikzpicture}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-07-29",
+  "reviewer_role": "principal engineer",
+  "queue_csv_sha256": "a5667eed4410db63d7a231192f814e2340c3570211188b9531116e1a60a7c9c8",
+  "queue_row_numbering": "one-based data-row order, excluding the CSV header",
+  "viewing_method": "nine generated side-by-side contact sheets at original rendered resolution",
+  "classifications": {
+    "visually_same_scene": "1-64,68-69,71-73",
+    "uncertain_related_sequence": "65",
+    "not_visibly_same_scene_at_contact_sheet_resolution": "66-67,70,74-98"
+  },
+  "interpretation": [
+    "Visually same scene includes near-identical derivatives and adjacent frames whose shared scene is clear in the side-by-side rendering.",
+    "Not visibly same scene does not prove independent provenance or sequence membership.",
+    "The uncertain label is retained rather than forcing a binary decision.",
+    "These decisions apply only to the 98-pair deterministic review queue, not all 1701 cross-split candidates."
+  ]
+}

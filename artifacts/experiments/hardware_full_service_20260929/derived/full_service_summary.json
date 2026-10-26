@@ -1,0 +1,413 @@
+{
+  "acceptance": {
+    "both_resource_windows_at_least_1800_seconds": true,
+    "both_wrappers_passed_bounded_stop": true,
+    "corrected_probe_was_not_thirty_minutes": true,
+    "corrected_three_minute_probe_complete_and_correlated": true,
+    "device_control_manifests_match": true,
+    "jetson_mem_available_at_least_512_mib": true,
+    "mavproxy_active_with_vehicle_link_before_and_after": true,
+    "mismatched_thirty_minute_probe_retained_as_failed_configuration_attempt": true,
+    "no_logger_drops_observed": true,
+    "no_positive_swap_growth_on_either_host": false,
+    "scout_alert_to_verdict_p95_at_most_2000_ms": false,
+    "sentinel_inference_p95_at_most_200_ms": true,
+    "source_archives_present_and_hashed": true,
+    "stationary_propellers_removed_and_flight_commands_disabled": true
+  },
+  "analysis_type": "stationary_complete_service_endurance",
+  "claim_boundary": "Evidence supports 30-minute stationary coexistence of live cameras, deployed edge inference, ROS 2, logging, SwarmNet, Scout PX4 services and Sentinel MAVProxy/Pixhawk telemetry, plus a separate corrected 36-event live Scout-verification probe during the final three minutes. It does not support physical-flight, ignition-to-detection, power, industrial-site reliability, or a claim that the full hierarchy was stimulated continuously for 30 minutes.",
+  "device_manifest_verification": {
+    "scout": {
+      "all_match": true,
+      "checked_file_count": 12,
+      "files": [
+        {
+          "actual_sha256": "137c90b96990fd1575d7c2acc01c53d314627c75918436c9e9dde7ec690ff840",
+          "expected_sha256": "137c90b96990fd1575d7c2acc01c53d314627c75918436c9e9dde7ec690ff840",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/experiment_id.txt"
+        },
+        {
+          "actual_sha256": "98a588fe1e7035915d59e80647a3973ea4ecec6e7dc761903714652adfbcc79b",
+          "expected_sha256": "98a588fe1e7035915d59e80647a3973ea4ecec6e7dc761903714652adfbcc79b",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/finished_utc.txt"
+        },
+        {
+          "actual_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+          "expected_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/interpreter_threads.txt"
+        },
+        {
+          "actual_sha256": "c987b00ce785ab9d436b83fee4cad6dcdd57362940f4697c994220e30e719b76",
+          "expected_sha256": "c987b00ce785ab9d436b83fee4cad6dcdd57362940f4697c994220e30e719b76",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/node_runner_console.log"
+        },
+        {
+          "actual_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "expected_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/node_runner_exit_code.txt"
+        },
+        {
+          "actual_sha256": "836a825369a1241d9480e9be73cdaea996d5f2d7b676b91e7c26a3a3b78d29f9",
+          "expected_sha256": "836a825369a1241d9480e9be73cdaea996d5f2d7b676b91e7c26a3a3b78d29f9",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/resource_collector_console.log"
+        },
+        {
+          "actual_sha256": "f1c7a934d8521faa8836ed6e63fc4c949bf235cabb8a2939819b4e5242eccdf1",
+          "expected_sha256": "f1c7a934d8521faa8836ed6e63fc4c949bf235cabb8a2939819b4e5242eccdf1",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/resources/resource_samples.jsonl"
+        },
+        {
+          "actual_sha256": "836a825369a1241d9480e9be73cdaea996d5f2d7b676b91e7c26a3a3b78d29f9",
+          "expected_sha256": "836a825369a1241d9480e9be73cdaea996d5f2d7b676b91e7c26a3a3b78d29f9",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/resources/resource_summary.json"
+        },
+        {
+          "actual_sha256": "2bae9cf14353c8bc2f2a747631c6c42c6dee9491ffb6b36204534bb2d351caba",
+          "expected_sha256": "2bae9cf14353c8bc2f2a747631c6c42c6dee9491ffb6b36204534bb2d351caba",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/safety_state.txt"
+        },
+        {
+          "actual_sha256": "39a8ffe15b76a97c005fe48276f9d6d5a589f51610dd2511b54c4bc2fa4bc2e7",
+          "expected_sha256": "39a8ffe15b76a97c005fe48276f9d6d5a589f51610dd2511b54c4bc2fa4bc2e7",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/services_after.txt"
+        },
+        {
+          "actual_sha256": "3acb87d9d3f9fcad10bd3eaeeae4ac250aeadb20a415281e4730b006f4c34309",
+          "expected_sha256": "3acb87d9d3f9fcad10bd3eaeeae4ac250aeadb20a415281e4730b006f4c34309",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/services_before.txt"
+        },
+        {
+          "actual_sha256": "9e73cb2430b2500535bad5802d22e4571261d22d7bb4ea36336c79cbb88842e1",
+          "expected_sha256": "9e73cb2430b2500535bad5802d22e4571261d22d7bb4ea36336c79cbb88842e1",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/started_utc.txt"
+        }
+      ],
+      "manifest": {
+        "path": "D:\\Drones\\Drone_Enhanced\\artifacts\\experiments\\hardware_full_service_20260929\\extracted\\full_service_20260929\\control\\fullstack-20260929-r2\\sha256_manifest.txt",
+        "sha256": "6ea2d0f57c9f3372b330f4a4b3c178804b54ce7634cafa7a84160a825754e8e4"
+      }
+    },
+    "sentinel": {
+      "all_match": true,
+      "checked_file_count": 11,
+      "files": [
+        {
+          "actual_sha256": "151cbb9700ad16513f1d001499e07039ad260ab5d0da326fd5ddd7186805e4f2",
+          "expected_sha256": "151cbb9700ad16513f1d001499e07039ad260ab5d0da326fd5ddd7186805e4f2",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/finished_utc.txt"
+        },
+        {
+          "actual_sha256": "36b5022aca3e6245aeeca2b734f880cb9ec815fd9e6e9aab31c171f79577bfb6",
+          "expected_sha256": "36b5022aca3e6245aeeca2b734f880cb9ec815fd9e6e9aab31c171f79577bfb6",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/mavproxy_after.txt"
+        },
+        {
+          "actual_sha256": "34bf8be22d046788d9888961c6ea190e2069b43c1905166aa143ba37c8b920ea",
+          "expected_sha256": "34bf8be22d046788d9888961c6ea190e2069b43c1905166aa143ba37c8b920ea",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/mavproxy_before.txt"
+        },
+        {
+          "actual_sha256": "6535155d431eb047c50a6d19f3d6ae425bc51c07821c3b0b64360ba8e657921e",
+          "expected_sha256": "6535155d431eb047c50a6d19f3d6ae425bc51c07821c3b0b64360ba8e657921e",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/node_runner_console.log"
+        },
+        {
+          "actual_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "expected_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/node_runner_exit_code.txt"
+        },
+        {
+          "actual_sha256": "f9630ac987cff5d9094db880a4da686b61467d286a27de252c75bf7de5253954",
+          "expected_sha256": "f9630ac987cff5d9094db880a4da686b61467d286a27de252c75bf7de5253954",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/resource_collector_console.log"
+        },
+        {
+          "actual_sha256": "e53aa59b1924ab78085ea9dc8ad8e30c8af5ce76d0ea3f2801d50ee365a896d6",
+          "expected_sha256": "e53aa59b1924ab78085ea9dc8ad8e30c8af5ce76d0ea3f2801d50ee365a896d6",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/resources/resource_samples.jsonl"
+        },
+        {
+          "actual_sha256": "f9630ac987cff5d9094db880a4da686b61467d286a27de252c75bf7de5253954",
+          "expected_sha256": "f9630ac987cff5d9094db880a4da686b61467d286a27de252c75bf7de5253954",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/resources/resource_summary.json"
+        },
+        {
+          "actual_sha256": "5d05f7a88ca68b192d85c5c3cb359d97106744c8b662c9b06f843e7ebc5f88f0",
+          "expected_sha256": "5d05f7a88ca68b192d85c5c3cb359d97106744c8b662c9b06f843e7ebc5f88f0",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/safety_state.txt"
+        },
+        {
+          "actual_sha256": "a69913b108d02c127af65bd3aea777d6603fd4c909507d48ef594c9f47fc8df5",
+          "expected_sha256": "a69913b108d02c127af65bd3aea777d6603fd4c909507d48ef594c9f47fc8df5",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/started_utc.txt"
+        },
+        {
+          "actual_sha256": "52d74a208e8f8600a49999301daee833493d2c03831a558dc3b13606fcccc485",
+          "expected_sha256": "52d74a208e8f8600a49999301daee833493d2c03831a558dc3b13606fcccc485",
+          "match": true,
+          "relative_path": "control/fullstack-20260929-r2/tegrastats.log"
+        }
+      ],
+      "manifest": {
+        "path": "D:\\Drones\\Drone_Enhanced\\artifacts\\experiments\\hardware_full_service_20260929\\extracted\\full_service\\control\\fullstack-20260929-r2\\sha256_manifest.txt",
+        "sha256": "b61a98723b8dad8d1fceecf96bc44362e516c5917dffff029f40a4bdb8a53bce"
+      }
+    }
+  },
+  "experiment_id": "full-service-20260929",
+  "hierarchy_probe": {
+    "corrected": {
+      "claim_boundary": "Latency begins at a synthetic ROS alert and includes network transport, Scout queueing, current-frame inference, and verdict transport. It excludes Sentinel detection and is not ignition-to-detection latency.",
+      "correlation_mismatch_count": 0,
+      "duplicate_count": 0,
+      "duration_seconds": 180.24510594699996,
+      "events_sha256": "b87919fe91f34dd869edff5a9fdb81e98b1dfb75df4f61f25d806b8793f40a78",
+      "experiment_id": "full-service-20260929",
+      "finished_utc": "2026-09-29T12:50:48.430Z",
+      "interval_seconds": 5.0,
+      "latency_ms": {
+        "maximum": 2734.914088,
+        "mean": 2526.0563055000002,
+        "median": 2506.9531875000002,
+        "minimum": 2485.620174,
+        "n": 36,
+        "p95": 2617.7456187499997,
+        "population_standard_deviation": 52.420680707465976
+      },
+      "missing_count": 0,
+      "probe_type": "periodic_injected_alert_to_live_scout_camera_inference_verdict",
+      "received_count": 36,
+      "requested_count": 36,
+      "safety_state": "stationary; propellers removed; publisher/subscriber only; no vehicle command",
+      "schema_version": 1,
+      "started_utc": "2026-09-29T12:47:48.185Z",
+      "status": "PASS",
+      "trial_id": "fullstack-20260929-r2",
+      "unexpected_count": 0,
+      "verdict_timeout_seconds": 3.0
+    },
+    "mismatched_development_attempt": {
+      "claim_boundary": "Latency begins at a synthetic ROS alert and includes network transport, Scout queueing, current-frame inference, and verdict transport. It excludes Sentinel detection and is not ignition-to-detection latency.",
+      "correlation_mismatch_count": 0,
+      "duplicate_count": 0,
+      "duration_seconds": 1800.274362743,
+      "events_sha256": "f8ec19b7d8ef9e8f2476fc64ddaaf92f432340b5b71d673f2cdbc82636edc03e",
+      "experiment_id": "full-service-20260929",
+      "finished_utc": "2026-09-29T12:51:22.903Z",
+      "interval_seconds": 5.0,
+      "latency_ms": {
+        "maximum": null,
+        "mean": null,
+        "median": null,
+        "minimum": null,
+        "n": 0,
+        "p95": null,
+        "population_standard_deviation": null
+      },
+      "missing_count": 360,
+      "probe_type": "periodic_injected_alert_to_live_scout_camera_inference_verdict",
+      "received_count": 0,
+      "requested_count": 360,
+      "safety_state": "stationary; propellers removed; publisher/subscriber only; no vehicle command",
+      "schema_version": 1,
+      "started_utc": "2026-09-29T12:21:22.629Z",
+      "status": "FAIL",
+      "trial_id": "fullstack-20260929-r2-probe",
+      "unexpected_count": 36,
+      "verdict_timeout_seconds": 3.0
+    },
+    "scope_note": "The corrected 36-event probe ran for 180.245 s near the end of the 30-minute coexistence window. It validates synthetic alert transport, Scout live-frame inference and verdict transport, not 30 minutes of continuous hierarchy requests or Sentinel camera-to-final-decision latency."
+  },
+  "limitations": [
+    "Stationary platforms with propellers removed; no physical flight was attempted.",
+    "Host-wide resources are not per-process power or energy measurements.",
+    "The corrected hierarchy load covers approximately three minutes, not the full endurance interval.",
+    "The corrected probe injects synthetic alerts and excludes Sentinel detection latency.",
+    "Scout p95 alert-to-verdict latency exceeded the preregistered 2 s target.",
+    "The MAVProxy snapshot records an existing fence-breach warning; no command was transmitted in this trial.",
+    "This experiment does not estimate detector accuracy or operational industrial reliability."
+  ],
+  "schema_version": 1,
+  "scout": {
+    "event_counts": {
+      "alert_ignored": 360,
+      "first_camera_frame": 1,
+      "hazard_alert_received": 36,
+      "hazard_verdict_published": 36,
+      "verification_inference": 36
+    },
+    "frame_age_at_start_ms": {
+      "maximum": 127.973975,
+      "mean": 38.007839249999996,
+      "median": 25.419620000000002,
+      "minimum": 9.422923,
+      "n": 36,
+      "p95": 117.04569275,
+      "population_standard_deviation": 33.57536868733658
+    },
+    "inference_latency_ms": {
+      "maximum": 2648.394764,
+      "mean": 2439.0657031944443,
+      "median": 2421.9966435,
+      "minimum": 2404.629912,
+      "n": 36,
+      "p95": 2511.6106515,
+      "population_standard_deviation": 46.81635060308482
+    },
+    "logger_dropped_records_max": 0,
+    "queue_delay_ms": {
+      "maximum": 8.412885,
+      "mean": 3.9576051944444446,
+      "median": 3.314869,
+      "minimum": 1.738931,
+      "n": 36,
+      "p95": 6.37453675,
+      "population_standard_deviation": 1.4869714547791766
+    },
+    "resources": {
+      "cpu_total_percent": {
+        "maximum": 60.26252983293556,
+        "mean": 42.44178407840926,
+        "median": 42.152723538430386,
+        "minimum": 26.77925211097708,
+        "n": 1832,
+        "p95": 48.45828355091536,
+        "population_standard_deviation": 3.6171398791318494
+      },
+      "mem_available_mib": {
+        "maximum": 5194.28125,
+        "mean": 5063.272683101473,
+        "median": 5081.71875,
+        "minimum": 4873.84375,
+        "n": 1833,
+        "p95": 5114.3359375,
+        "population_standard_deviation": 62.84697602425073
+      },
+      "observed_duration_seconds": 1934.836346008,
+      "sample_count": 1833,
+      "swap_growth_mib_first_to_last": 0.0,
+      "swap_used_mib": {
+        "maximum": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "minimum": 0.0,
+        "n": 1833,
+        "p95": 0.0,
+        "population_standard_deviation": 0.0
+      },
+      "thermal_zone_celsius": {
+        "maximum": 48.2,
+        "mean": 39.52128031350014,
+        "median": 42.8,
+        "minimum": 1.015,
+        "n": 109984,
+        "p95": 44.8,
+        "population_standard_deviation": 9.676464123087872
+      }
+    },
+    "verdicts": 36,
+    "verification_inferences": 36
+  },
+  "sentinel": {
+    "camera_errors": 0,
+    "event_counts": {
+      "inference": 30426,
+      "verdict_ignored": 36
+    },
+    "ignored_probe_verdicts": 36,
+    "inference_frames": 30426,
+    "inference_latency_ms": {
+      "maximum": 154.194492,
+      "mean": 60.03534772871886,
+      "median": 59.868801500000004,
+      "minimum": 59.108264,
+      "n": 30426,
+      "p95": 61.1700805,
+      "population_standard_deviation": 0.8071241958928277
+    },
+    "logger_dropped_records_max": 0,
+    "mavproxy_snapshot": {
+      "active_after": true,
+      "active_before": true,
+      "fence_breach_text_present": true,
+      "vehicle_link_after": true,
+      "vehicle_link_before": true
+    },
+    "resources": {
+      "cpu_total_percent": {
+        "maximum": 67.4,
+        "mean": 32.65155671077431,
+        "median": 32.45967741935484,
+        "minimum": 18.236472945891784,
+        "n": 1551,
+        "p95": 34.2713653112677,
+        "population_standard_deviation": 2.7276205649944307
+      },
+      "mem_available_mib": {
+        "maximum": 3284.390625,
+        "mean": 2266.1854638168493,
+        "median": 2256.705078125,
+        "minimum": 1589.89453125,
+        "n": 1552,
+        "p95": 2296.8216796875,
+        "population_standard_deviation": 107.84549813932416
+      },
+      "observed_duration_seconds": 1939.7090300099999,
+      "sample_count": 1552,
+      "swap_growth_mib_first_to_last": 0.921875,
+      "swap_used_mib": {
+        "maximum": 0.921875,
+        "mean": 0.0018599991945876288,
+        "median": 0.0,
+        "minimum": 0.0,
+        "n": 1552,
+        "p95": 0.0,
+        "population_standard_deviation": 0.04060476259308776
+      },
+      "thermal_zone_celsius": {
+        "maximum": 51.0,
+        "mean": 37.73801086156112,
+        "median": 34.5,
+        "minimum": 25.0,
+        "n": 10864,
+        "p95": 50.0,
+        "population_standard_deviation": 6.226117853883082
+      }
+    }
+  },
+  "source_archives": {
+    "scout": {
+      "path": "D:\\Drones\\Drone_Enhanced\\artifacts\\experiments\\hardware_full_service_20260929\\raw\\scout_full_service_20260929.tar.gz",
+      "sha256": "705cb09814a49a64850fd23b4481a304ce2674ecb99089c8e521c97105544093"
+    },
+    "sentinel": {
+      "path": "D:\\Drones\\Drone_Enhanced\\artifacts\\experiments\\hardware_full_service_20260929\\raw\\sentinel_full_service_20260929.tar.gz",
+      "sha256": "77a51870543a1ec48d29d0b3efb70cb71f62a21cc8fb32717780ad70d4f8c450"
+    }
+  },
+  "status": "PASS_WITH_UNMET_SCOUT_LATENCY_CRITERION",
+  "trial_id": "fullstack-20260929-r2"
+}

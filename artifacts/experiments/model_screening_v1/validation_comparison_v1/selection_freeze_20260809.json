@@ -1,0 +1,81 @@
+{
+  "access_class": "NO LAB",
+  "author_role": "student principal engineer",
+  "candidate_count": 6,
+  "canonical_evidence_ids": {
+    "efficientdet_lite0_320": "efficientdet_lite0_320",
+    "ssd_mobilenet_v2_fpnlite_320": "ssd_mobilenet_v2_fpnlite_320_retry2_dynamic_signature",
+    "yolov8n_416": "yolov8n_416_timing_retry2",
+    "yolov8n_640": "yolov8n_640",
+    "yolov8s_416": "yolov8s_416",
+    "yolov8s_640": "yolov8s_640"
+  },
+  "contract_sha256": "a64aafb5a0b134da0b6efb351d288b977654609acea86654c10b100baddc266b",
+  "created_utc": "2026-08-09T10:29:03.350073+00:00",
+  "deployed_hardware_system_unchanged": {
+    "reason": "The six-model screen is post-hoc laptop evidence and provides no new device deployment validation. It does not retroactively replace the hardware-tested pair.",
+    "scout": "final demonstrated YOLOv8s 640 TFLite backend",
+    "sentinel": "final demonstrated YOLOv8n 640 TensorRT engine"
+  },
+  "evaluator_sha256": "8afc3b528ba55f43392e4e1028509598a13a03bedf36ad115522287d977f7095",
+  "exploratory_ap_latency_pareto_models": [
+    "yolov8n_416",
+    "yolov8n_640"
+  ],
+  "limitations": [
+    "Only one controlled training seed is available per candidate.",
+    "Laptop runtime paths differ by framework and accelerator; latency is pipeline-specific.",
+    "The validation source groups are inferred because original session identities are incomplete.",
+    "No six-candidate drone deployment comparison was performed."
+  ],
+  "protocol_id": "six_model_validation_v1",
+  "schema_version": 1,
+  "status": "frozen_before_test",
+  "test_gate": {
+    "permitted_next_action": "one inference/evaluation pass for all six frozen candidates",
+    "prohibited_after_opening": [
+      "threshold tuning",
+      "checkpoint selection",
+      "model retraining based on test results",
+      "silent evaluator changes"
+    ],
+    "state_at_freeze": "locked",
+    "test_annotations_bytes": 166766,
+    "test_annotations_sha256": "651e2782db96cbbdf2ba718494f7b57447f96aea6d7719fac350132f1b72a06d",
+    "test_image_count": 733
+  },
+  "threshold_policy": {
+    "objective": "maximum object-level F1 at IoU 0.50",
+    "range": [
+      0.01,
+      0.99
+    ],
+    "split": "validation",
+    "step": 0.01,
+    "tie_breakers": [
+      "higher recall",
+      "lower threshold"
+    ]
+  },
+  "validation_annotations_sha256": "1a93f800d63bf355bb586039da245cd612cbdd7052102cbfd6da1409312ab7c6",
+  "validation_comparison_sha256": "a1424f7717518e76c56caea3d1bd6e1c52fb27f1f175a370898ec460a104eaa8",
+  "validation_screening_outcome": {
+    "highest_ap50_95": "yolov8n_416",
+    "highest_precision_at_f1_threshold": "yolov8n_416",
+    "highest_recall_at_f1_threshold": [
+      "yolov8n_416",
+      "yolov8n_640"
+    ],
+    "interpretation": "The post-hoc laptop screen does not support claiming that different model families are intrinsically optimal for the two roles. Hierarchical value must be evaluated from independent verification and deployment evidence.",
+    "scout_screening_candidate": "yolov8n_416",
+    "sentinel_screening_candidate": "yolov8n_416"
+  },
+  "validation_thresholds_iou50": {
+    "efficientdet_lite0_320": 0.41,
+    "ssd_mobilenet_v2_fpnlite_320": 0.81,
+    "yolov8n_416": 0.45,
+    "yolov8n_640": 0.36,
+    "yolov8s_416": 0.3,
+    "yolov8s_640": 0.22
+  }
+}

@@ -1,0 +1,47 @@
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Resource-constrained unmanned aerial vehicles cannot assume cloud connectivity
+or identical computing platforms when monitoring visually complex industrial
+environments. This thesis develops a tiered edge architecture in which a
+Sentinel performs initial hazard detection, temporal filtering and target
+designation, while a Scout performs secondary visual hazard verification. The
+study combines source-aware dataset curation, a frozen six-model comparison,
+conversion-fidelity checks, device-specific integration, ROS~2/DDS messaging,
+stationary two-node trials and development simulation. In the implemented
+physical path, camera capture, inference, inter-device messaging and final
+decision handling remained on the two edge nodes; the laboratory laptop was an
+operator and evidence interface rather than an inference server.
+
+The model comparison did not identify a universal winner. YOLOv8n-416 led
+validation AP50--95 and F1, whereas EfficientDet led the one-time test
+comparison; all candidates lost F1 from validation to test, and their
+grouped-bootstrap intervals overlapped. The historical deployed pair executed
+on both edge platforms. In retained camera-free benchmarks, the final
+640-pixel Sentinel TensorRT pipeline averaged 58.151~ms and the Scout TFLite
+pipeline averaged 999.431~ms. Bounded stationary trials produced correlated
+Scout confirmations and rejections, with mean alert-to-final-decision time of
+approximately 1.44--1.46~s in accepted positive conditions. Two 300-event
+communication campaigns returned all application-level replies, with median
+round-trip times near 5--6~ms. A stationary complete-stack run exceeded 30
+minutes on both devices without process death, OOM, thermal shutdown or logger
+loss. Its corrected 36-event probe returned every correlated verdict, but its
+2.618~s p95 alert-to-verdict time failed the registered 2~s target and Sentinel
+swap increased by 0.922~MiB. A separate 1,000-event ROS~2 campaign under live
+inference load delivered every correlated reply with 7.984~ms p95 round-trip
+time. Five-repetition interface, stale-frame, unavailable-process and
+late/duplicate-verdict faults reached their specified fail-closed outcomes. A
+hash-linked Gazebo run completed one confirmed-hazard mission from patrol to
+Scout verification, alarm publication and landing using distinct airframe
+proxies.
+
+The evidence supports role division and bounded 30-minute concurrent operation
+across the tested heterogeneous nodes under stationary laboratory conditions.
+It does not establish improved accuracy over a common baseline or compliance
+with every registered runtime criterion. Temporal-filter effects, formal
+mission reliability, external transfer,
+geographic localization and physical two-vehicle flight remain unestablished.
+The final physical evidence concerns visible flame appearance in RGB imagery;
+physical smoke and industrial-site operation were not evaluated. The thesis
+therefore contributes a traceable prototype and a prioritized validation path,
+not a claim of deployment readiness.

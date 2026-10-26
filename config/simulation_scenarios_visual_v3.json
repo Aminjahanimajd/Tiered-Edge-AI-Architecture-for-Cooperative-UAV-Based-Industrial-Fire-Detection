@@ -1,0 +1,89 @@
+{
+  "schema_version": 2,
+  "supersedes": "simulation_scenarios_v2.json for defense-visual delivery only",
+  "status": "development_visual_scenario_with_explicit_standoff",
+  "coordinate_frame": "local_enu_simulator_ground_truth",
+  "claim_boundary": "All target positions are scenario truth, not vision-derived localization.",
+  "environment": {
+    "id": "industrial_inspection_proxy_v1",
+    "minimum_east_m": -5.0,
+    "maximum_east_m": 24.0,
+    "minimum_north_m": 0.0,
+    "maximum_north_m": 30.0,
+    "maximum_altitude_m": 8.0,
+    "highest_modeled_obstacle_m": 4.0,
+    "minimum_vertical_clearance_m": 1.0
+  },
+  "vehicles": {
+    "sentinel": {
+      "physical_platform": "Holybro X500 V2",
+      "simulation_model": "x500_v2_sentinel_proxy",
+      "proxy": true,
+      "visual_identity": "orange cross",
+      "ros_namespace": "/sentinel",
+      "px4_instance": 1,
+      "mavlink_system_id": 2,
+      "home_enu_m": [0.0, 0.0, 0.0],
+      "camera": "Intel RealSense D435i",
+      "parameter_status": "provisional_proxy"
+    },
+    "scout": {
+      "physical_platform": "ModalAI PX4 Development Kit/Starling-class",
+      "simulation_model": "modalai_devkit_scout_proxy",
+      "proxy": true,
+      "visual_identity": "blue compact shell",
+      "ros_namespace": "/scout",
+      "px4_instance": 2,
+      "mavlink_system_id": 3,
+      "home_enu_m": [-4.0, 0.0, 0.0],
+      "camera": "ModalAI onboard high-resolution camera",
+      "parameter_status": "provisional_proxy"
+    }
+  },
+  "mission": {
+    "patrol_bounds_enu_m": {
+      "minimum_east_m": 1.0,
+      "maximum_east_m": 16.0,
+      "minimum_north_m": 2.0,
+      "maximum_north_m": 14.0
+    },
+    "sentinel_patrol_altitude_m": 5.5,
+    "sentinel_hazard_standoff_distance_m": 4.5,
+    "scout_transit_altitude_m": 5.0,
+    "scout_standoff_distance_m": 4.5,
+    "lane_spacing_m": 5.0,
+    "waypoint_tolerance_horizontal_m": 0.6,
+    "waypoint_tolerance_vertical_m": 0.4,
+    "verification_hold_s": 5.0,
+    "confirmed_hold_s": 5.0,
+    "degraded_hold_s": 15.0
+  },
+  "targets": [
+    {
+      "event_id": "scenario-fire-tank-a",
+      "target_id": "tank-a-fixture",
+      "position_enu_m": [12.0, 5.0, 4.0],
+      "horizontal_exclusion_radius_m": 1.8,
+      "hazard_type": "fire",
+      "expected_verdict": "CONFIRMED"
+    },
+    {
+      "event_id": "scenario-reflection-pipe-b",
+      "target_id": "pipe-b-reflection",
+      "position_enu_m": [18.0, 8.0, 1.2],
+      "horizontal_exclusion_radius_m": 0.8,
+      "hazard_type": "fire_like_confounder",
+      "expected_verdict": "REJECTED"
+    }
+  ],
+  "formal_faults": [
+    "lost_alert",
+    "delayed_verdict",
+    "duplicate_or_stale_verdict",
+    "scout_unavailable",
+    "mission_node_restart",
+    "low_battery",
+    "invalid_or_out_of_geofence_target",
+    "sensor_or_inference_error"
+  ]
+}

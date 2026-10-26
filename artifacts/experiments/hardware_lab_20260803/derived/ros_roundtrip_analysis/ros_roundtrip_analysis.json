@@ -1,0 +1,288 @@
+{
+  "claim_boundary": {
+    "not_permitted": [
+      "one-way latency",
+      "DDS packet-loss rate",
+      "general reliability guarantee",
+      "camera-to-decision latency",
+      "loaded or industrial-network performance"
+    ],
+    "note": "Reliable DDS may retransmit below the application layer; a received reply does not prove that no network packet was lost.",
+    "permitted": "observed correlated application-level request/reply delivery and round-trip timing in these three camera-free sessions"
+  },
+  "generated_utc": "2026-08-03T09:57:43.738Z",
+  "inferential_statistics": {
+    "reason": "Serial observations within three consecutive sessions are not established as independent or representative of other conditions.",
+    "reported": false
+  },
+  "pooled": {
+    "attempted_count": 300,
+    "mismatch_count": 0,
+    "missing_count": 0,
+    "observed_reply_fraction": 1.0,
+    "received_count": 300,
+    "responder_duplicate_count": 0,
+    "rtt_summary_ms": {
+      "count_above_100_ms": 0,
+      "count_above_10_ms": 11,
+      "count_above_20_ms": 4,
+      "count_above_50_ms": 0,
+      "maximum": 36.119539,
+      "mean": 6.0456674066666665,
+      "median": 5.256503,
+      "minimum": 3.325286,
+      "n": 300,
+      "p05": 3.75517135,
+      "p25": 4.44005125,
+      "p75": 6.51416225,
+      "p95": 9.457313950000001,
+      "p99": 24.50104695999991,
+      "population_standard_deviation": 3.666263286158239,
+      "tukey_upper_fence": 9.625328750000001
+    },
+    "tukey_tail_events": [
+      {
+        "event_id": "ros-rtt-03-event-0085",
+        "round_trip_ms": 36.119539,
+        "sequence": 85,
+        "trial_id": "ros-rtt-03"
+      },
+      {
+        "event_id": "ros-rtt-01-event-0079",
+        "round_trip_ms": 34.518877,
+        "sequence": 79,
+        "trial_id": "ros-rtt-01"
+      },
+      {
+        "event_id": "ros-rtt-02-event-0033",
+        "round_trip_ms": 33.96376,
+        "sequence": 33,
+        "trial_id": "ros-rtt-02"
+      },
+      {
+        "event_id": "ros-rtt-03-event-0075",
+        "round_trip_ms": 24.405464,
+        "sequence": 75,
+        "trial_id": "ros-rtt-03"
+      },
+      {
+        "event_id": "ros-rtt-02-event-0075",
+        "round_trip_ms": 15.963913,
+        "sequence": 75,
+        "trial_id": "ros-rtt-02"
+      },
+      {
+        "event_id": "ros-rtt-02-event-0063",
+        "round_trip_ms": 15.402234,
+        "sequence": 63,
+        "trial_id": "ros-rtt-02"
+      },
+      {
+        "event_id": "ros-rtt-02-event-0060",
+        "round_trip_ms": 15.255199,
+        "sequence": 60,
+        "trial_id": "ros-rtt-02"
+      },
+      {
+        "event_id": "ros-rtt-02-event-0062",
+        "round_trip_ms": 14.039077,
+        "sequence": 62,
+        "trial_id": "ros-rtt-02"
+      },
+      {
+        "event_id": "ros-rtt-01-event-0000",
+        "round_trip_ms": 13.087909,
+        "sequence": 0,
+        "trial_id": "ros-rtt-01"
+      },
+      {
+        "event_id": "ros-rtt-03-event-0062",
+        "round_trip_ms": 12.565189,
+        "sequence": 62,
+        "trial_id": "ros-rtt-03"
+      },
+      {
+        "event_id": "ros-rtt-01-event-0053",
+        "round_trip_ms": 10.622435,
+        "sequence": 53,
+        "trial_id": "ros-rtt-01"
+      },
+      {
+        "event_id": "ros-rtt-01-event-0003",
+        "round_trip_ms": 9.971274,
+        "sequence": 3,
+        "trial_id": "ros-rtt-01"
+      },
+      {
+        "event_id": "ros-rtt-02-event-0002",
+        "round_trip_ms": 9.750019,
+        "sequence": 2,
+        "trial_id": "ros-rtt-02"
+      },
+      {
+        "event_id": "ros-rtt-03-event-0080",
+        "round_trip_ms": 9.723925,
+        "sequence": 80,
+        "trial_id": "ros-rtt-03"
+      },
+      {
+        "event_id": "ros-rtt-03-event-0009",
+        "round_trip_ms": 9.650486,
+        "sequence": 9,
+        "trial_id": "ros-rtt-03"
+      }
+    ]
+  },
+  "protocol": {
+    "initiator": "Sentinel",
+    "measurement_clock": "Sentinel monotonic clock",
+    "network_interface": "wlan0",
+    "qos": "RELIABLE, VOLATILE, depth 100",
+    "reply_topic": "/swarm/hazard_verdict",
+    "request_topic": "/swarm/hazard_alert",
+    "requested_roundtrips_per_trial": 100,
+    "responder": "Scout",
+    "rmw": "rmw_cyclonedds_cpp",
+    "trial_count": 3
+  },
+  "sample_csv": "ros_roundtrip_samples.csv",
+  "sample_csv_sha256": "b5b0d332e541c6bbd3781c727ab4680d32d49dfa1e9309fc5f5b23e49a68ea28",
+  "schema_version": 1,
+  "source_evidence_directory": "D:\\Drones\\Drone_Enhanced\\artifacts\\experiments\\hardware_lab_20260803\\derived\\ros_roundtrip_evidence",
+  "source_records": [
+    {
+      "device": "scout",
+      "file_sha256": "3650aaad7a788a3dd8b670220aa2e9ec6cf0168d27b2d8d298ffe20595b15a84",
+      "filename": "scout_ros-rtt-01_scout_responder.txt.json",
+      "record_sha256": "aeba7ed7fbcc7fb7f0a2d5efdfd45c10a3471dd701f4c6868c10feaaf045731d",
+      "role": "responder",
+      "trial_id": "ros-rtt-01"
+    },
+    {
+      "device": "scout",
+      "file_sha256": "e8d64c96c4cc9aa96395fce8092487f123f5b4eb216d9d683cda60d9447b75ba",
+      "filename": "scout_ros-rtt-02_scout_responder.txt.json",
+      "record_sha256": "8c5e56da75c834af934b1f03ceff0f18d9288072e82667b3f5c6f0c717148a70",
+      "role": "responder",
+      "trial_id": "ros-rtt-02"
+    },
+    {
+      "device": "scout",
+      "file_sha256": "2498a0ade4fb827434bada36d1164be08e47187ec5ebc9b2ab87c52c1ec214bc",
+      "filename": "scout_ros-rtt-03_scout_responder.txt.json",
+      "record_sha256": "19cf17f134100171388f6cbb592391fb385f644ee1dd57bc130458f29cd299d8",
+      "role": "responder",
+      "trial_id": "ros-rtt-03"
+    },
+    {
+      "device": "sentinel",
+      "file_sha256": "7b169a1078220fcb91c21aa0efe29b688dfeb26eb869c6976ac2f7911a027d34",
+      "filename": "sentinel_ros-rtt-01_sentinel_initiator.txt.json",
+      "record_sha256": "e16a685bb7d869b3ec885367aabd0abecddb630635791f9f7eb318b2aef1136d",
+      "role": "initiator",
+      "trial_id": "ros-rtt-01"
+    },
+    {
+      "device": "sentinel",
+      "file_sha256": "671f2444b6d392a9a15ad7792015e675bd719c34a8a5c6676f3dda43264421e1",
+      "filename": "sentinel_ros-rtt-02_sentinel_initiator.txt.json",
+      "record_sha256": "7822a1c09c85f2d68e3ad2afa1a8883ac5a9b7bf68130179c1b4c58903ae88d1",
+      "role": "initiator",
+      "trial_id": "ros-rtt-02"
+    },
+    {
+      "device": "sentinel",
+      "file_sha256": "0dc300bdef36a85abd8261e126c5fd5b56884016f7ea985d440632ae6ec73e2f",
+      "filename": "sentinel_ros-rtt-03_sentinel_initiator.txt.json",
+      "record_sha256": "c4b2cc78b8a7859b4020a9697a2d3a3b535cbbf2f21946faaf5a77c49e7e74ef",
+      "role": "initiator",
+      "trial_id": "ros-rtt-03"
+    }
+  ],
+  "trials": {
+    "ros-rtt-01": {
+      "attempted_count": 100,
+      "mismatched_event_ids": [],
+      "missing_count": 0,
+      "received_count": 100,
+      "requested_count": 100,
+      "responder_duplicate_event_ids": [],
+      "responder_received_count": 100,
+      "rtt_summary_ms": {
+        "count_above_100_ms": 0,
+        "count_above_10_ms": 3,
+        "count_above_20_ms": 1,
+        "count_above_50_ms": 0,
+        "maximum": 34.518877,
+        "mean": 5.69010656,
+        "median": 5.0831915,
+        "minimum": 3.325286,
+        "n": 100,
+        "p05": 3.53764995,
+        "p25": 4.0825165000000005,
+        "p75": 6.0141772499999995,
+        "p95": 8.819169099999998,
+        "p99": 13.30221868000011,
+        "population_standard_deviation": 3.3532100191111933,
+        "tukey_upper_fence": 8.911668374999998
+      },
+      "unexpected_event_ids": []
+    },
+    "ros-rtt-02": {
+      "attempted_count": 100,
+      "mismatched_event_ids": [],
+      "missing_count": 0,
+      "received_count": 100,
+      "requested_count": 100,
+      "responder_duplicate_event_ids": [],
+      "responder_received_count": 100,
+      "rtt_summary_ms": {
+        "count_above_100_ms": 0,
+        "count_above_10_ms": 5,
+        "count_above_20_ms": 1,
+        "count_above_50_ms": 0,
+        "maximum": 33.96376,
+        "mean": 6.45917024,
+        "median": 5.4239545,
+        "minimum": 3.674565,
+        "n": 100,
+        "p05": 3.81157795,
+        "p25": 4.625589,
+        "p75": 7.417281750000001,
+        "p95": 9.964471899999987,
+        "p99": 16.14391147000009,
+        "population_standard_deviation": 3.6534787949438274,
+        "tukey_upper_fence": 11.604820875000001
+      },
+      "unexpected_event_ids": []
+    },
+    "ros-rtt-03": {
+      "attempted_count": 100,
+      "mismatched_event_ids": [],
+      "missing_count": 0,
+      "received_count": 100,
+      "requested_count": 100,
+      "responder_duplicate_event_ids": [],
+      "responder_received_count": 100,
+      "rtt_summary_ms": {
+        "count_above_100_ms": 0,
+        "count_above_10_ms": 3,
+        "count_above_20_ms": 2,
+        "count_above_50_ms": 0,
+        "maximum": 36.119539,
+        "mean": 5.98772542,
+        "median": 5.026445,
+        "minimum": 3.383672,
+        "n": 100,
+        "p05": 3.735168,
+        "p25": 4.518542500000001,
+        "p75": 6.05623525,
+        "p95": 9.167657049999999,
+        "p99": 24.52260475000006,
+        "population_standard_deviation": 3.928329076114633,
+        "tukey_upper_fence": 8.362774375
+      },
+      "unexpected_event_ids": []
+    }
+  }
+}

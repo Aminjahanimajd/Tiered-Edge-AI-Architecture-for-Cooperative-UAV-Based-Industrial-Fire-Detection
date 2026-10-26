@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-07-29",
+  "reviewer_role": "principal engineer",
+  "queue_csv_sha256": "f3ae8547c127a1f9f24dc2bf090d3e6ed7de02d6076a8c26fb79480f7d07e3bd",
+  "queue_row_numbering": "one-based data-row order, excluding the CSV header",
+  "viewing_method": "nine generated side-by-side contact sheets at original rendered resolution",
+  "classifications": {
+    "visually_same_scene": "1-2,59",
+    "not_visibly_same_scene_at_contact_sheet_resolution": "3-58,60-107"
+  },
+  "interpretation": [
+    "Rows 1 and 2 repeat the same near-duplicate sunrise pair; the union operation is idempotent.",
+    "Row 59 contains two visually related frames of the same tornado or severe-weather scene.",
+    "The remaining hard-negative and background/fire candidates were visually distinct.",
+    "The enriched queue is not a prevalence sample and does not prove independence for every unreviewed candidate."
+  ]
+}

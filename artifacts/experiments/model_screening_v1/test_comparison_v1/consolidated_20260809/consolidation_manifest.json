@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-08-09T10:57:41.307366+00:00",
+  "files": [
+    {
+      "bytes": 4597,
+      "path": "D:\\Drones\\Drone_Enhanced\\artifacts\\experiments\\model_screening_v1\\test_comparison_v1\\consolidated_20260809\\test_model_comparison.csv",
+      "sha256": "8605eb6accfd948bae7b2c4890d3f6c834724cdc9c2177eb1ee4465912d32198"
+    },
+    {
+      "bytes": 23309,
+      "path": "D:\\Drones\\Drone_Enhanced\\artifacts\\experiments\\model_screening_v1\\test_comparison_v1\\consolidated_20260809\\test_model_comparison.json",
+      "sha256": "46685abda2fb3aa928ccc2f087665ac15fdeb01f4f0d7f4c534a5476c0a38bc8"
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "Please cite the thesis or this repository when discussing the prototype and its evidence."
+type: software
+title: "Tiered Edge AI Architecture for Cooperative UAV-Based Industrial Fire Detection"
+authors:
+  - family-names: Jahanimajd
+    given-names: Mohammadamin
+version: 1.0.0
+date-released: 2026-10-26
+repository-code: "https://github.com/Aminjahanimajd/Tiered-Edge-AI-Architecture-for-Cooperative-UAV-Based-Industrial-Fire-Detection"
+license: AGPL-3.0-only
+keywords:
+  - edge AI
+  - cooperative UAV
+  - fire detection
+  - ROS 2
+  - PX4
+  - Jetson Nano
+  - VOXL 2

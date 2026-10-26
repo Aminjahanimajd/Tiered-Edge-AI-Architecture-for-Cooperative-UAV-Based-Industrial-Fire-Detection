@@ -1,0 +1,17 @@
+std_msgs/Header header
+string experiment_id
+string trial_id
+string event_id
+string source_device
+string hazard_type
+float32 confidence
+int32 temporal_count
+uint64 source_frame_monotonic_ns
+uint64 alert_monotonic_ns
+string model_sha256
+float32 target_u
+float32 target_v
+float32 bbox_width
+float32 bbox_height
+uint32 frame_width
+uint32 frame_height

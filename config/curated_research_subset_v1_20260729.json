@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "decision_date": "2026-07-29",
+  "source_manifest": "fire_only_source_family_manifest_v10",
+  "seed": 20260729,
+  "maximum_records_per_group": 50,
+  "excluded_group_ids": [
+    "review_component:d4d104a965b9936a2c15",
+    "review_component:0ced6c1817579123e3e3",
+    "review_component:a4539138b04dbe9c1c3d"
+  ],
+  "exclusion_rationale": [
+    "The three components contain 16,364 of 23,214 version-10 records and dominate different provisional splits.",
+    "Their generic IMG/frame/web filename families do not recover original capture-session identity.",
+    "Keeping them would make nominal sample size much larger than defensible source diversity and could confound model comparison with source-domain differences."
+  ],
+  "retention_policy": [
+    "Retain approved background negatives because they measure false-alert resistance; negative does not mean false or erroneous.",
+    "Retain only records already present in annotation-adjudicated version 10.",
+    "Select at most 50 records per retained group by deterministic SHA-256 rank.",
+    "Assign whole groups to new 70/15/15 splits with seed 20260729; no version-10 test status is inherited or claimed."
+  ],
+  "known_limitations": [
+    "Filename-derived groups remain proxies for original capture sessions.",
+    "The 50-record cap is an engineering choice to limit source dominance, not a statistically optimized threshold.",
+    "The candidate requires fresh duplicate, annotation, source-diversity, and visual audits before split freeze."
+  ]
+}

@@ -1,0 +1,718 @@
+{
+  "annotations_path": "artifacts/training/fire_only_curated_v7_coco/valid/labels.json",
+  "annotations_sha256": "1a93f800d63bf355bb586039da245cd612cbdd7052102cbfd6da1409312ab7c6",
+  "background_count": 32,
+  "image_count": 64,
+  "image_root": "artifacts/training/fire_only_curated_v7_coco/valid/images",
+  "manifest_id": "deployment_calibration_manifest_v1",
+  "positive_count": 32,
+  "records": [
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "002c6d63276219869ddbdaac.jpg",
+      "height": 640,
+      "image_id": 180,
+      "sha256": "98a0ec6594bd6065b446901fca6a19eb0da2af0efa827d54c740166a87f6ac9d",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "01ca11c45b0ac8696b25ba87.jpg",
+      "height": 640,
+      "image_id": 226,
+      "sha256": "38874e7e98532600c86733682da77ecf0f050b3849cf58597d4536d246752d09",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "022f76bbd945e721bad098de.jpg",
+      "height": 640,
+      "image_id": 63,
+      "sha256": "1cc31e1ab3c0feaa00f770ed14e505047146958fdcbc0d12c406a964e6f166bc",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 2,
+      "category_ids": [
+        1
+      ],
+      "file_name": "024d0160a33eaa13d3ce6be8.jpg",
+      "height": 640,
+      "image_id": 3,
+      "sha256": "218a85281f703f34cc48f5e3c7446de62d92660c0734c6375694d672b00f3338",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 2,
+      "category_ids": [
+        1
+      ],
+      "file_name": "02e5a6342305b9e4059b824d.jpg",
+      "height": 640,
+      "image_id": 41,
+      "sha256": "6d4a0c43fe8bb506da40ac85298a280b4bf280f07378f90c3b5894c3c84db4e7",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 3,
+      "category_ids": [
+        1
+      ],
+      "file_name": "038822a235065b50f9280bda.jpg",
+      "height": 640,
+      "image_id": 243,
+      "sha256": "2c7a51767c38904d0e423d23adbacf50064cb58fa577c1792d3f3fc680b45fe4",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 2,
+      "category_ids": [
+        1
+      ],
+      "file_name": "03a371b062f0b958ee069e89.jpg",
+      "height": 640,
+      "image_id": 30,
+      "sha256": "ad4c2c36f77db73288b53becf14e5ca9b66376bc4d61ef7982efe59fc6bfaa63",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 3,
+      "category_ids": [
+        1
+      ],
+      "file_name": "03cc726726ffa5441f2dad30.jpg",
+      "height": 640,
+      "image_id": 53,
+      "sha256": "7956db041e08142130af5ddc9d76c8a75430e29353ed1b0232e3bb51835e840c",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "055f1d6e5bc0e6ec1a7d2e88.jpg",
+      "height": 640,
+      "image_id": 143,
+      "sha256": "98017889a1ea7b8822f70f510e4c305547cbb4fc076c3fe62e805a1ba0ffd5de",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "065503f1d71dbf6469ddb7dd.jpg",
+      "height": 640,
+      "image_id": 126,
+      "sha256": "ea70c6f44a22edf89afb811f522e01530b7bd4230d4e851908dfbb523808580a",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 2,
+      "category_ids": [
+        1
+      ],
+      "file_name": "065cd86fd4420177151039db.jpg",
+      "height": 640,
+      "image_id": 188,
+      "sha256": "ce3dd9a68f81e86b6eb7286d74fb3f54ea1a3b2f3a226bf227cc6386750770cb",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 2,
+      "category_ids": [
+        1
+      ],
+      "file_name": "08a5eba9af15fad47213b20e.jpg",
+      "height": 640,
+      "image_id": 45,
+      "sha256": "afb08703f8c0f5420ae4fa4478b0f7d2cfa41f93de4d38d93b087a6771c5a055",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 2,
+      "category_ids": [
+        1
+      ],
+      "file_name": "09f09472a84b1996443cd1f2.jpg",
+      "height": 640,
+      "image_id": 47,
+      "sha256": "344f3ad5ab8a33a83e91f0feb421e3bd3053f80852b67950d1c1546b2d780e75",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "0a193cfc788e9ba3086b3799.jpg",
+      "height": 640,
+      "image_id": 128,
+      "sha256": "f5bfbdd6f279bd9952c7d918780ff46b9d5cf98fa9ca25e17c408f6cb7892b14",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "0a5a887573d841e5624e1960.jpg",
+      "height": 640,
+      "image_id": 330,
+      "sha256": "c3f55d61bb73ce556ce9dc00f65811f88cff0a31210dbcc571e8898fd5a07347",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "0a7f8c3f7b3af432d39b082c.jpg",
+      "height": 640,
+      "image_id": 100,
+      "sha256": "8beac6a484dff5bce59f4e6e9d7195e032ad99db9a0b0a5b63059fa47897717b",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "0bee4c72b605e6be86d33f01.jpg",
+      "height": 640,
+      "image_id": 274,
+      "sha256": "8024944807448953112ed5a4b523018d7359da793610f1580ba210e708f0be4c",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "0c7b622754301075044458fc.jpg",
+      "height": 640,
+      "image_id": 320,
+      "sha256": "4e74cc95a39350dbdaf5258157bf26a6644feef819a04c3e99605d2a77388828",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "0ca6fd224e37dcada9077327.jpg",
+      "height": 640,
+      "image_id": 328,
+      "sha256": "0dcab1400b2124a600a94ed099be3e8452de1dfa3b27b1ee9a78a7c23e7619e7",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "0cd43e4cbd212aa8d9bd1f7e.jpg",
+      "height": 640,
+      "image_id": 89,
+      "sha256": "933c4ec6f85f4f7f344a060ba9bd4a821d501f8cb45b0af40c987111af65c778",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "0ed03fa121cef42c079cb0ca.jpg",
+      "height": 640,
+      "image_id": 169,
+      "sha256": "9ce122bb547b44f8f5ffdb7736809103a2f88933c175a2b5d2f1550b1c87d614",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "0fcbb82110e7f239c581d31f.jpg",
+      "height": 640,
+      "image_id": 108,
+      "sha256": "1ba22369a8ccc0dcc28c6a4a4bd1d0ee445c4f3a6bd8118e3227f22486ac26f5",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "10142422ca397d139a6b6fd1.jpg",
+      "height": 640,
+      "image_id": 102,
+      "sha256": "1a9a0bc513b4a749769025bb8d7b4fd342fa7e5530eb09310905cb44173e4e1d",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "10aca019155dbc91af32aeb4.jpg",
+      "height": 640,
+      "image_id": 323,
+      "sha256": "eccd7d05c17124f18d2e99458a78a451033e63ea248fac867928472098d4c8f1",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "10fe8b1e462658a13cfd062b.jpg",
+      "height": 640,
+      "image_id": 96,
+      "sha256": "ad119ee8b8b5ab2a14fcd593b5792edd9ef20e36744ffa4320c4f71550b0289a",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "1209bc96bcf6d021a6d0efeb.jpg",
+      "height": 640,
+      "image_id": 331,
+      "sha256": "191b6c532e04374463b70c57691b28b0f3e88db570ffba527bdf4f6d5bd1ea9a",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "122ed99432975b9663704fe5.jpg",
+      "height": 640,
+      "image_id": 198,
+      "sha256": "ba9d3f950f88a6beffe3e4b1146d779d700d632d277ee77ebc816cf652f61bef",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "125d642a00683a6a6ad2b3c6.jpg",
+      "height": 640,
+      "image_id": 182,
+      "sha256": "8f1f78ad515f39ab69bd379ae181ccbdef8746f1f530891a0dd903a17dac8ba3",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "13d99008016a9dba06723b9f.jpg",
+      "height": 640,
+      "image_id": 132,
+      "sha256": "2ad38d269ce37b1885e593ba4a6548223b361227bd55c8881b8187e01d88eeeb",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 2,
+      "category_ids": [
+        1
+      ],
+      "file_name": "141c8e2ec0514411a65f4014.jpg",
+      "height": 640,
+      "image_id": 28,
+      "sha256": "2991a939d1b4a6235be6ff0ae6a097ca9972732af018f6777bfd04ae5b73fb52",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "14cc0b7b01d11894063c6f49.jpg",
+      "height": 640,
+      "image_id": 189,
+      "sha256": "c48e15e2ea764640cea6aa4beedf4a5feb41076e3b6b18179d3e0f53ecc60fb9",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 1,
+      "category_ids": [
+        1
+      ],
+      "file_name": "152985cceb1ab34197efd8fb.jpg",
+      "height": 640,
+      "image_id": 321,
+      "sha256": "c4427c1ed81777b0fbc7083697518a8cf5d72f7ec76504d71b6dcd819dd3fae6",
+      "stratum": "positive",
+      "width": 640
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "003c75326207db048890c621.jpg",
+      "height": 300,
+      "image_id": 500,
+      "sha256": "e4e1eefdec6c2504c88cbd992936f3dd2ffacf81718a24680f6f9db15aea08a9",
+      "stratum": "background",
+      "width": 400
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "00e5a09f154371f14ac9020e.jpg",
+      "height": 413,
+      "image_id": 572,
+      "sha256": "6c076022aa1ea2eb6d09862f9f807ce541905f351a94f3f7e860288ba2b4a724",
+      "stratum": "background",
+      "width": 620
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0108a87754acc1b8c3ad5855.jpg",
+      "height": 567,
+      "image_id": 379,
+      "sha256": "60a916c07bea1e40f118060edbdf57fa2b5e584c50359ff8458a31c37244590f",
+      "stratum": "background",
+      "width": 850
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "010f1b569fecb402ff28ac22.jpg",
+      "height": 640,
+      "image_id": 280,
+      "sha256": "3d71ec804d70598cf0748c4eea50d9fffb46c84b5a22a258dd60967b24766d9d",
+      "stratum": "background",
+      "width": 640
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "011686b752a9f0e65e27c665.jpg",
+      "height": 1080,
+      "image_id": 350,
+      "sha256": "d6d5a3e49ae8ab33657665cc2fdd65d191885cb112dd54099197a065cabbec61",
+      "stratum": "background",
+      "width": 1920
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "021ec323a6157faf34dcdaaf.jpg",
+      "height": 667,
+      "image_id": 595,
+      "sha256": "1faec6f83f07341151133a64190a34dcece77195f551a8fa272b80707d7df82f",
+      "stratum": "background",
+      "width": 1000
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0281f77720ed16e00c82a225.jpg",
+      "height": 266,
+      "image_id": 665,
+      "sha256": "f8026806aca903dbb9479c114f729618280e50091a16cce816e272d396dd8ec1",
+      "stratum": "background",
+      "width": 400
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "034f0858c0c424c7ef1469e9.jpg",
+      "height": 300,
+      "image_id": 663,
+      "sha256": "a9035fc69890aecd2aa8960d75caff5b497820f28bc3759290236ba4dd588e0f",
+      "stratum": "background",
+      "width": 400
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "036fce37de2955cc97da9591.jpg",
+      "height": 421,
+      "image_id": 425,
+      "sha256": "c4e1c9d9d1cd28e9bab13091216ecc691a190a6a5f48ee5ae38d10b5be6df325",
+      "stratum": "background",
+      "width": 700
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "042461cdd45ae060b86a3683.jpg",
+      "height": 272,
+      "image_id": 520,
+      "sha256": "b48eb75584b8909c678b05450be1881f88d878af03a6bcc3ae81b17bb97a09d3",
+      "stratum": "background",
+      "width": 400
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0455170592d841fd07411ed7.jpg",
+      "height": 266,
+      "image_id": 671,
+      "sha256": "75d1d8f280f3bcb569e31bf9b64beca29192f19ae672a9b4c98c0912cadddd97",
+      "stratum": "background",
+      "width": 400
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "04d90979eb2d70f4812e9a11.jpg",
+      "height": 177,
+      "image_id": 594,
+      "sha256": "5f8e7cb39ba906cc3432a6405ffece3e1d22bd8a4181464e1310c145db4042a8",
+      "stratum": "background",
+      "width": 284
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "04da7eb2bbd1b4d66eaa027c.jpg",
+      "height": 232,
+      "image_id": 374,
+      "sha256": "c18382eafc3364c59f48fd654f766a4b300a28096b309de3a9b28f77916fc5a7",
+      "stratum": "background",
+      "width": 349
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "05b6901d963af18e0b4bd874.jpg",
+      "height": 205,
+      "image_id": 554,
+      "sha256": "df15bc817003202789287d9852e6655025e6978bfd34ba189453d8032023de6f",
+      "stratum": "background",
+      "width": 300
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "06a47a098f0584d5b6a686af.jpg",
+      "height": 167,
+      "image_id": 430,
+      "sha256": "e207c5182e39e02831d7febb6cd1495259296c25d87b82bfe32931242bf99763",
+      "stratum": "background",
+      "width": 301
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "06b1db3815376e279ed82a3a.jpg",
+      "height": 251,
+      "image_id": 544,
+      "sha256": "18e98236553e105a99e41328c9f6c74e45150b16377aba8d0c09b3ecee1fcbaa",
+      "stratum": "background",
+      "width": 400
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0739d158b7b8ed28de0db78a.jpg",
+      "height": 168,
+      "image_id": 592,
+      "sha256": "610f7c3546193da419040a72301df7be36b9ce98dc9408d3cb03528ba3e5a725",
+      "stratum": "background",
+      "width": 299
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "07732061cbb06782f62dbc0f.jpg",
+      "height": 180,
+      "image_id": 612,
+      "sha256": "ab360b57af82fa37ba3313928c0be8f0a55946e24025c756dcd7346ae036db37",
+      "stratum": "background",
+      "width": 239
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "07dc147169b9ff25d5f1892d.jpg",
+      "height": 168,
+      "image_id": 406,
+      "sha256": "12fc0163fb8a250f2e1ab01ecc66cb9762c1106adcbaed8b9dcfdb3735e773e0",
+      "stratum": "background",
+      "width": 239
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "092e536f67bcfbcc4d4f6598.jpg",
+      "height": 233,
+      "image_id": 492,
+      "sha256": "d9a0eb8fe2909145dbd968c762252824babda56505b5508dcfb4f8e878997c06",
+      "stratum": "background",
+      "width": 350
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0942560a017c5e13b504f909.jpg",
+      "height": 160,
+      "image_id": 620,
+      "sha256": "5c4f4c1c6615c117a8216b2d6104ee3ed6401267b8bf0b9b36ba20bca3a10e66",
+      "stratum": "background",
+      "width": 266
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "09ab85cb0900274671aaafd7.jpg",
+      "height": 266,
+      "image_id": 514,
+      "sha256": "e8eb1cb30317b2c7b3785d5b045aa15bfe15974e42bc7fd03d493a6570d72750",
+      "stratum": "background",
+      "width": 400
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "09f8422fe76f3ae707c1afcd.jpg",
+      "height": 236,
+      "image_id": 662,
+      "sha256": "67ae3207ce9db781c30a25e8275db309fbf6c14789cbf23a4f3dea1e672e1442",
+      "stratum": "background",
+      "width": 515
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0cc451866f6503f2d1d4a83c.jpg",
+      "height": 168,
+      "image_id": 606,
+      "sha256": "5b1906a34d8dd3e4b33305c1bab30acf1869a2d19546cbdceb16150a69f82c1f",
+      "stratum": "background",
+      "width": 300
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0d2a43714a9f691c458bea5b.jpg",
+      "height": 527,
+      "image_id": 444,
+      "sha256": "44c4d4bcd386d1f5c99b6cc6d34e22380fa5f6911a9fb8e3703003e571a6f257",
+      "stratum": "background",
+      "width": 799
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0de5eced9f8ec3d07b6c06ac.jpg",
+      "height": 265,
+      "image_id": 450,
+      "sha256": "27f5d8f264558195f5d4056380cdf883a3148479d69efc21ea6cdecb55ac6f46",
+      "stratum": "background",
+      "width": 400
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0e33ada8081b4d1683ad627b.jpg",
+      "height": 183,
+      "image_id": 578,
+      "sha256": "80f38b090d814c0e870a29786643e5da06ea8928352ba3fcb1c2b8cdd7f7f2de",
+      "stratum": "background",
+      "width": 275
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0f40c444b9352262883f020f.jpg",
+      "height": 275,
+      "image_id": 422,
+      "sha256": "34f3cfe7cb5bae74f6416ead7d6d554493bc813e3d6b9ef1d24dd3f496c8b31a",
+      "stratum": "background",
+      "width": 183
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0f53a128a57b7f45966d6af0.jpg",
+      "height": 601,
+      "image_id": 445,
+      "sha256": "27de8c08e359db5655946f6a9ddfe7fa8e8213be7fde5b92da1851aa33aa954f",
+      "stratum": "background",
+      "width": 800
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0fe4f29e20804647f48484cd.jpg",
+      "height": 266,
+      "image_id": 531,
+      "sha256": "9e02c70fc08b9969f44b413e6b0b9abf318a1edb858ace689e1038e353b36184",
+      "stratum": "background",
+      "width": 400
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "0ffb298f3b43febf7a45f1f1.jpg",
+      "height": 482,
+      "image_id": 651,
+      "sha256": "ed1d14b9e3bfb2355a5dace43127f7dc0093f883a6ab9cca5cf7cd017d4571e0",
+      "stratum": "background",
+      "width": 640
+    },
+    {
+      "annotation_count": 0,
+      "category_ids": [],
+      "file_name": "10c18552cce85080fe7a83f5.jpg",
+      "height": 265,
+      "image_id": 559,
+      "sha256": "b064a4d3abf304d452bc28579095a2a7baf70610116ac16344177c4cceda5897",
+      "stratum": "background",
+      "width": 400
+    }
+  ],
+  "schema_version": 1,
+  "selection_method": "lexical file_name order; first 32 annotated and first 32 background images",
+  "source_split": "frozen validation; never test"
+}

@@ -1,0 +1,217 @@
+{
+  "accepted_run_manifest": {
+    "path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/manifest.json",
+    "sha256": "468debf0734252d34cab2feb710d522e68830595e4953974d711b40338a62f4a"
+  },
+  "capture_manifest": {
+    "path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_capture/manifest.json",
+    "sha256": "a2f0e1acf23e9114e63591d216a37caf8df2281d5586ec7b39f337792b5fb692"
+  },
+  "claim_boundary": "Derived visual evidence from one accepted PX4/Gazebo SITL mission. The delivered MP4 is a continuous screen recording without burned-in mission notes; the SRT file is a separate traceable timeline. Target location, trigger and verdict are scenario truth; the visuals are not camera-detector, physical-flight, simulator-fidelity, or operational industrial-site evidence.",
+  "contact_sheet": {
+    "path": "simulation_mission_contact_sheet.png",
+    "sha256": "84ff7a9b6dd61ddc0f2121187e961d9ac4fcaea601dcf47dee1b744f6afa4011"
+  },
+  "defense_video": {
+    "capture_fps": 15.0,
+    "ffmpeg_command": [
+      "ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-y",
+      "-i",
+      "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_capture/gazebo_continuous_overview.mp4",
+      "-vf",
+      "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2:black",
+      "-c:v",
+      "libx264",
+      "-pix_fmt",
+      "yuv420p",
+      "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_delivery_v6/gazebo_full_mission_defense.mp4"
+    ],
+    "path": "gazebo_full_mission_defense.mp4",
+    "sha256": "cc83606c76183e9b9c3e67160f7eb18521098c22a42d6eb566a9e9b702116812",
+    "source_path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_capture/gazebo_continuous_overview.mp4",
+    "source_sha256": "e5836b26827da8a739711d8f585711549992978037bda36ec0721c356478e7a5",
+    "source_type": "gazebo_camera_video_recorder_fixed_overview"
+  },
+  "delivery_type": "derived_visual_evidence_from_accepted_dual_px4_gazebo_run",
+  "event_log": {
+    "path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/mission_events.jsonl",
+    "sha256": "53ca0b7408cbf80ad531d90beeaf9161a9f123e4be335c982b6b6280fade9c31"
+  },
+  "identity_key": {
+    "blue": "Scout ModalAI Development Kit/Starling proxy",
+    "orange": "Sentinel X500 V2 proxy"
+  },
+  "mission_summary": {
+    "elapsed_s": {
+      "alarm_publication": 147.223,
+      "hazard_trigger": 105.215,
+      "mission_complete": 214.253,
+      "scout_target_acquired": 144.124,
+      "scout_transit": 133.424,
+      "scout_verdict": 147.223,
+      "sentinel_patrol": 39.821
+    },
+    "final_typed_states": {
+      "scout": "LANDED",
+      "sentinel": "LANDED"
+    },
+    "scout_commanded_horizontal_standoff_m": 4.5,
+    "scout_standoff_setpoint_enu_m": [
+      7.704840098842366,
+      3.6577625308882395,
+      5.0
+    ],
+    "scout_system_id": 3,
+    "sentinel_system_id": 2,
+    "target_enu_m": [
+      12.0,
+      5.0,
+      4.0
+    ]
+  },
+  "schema_version": 1,
+  "selected_stills": [
+    {
+      "display_delay_after_event_s": 0.0,
+      "event": "PHASE_TRANSITION",
+      "event_utc": "2026-09-30T15:32:49.768919+00:00",
+      "extract_command": [
+        "ffmpeg",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-y",
+        "-ss",
+        "80.247",
+        "-i",
+        "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_capture/gazebo_continuous_overview.mp4",
+        "-frames:v",
+        "1",
+        "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_delivery_v6/stills/00_sentinel_patrol.png"
+      ],
+      "phase_caption": "Sentinel patrol",
+      "source_path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_delivery_v6/stills/00_sentinel_patrol.png",
+      "source_sha256": "b8ba2fd2aa054943690a021daa804aea7d87ff19cc6ec76a5ddf1e70e75df9f6",
+      "source_type": "continuous_screen_recording_frame",
+      "video_offset_s": 80.247
+    },
+    {
+      "display_delay_after_event_s": 0.0,
+      "event": "SCENARIO_HAZARD_TRIGGER",
+      "event_utc": "2026-09-30T15:33:50.568490+00:00",
+      "extract_command": [
+        "ffmpeg",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-y",
+        "-ss",
+        "141.047",
+        "-i",
+        "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_capture/gazebo_continuous_overview.mp4",
+        "-frames:v",
+        "1",
+        "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_delivery_v6/stills/01_scenario_hazard_trigger.png"
+      ],
+      "phase_caption": "Scenario hazard trigger",
+      "source_path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_delivery_v6/stills/01_scenario_hazard_trigger.png",
+      "source_sha256": "a83bdf4a39e11ddf40b010d4dfab64d11264846b9c5708bb069199b190b357f3",
+      "source_type": "continuous_screen_recording_frame",
+      "video_offset_s": 141.047
+    },
+    {
+      "display_delay_after_event_s": 5.0,
+      "event": "PHASE_TRANSITION",
+      "event_utc": "2026-09-30T15:34:16.470013+00:00",
+      "extract_command": [
+        "ffmpeg",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-y",
+        "-ss",
+        "171.948",
+        "-i",
+        "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_capture/gazebo_continuous_overview.mp4",
+        "-frames:v",
+        "1",
+        "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_delivery_v6/stills/02_scout_transit.png"
+      ],
+      "phase_caption": "Scout transit",
+      "source_path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_delivery_v6/stills/02_scout_transit.png",
+      "source_sha256": "04c2ea35c9067b7ef0e027cf2f7224cf792dd4111f6f883178e5004729c8b3ba",
+      "source_type": "continuous_screen_recording_frame",
+      "video_offset_s": 171.948
+    },
+    {
+      "display_delay_after_event_s": 0.0,
+      "event": "SCOUT_TARGET_ACQUIRED",
+      "event_utc": "2026-09-30T15:34:27.169873+00:00",
+      "extract_command": [
+        "copy2",
+        "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_capture/frames/frame_000181.png",
+        "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_delivery_v6/stills/03_scout_at_safe_standoff.png"
+      ],
+      "phase_caption": "Scout at safe standoff",
+      "source_path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_delivery_v6/stills/03_scout_at_safe_standoff.png",
+      "source_sha256": "7049f62b1b9f6132ee122387acf6863bfc934c5ed68bf87d9450f4a27a0ead71",
+      "source_type": "accepted_capture_frame",
+      "video_offset_s": 177.648
+    },
+    {
+      "event": "INDUSTRIAL_ALARM_ACTION_EMITTED",
+      "event_utc": "2026-09-30T15:34:30.269497+00:00",
+      "phase_caption": "Alarm event in retained log",
+      "record": {
+        "decision": "CONFIRMED",
+        "event": "INDUSTRIAL_ALARM_ACTION_EMITTED",
+        "event_id": "scenario-fire-tank-a",
+        "evidence_boundary": "scenario-defined simulated verdict; no Gazebo camera detector or physical alarm actuator",
+        "interface": "drone_enhanced_interfaces/msg/HazardDecision",
+        "monotonic_ns": 29371535626367,
+        "phase": "VERIFYING",
+        "simulator_time_ns": 1790782470250885000,
+        "topic": "/swarm/hazard_decision",
+        "utc": "2026-09-30T15:34:30.269497+00:00"
+      },
+      "source_event_log": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/mission_events.jsonl",
+      "source_event_log_sha256": "53ca0b7408cbf80ad531d90beeaf9161a9f123e4be335c982b6b6280fade9c31",
+      "source_path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_delivery_v6/alarm_event_record.json",
+      "source_sha256": "52155531b37c0155f7b0b838dffcf49c10dca8f2a598b7df019be547110d7932",
+      "source_type": "exact_field_selection_from_retained_event_log"
+    },
+    {
+      "display_delay_after_event_s": 0.0,
+      "event": "MISSION_COMPLETE",
+      "event_utc": "2026-09-30T15:35:30.369454+00:00",
+      "extract_command": [
+        "ffmpeg",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-y",
+        "-ss",
+        "240.848",
+        "-i",
+        "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_capture/gazebo_continuous_overview.mp4",
+        "-frames:v",
+        "1",
+        "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_delivery_v6/stills/05_both_vehicles_landed.png"
+      ],
+      "phase_caption": "Both vehicles landed",
+      "source_path": "/mnt/d/Drones/Drone_Enhanced/artifacts/experiments/hierarchical_px4_visual_confirmed_20260930_v17/visual_delivery_v6/stills/05_both_vehicles_landed.png",
+      "source_sha256": "b003d83b917adaa29d0472dce45419cf7e0234b12ab687b3132b31388021bc79",
+      "source_type": "continuous_screen_recording_frame",
+      "video_offset_s": 240.848
+    }
+  ],
+  "status": "PASS",
+  "timeline": {
+    "path": "mission_timeline.srt",
+    "sha256": "9eaed724269a236902007d90ee16f7dc96b3c6c1cef67e00e1a26b6c4345d139"
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "registry_id": "model_deployment_registry_v1",
+  "status": "CANONICAL_NATIVE_CALIBRATION_COMPLETE_DEPLOYMENT_PENDING",
+  "canonical_calibration_evidence": "artifacts/experiments/deployment_calibration_native_v1/manifest.json",
+  "canonical_calibration_evidence_sha256": "1d4ed49048f77e57bcc73ef27eea7dfc901d07ad834a4fc5c05b04e3346ffdb3",
+  "source_validation_contract": "config/six_model_validation_v1.json",
+  "calibration_manifest": "config/deployment_calibration_manifest_v1.json",
+  "deployment_outcomes": [
+    "DEPLOYED",
+    "TOO_SLOW",
+    "OUT_OF_MEMORY",
+    "CONVERSION_FAILED",
+    "RUNTIME_UNSUPPORTED",
+    "FIDELITY_FAILED"
+  ],
+  "fidelity_protocol": {
+    "comparison_unit": "fixed validation calibration images",
+    "native_predictions_required": true,
+    "iou_threshold": 0.5,
+    "minimum_detection_match_rate": 0.95,
+    "maximum_mean_absolute_confidence_difference": 0.02,
+    "class_mapping_must_match_exactly": true,
+    "preprocessing_must_be_declared": true,
+    "decoding_must_be_declared": true
+  },
+  "benchmark_protocol": {
+    "warmup_inferences": 20,
+    "measured_inferences": 200,
+    "resource_sample_interval_seconds": 1.0,
+    "complete_pipeline_latency_required": true
+  },
+  "platforms": {
+    "sentinel_jetson_nano": {
+      "hardware": "NVIDIA Jetson Nano 4 GB",
+      "preferred_runtimes": ["TensorRT", "ONNX Runtime", "native framework"],
+      "device_test_status": "PENDING_LAB",
+      "historical_deployment_is_not_candidate_screening": true
+    },
+    "scout_voxl2": {
+      "hardware": "Qualcomm QRB5165 / VOXL 2",
+      "preferred_runtimes": [
+        "voxl-tflite-server",
+        "LiteRT/TFLite",
+        "ONNX Runtime",
+        "available GPU/NPU delegate"
+      ],
+      "device_test_status": "PENDING_LAB",
+      "upgrade_or_reflash_permitted": false
+    }
+  },
+  "models": [
+    {
+      "model_id": "yolov8n_416",
+      "training_status": "completed",
+      "native_framework": "ultralytics",
+      "input_size": 416,
+      "native_artifacts": [{"path": "artifacts/experiments/model_screening_v1/yolov8n_416_screen_seed_20260729/weights/best.pt", "sha256": "854482d0fbd320e51575f0141a479e517d721ff6cd512d12c60d0acf30a35ff3"}],
+      "platform_attempts": {"sentinel_jetson_nano": null, "scout_voxl2": null}
+    },
+    {
+      "model_id": "yolov8n_640",
+      "training_status": "completed",
+      "native_framework": "ultralytics",
+      "input_size": 640,
+      "native_artifacts": [{"path": "artifacts/experiments/model_screening_v1/yolov8n_640_screen_seed_20260729/weights/best.pt", "sha256": "1c49f90ee7e635b9011ae1ec34a9cfccfea75f9b08941d7475d031587a0c0a33"}],
+      "platform_attempts": {"sentinel_jetson_nano": null, "scout_voxl2": null}
+    },
+    {
+      "model_id": "yolov8s_416",
+      "training_status": "completed",
+      "native_framework": "ultralytics",
+      "input_size": 416,
+      "native_artifacts": [{"path": "artifacts/experiments/model_screening_v1/yolov8s_416_screen_seed_20260729/weights/best.pt", "sha256": "7bf6137add173f51d015c18841b5903300db909d31fb82ea3f51f3498ee366c5"}],
+      "platform_attempts": {"sentinel_jetson_nano": null, "scout_voxl2": null}
+    },
+    {
+      "model_id": "yolov8s_640",
+      "training_status": "completed",
+      "native_framework": "ultralytics",
+      "input_size": 640,
+      "native_artifacts": [{"path": "artifacts/experiments/model_screening_v1/yolov8s_640_screen_seed_20260729/weights/best.pt", "sha256": "53019aa916dcbfa11f3f38a3cc16579270436e44fa7bd80ccd1fc37afb60f0f0"}],
+      "platform_attempts": {"sentinel_jetson_nano": null, "scout_voxl2": null}
+    },
+    {
+      "model_id": "ssd_mobilenet_v2_fpnlite_320",
+      "training_status": "completed",
+      "native_framework": "tensorflow_object_detection_api",
+      "input_size": 320,
+      "native_artifacts": [
+        {"path": "artifacts/experiments/model_screening_v1/ssd_mobilenet_v2_screen_seed_20260729/ckpt-47.index", "sha256": "ee20414e69c0473e17989f19724709708c9a49303e2e26e8eabe4d771cf9e229"},
+        {"path": "artifacts/experiments/model_screening_v1/ssd_mobilenet_v2_screen_seed_20260729/ckpt-47.data-00000-of-00001", "sha256": "e3be71d94a5de80a6bf831be5999e6914b35a6b124a6df4779ac0822b56421d2"}
+      ],
+      "platform_attempts": {"sentinel_jetson_nano": null, "scout_voxl2": null}
+    },
+    {
+      "model_id": "efficientdet_lite0_320",
+      "training_status": "completed_after_checkpoint_resume",
+      "native_framework": "tflite_model_maker",
+      "input_size": 320,
+      "native_artifacts": [{"path": "artifacts/experiments/model_screening_v1/efficientdet_lite0_screen_seed_20260729_retry10_resume_ckpt90/export_retry3_cpu/efficientdet_lite0.tflite", "sha256": "948e71fa53fa9a740a2bca45f169280a9c6e6596a49bfcab65d0ad9cfda2f12c"}],
+      "recovery_lineage_preserved": true,
+      "platform_attempts": {"sentinel_jetson_nano": null, "scout_voxl2": null}
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "adjudication_date": "2026-07-29",
+  "reviewer_role": "principal engineer",
+  "review_decisions_csv_sha256": "7eab2f8c1bb08e3ad3356b6a5e178998785d6a11de27125efbe643d482bc6795",
+  "adjudication_render_manifest_sha256": "9869fb9ef3066d07c7bd59c1c09d5bf08ce210ba6216c8ea58fd1a4dce9d8932",
+  "queue_row_numbering": "one-based queue_index from annotation_review_decisions.csv",
+  "exclude_record_indices": "14-15,26,28-30",
+  "keep_box_indices_by_queue_index": {
+    "10": "2-3",
+    "13": "2-4",
+    "44": "1",
+    "45": "3-5"
+  },
+  "rationale": {
+    "exclude_record": "the only retained box lies on an edge or non-fire region and no visible fire is covered at full source resolution; exclusion is safer than relabelling as background",
+    "filter_boxes": "retain clearly visible fire boxes while removing smoke-only or unusually fragmented boxes"
+  },
+  "interpretation": [
+    "All actions create a new derived manifest and leave original images, labels, and version-9 records unchanged.",
+    "The adjudication is single-reviewer and should be reported as a limitation.",
+    "A larger tiny-box review remains required before the final split is frozen."
+  ]
+}

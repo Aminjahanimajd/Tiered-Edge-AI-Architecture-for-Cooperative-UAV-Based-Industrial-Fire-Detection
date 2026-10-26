@@ -1,0 +1,26 @@
+{
+  "access_class": "NO LAB",
+  "created_utc": "2026-08-09T10:10:32.593755+00:00",
+  "latency_csv_sha256": "a1dab5b65f61230b9a45ed45f1794498a6edf1a7494c9c3ad5ca9e4229c29ba8",
+  "limitations": [
+    "Throughput is the reciprocal of mean single-image inference latency.",
+    "This summary does not include preprocessing or postprocessing unless the selected source column does."
+  ],
+  "maximum": 59.91400700008853,
+  "mean": 27.442452330002588,
+  "median": 25.24636200007535,
+  "metric": "inference_ms",
+  "minimum": 15.576083999803814,
+  "model_id": "ssd_mobilenet_v2_fpnlite_320",
+  "p05": 17.439078100096594,
+  "p95": 37.87712434995,
+  "p99": 49.493736919998796,
+  "range": 44.33792300028472,
+  "sample_count": 700,
+  "schema_version": 1,
+  "standard_deviation_sample": 8.0176830164533,
+  "throughput_from_mean_fps": 36.43989203205098,
+  "tool_sha256": "3be55934a21bc3ede9d34761ae9cea0c0ed440e923fdd922fb3ccd74950b95fc",
+  "unit": "milliseconds",
+  "variance_sample": 64.28324095232371
+}

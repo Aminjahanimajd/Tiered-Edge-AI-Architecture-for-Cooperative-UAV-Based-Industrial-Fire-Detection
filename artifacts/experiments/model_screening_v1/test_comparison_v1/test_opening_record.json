@@ -1,0 +1,23 @@
+﻿{
+    "schema_version":  1,
+    "access_class":  "NO LAB",
+    "status":  "test_opened_for_one_frozen_pass",
+    "opened_utc":  "2026-08-09T10:35:35.6769738Z",
+    "selection_freeze_sha256":  "5e998b2b2e4bb6f0288266fe925a1da17a963e10fbfbad395f4e5b47aaa4be35",
+    "test_annotations_sha256":  "651e2782db96cbbdf2ba718494f7b57447f96aea6d7719fac350132f1b72a06d",
+    "test_image_count":  733,
+    "thresholds":  {
+                       "yolov8s_640":  0.22,
+                       "yolov8n_640":  0.36,
+                       "efficientdet_lite0_320":  0.41,
+                       "ssd_mobilenet_v2_fpnlite_320":  0.81,
+                       "yolov8n_416":  0.45,
+                       "yolov8s_416":  0.3
+                   },
+    "commitments":  [
+                        "no threshold tuning after test inspection",
+                        "no checkpoint reselection after test inspection",
+                        "no test-driven retraining",
+                        "preserve original output if an evaluator defect is corrected"
+                    ]
+}

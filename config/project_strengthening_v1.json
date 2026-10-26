@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "plan_frozen_utc": "2026-08-11T00:00:00Z",
+  "deadline": "2026-09-20",
+  "candidate_models": [
+    {"id": "yolov8n_416", "architecture": "YOLOv8n", "input_size": 416},
+    {"id": "yolov8n_640", "architecture": "YOLOv8n", "input_size": 640},
+    {"id": "yolov8s_416", "architecture": "YOLOv8s", "input_size": 416},
+    {"id": "yolov8s_640", "architecture": "YOLOv8s", "input_size": 640},
+    {"id": "ssd_mobilenet_v2_fpnlite_320", "architecture": "SSD MobileNet V2 FPNLite", "input_size": 320},
+    {"id": "efficientdet_lite0", "architecture": "EfficientDet-Lite0", "input_size": 320}
+  ],
+  "deployment_outcomes": ["DEPLOYED", "TOO_SLOW", "OUT_OF_MEMORY",
+    "CONVERSION_FAILED", "RUNTIME_UNSUPPORTED", "FIDELITY_FAILED"],
+  "device_screening": {
+    "warmup_iterations": 20,
+    "measured_iterations": 200,
+    "resource_sample_interval_s": 1.0,
+    "identical_hashed_inputs_required": true
+  },
+  "endurance": {
+    "inference_only_minutes": 10,
+    "camera_inference_minutes": 10,
+    "full_service_minutes": 30,
+    "maximum_dropped_frame_fraction": 0.01,
+    "jetson_minimum_mem_available_mib": 512,
+    "sentinel_maximum_p95_pipeline_ms": 200,
+    "scout_maximum_p95_verification_ms": 2000
+  },
+  "stationary_rejection_cooldown": {
+    "expiry_s": 5,
+    "normalized_image_radius": 0.05
+  },
+  "map_rejection_memory": {
+    "initial_expiry_s": 30,
+    "initial_radius_m": 1.5,
+    "override_consecutive_frames": 6,
+    "override_confidence_increase": 0.2,
+    "validation_expiry_s": [0, 15, 30, 60],
+    "validation_radius_m": [0.5, 1.0, 1.5, 2.0],
+    "maximum_new_hazard_delay_s": 5,
+    "logic_validation_manifest": "config/rejection_memory_validation_v1.json",
+    "logic_validation_evidence": "artifacts/experiments/rejection_memory_grid_20260811_v1",
+    "selected_expiry_s": 15,
+    "selected_radius_m": 0.5,
+    "selection_scope": "ROS-independent preregistered scenario logic; requires Gazebo campaign confirmation"
+  },
+  "network": {
+    "trials": ["idle", "full_load", "disconnect_reconnect"],
+    "messages_per_trial": 1000
+  },
+  "physical_replay": {
+    "positive_sequences": 20,
+    "hard_negative_sequences": 20,
+    "fault_repetitions": 5
+  },
+  "simulation": {
+    "px4_version": "v1.17.0",
+    "gazebo_major": 8,
+    "ubuntu_version": "24.04",
+    "ros_distribution": "jazzy",
+    "confirmed_nominal_runs": 50,
+    "rejected_nominal_runs": 50,
+    "repeated_confounder_runs": 50,
+    "runs_per_fault": 20,
+    "faults": ["lost_alert", "delayed_verdict", "duplicate_or_stale_verdict",
+      "scout_unavailable", "mission_node_restart", "low_battery",
+      "invalid_or_out_of_geofence_target", "sensor_or_inference_error"]
+  },
+  "external_data": {
+    "fasdd_uav_policy": "all eligible non-overlapping images",
+    "mmodalfire_policy": "all eligible RGB sequences unless projected storage exceeds 80 GiB",
+    "mmodalfire_storage_limit_gib": 80,
+    "training_use_prohibited": true
+  },
+  "configuration_corrections": [
+    {
+      "date": "2026-09-09",
+      "field": "simulation.faults",
+      "old_value": "invalid_or_geofenced_target",
+      "new_value": "invalid_or_out_of_geofence_target",
+      "reason": "Normalize the preregistered label to the already implemented and pilot-tested fault identifier; semantic scope is unchanged.",
+      "pre_correction_evidence": "artifacts/experiments/formal_simulation_readiness_20260909_v1/readiness.json"
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+\chapter{Experiment and Claim Register}
+\label{app:evidence}
+
+This appendix connects the thesis narrative to the authoritative experiment
+register and the evidence accepted at the 30 September cutoff. ``Completed with
+limitation'' means that usable evidence exists but its sample, duration or
+conditions restrict the claim. ``Historical proof-of-function'' denotes
+implementation evidence that was not collected under a controlled quantitative
+protocol. ``Not executed'' and ``not evaluated'' identify registered work that
+contributes no positive result to the final evidence set.
+
+\section{Final experiment status}
+
+{\scriptsize
+\begin{longtable}{@{}p{0.18\textwidth}p{0.17\textwidth}p{0.28\textwidth}p{0.28\textwidth}@{}}
+  \caption{Experiment register used by Chapters~\ref{ch:methodology}--\ref{ch:conclusion}.}
+  \label{tab:appendix-experiments}\\
+  \toprule
+  ID & Status & Accepted evidence & Permitted interpretation \\
+  \midrule
+  \endfirsthead
+  \multicolumn{4}{c}{\tablename\ \thetable\ continued}\\
+  \toprule
+  ID & Status & Accepted evidence & Permitted interpretation \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{4}{r}{Continued on next page}\\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+
+  \path{DATA-V7} & Completed & Frozen 4,991-record source-family split and
+  annotation/duplicate audits. & Leakage-controlled internal dataset; no claim
+  of population representativeness. \\
+
+  \path{YOLO-N416} & Completed & Single-seed YOLOv8n 416-pixel training and
+  frozen validation/test predictions. & One screened candidate; early stopping
+  is part of its recorded procedure. \\
+
+  \path{YOLO-N640} & Completed & Single-seed YOLOv8n 640-pixel training with
+  full-state resume. & Offline candidate result; not the final Sentinel engine
+  benchmark unless the engine identity also matches. \\
+
+  \path{YOLO-S416} & Completed & Single-seed YOLOv8s 416-pixel training and
+  frozen evaluation. & Internal predictive result and fidelity-valid ONNX
+  candidate; no completed device cell. \\
+
+  \path{YOLO-S640} & Completed & Single-seed YOLOv8s 640-pixel training and
+  frozen evaluation. & Internal predictive result; its tested ONNX conversion
+  failed the frozen fidelity gate. \\
+
+  \path{SSD-M320} & Completed & SSD MobileNet V2 FPNLite training, validation
+  and test bundles; corrected bounded-signature evaluation. & Internal
+  predictive comparator; the prepared TFLite conversion failed fidelity. \\
+
+  \path{EFFDET-L0} & Completed & EfficientDet-Lite0 checkpoint lineage,
+  completed recovery and native TFLite export. & Internal predictive comparator
+  and native TFLite candidate; laptop CPU runtime is not a device benchmark. \\
+
+  \path{SIX-VAL} & Completed & Six candidates on 700 validation images with
+  thresholds selected by maximum object-level F1. & Validation ranking and
+  operating-point selection only. \\
+
+  \path{SIX-TEST} & Completed & One-time evaluation of 733 test images at
+  validation-frozen thresholds. & Held-out internal result; the test ranking is
+  not used for post-test reselection. \\
+
+  \path{HW-BACKEND-20260803} & Completed & Exact deployed Sentinel TensorRT
+  and Scout TFLite 100-iteration camera-free backend records. & Runtime of the
+  historical deployed pair; not the strengthened six-model/two-device matrix. \\
+
+  \path{ROS-RTT-20260729} & Completed & 300 correlated request--reply events,
+  including the retained 400.453~ms maximum. & Application-level RTT under the
+  first stationary SwarmNet campaign. \\
+
+  \path{ROS-RTT-20260803} & Completed & A separate 300-request campaign with
+  300 replies. & Application-level RTT under the later stationary campaign;
+  not one-way latency or proof of zero DDS packet loss. \\
+
+  \path{CAM-INF-20260928} & Completed with limitation & Ten-minute live
+  Sentinel and Scout camera/inference coexistence, 108 correlated verdicts and
+  1~Hz resources. & Partial-stack operation without the Sentinel Pixhawk; the
+  2.617~s Scout p95 failed the registered 2~s target. \\
+
+  \path{ROS-LOAD-20260928} & Completed with limitation & 1,000 correlated
+  replies under concurrent live inference load plus 36 current-frame witness
+  verdicts. & Stationary application RTT; not link-layer loss, one-way delay or
+  complete-stack flight evidence. \\
+
+  \path{SCOUT-NOFRAME-20260928} & Completed with limitation & Five correlated
+  \texttt{ERROR/no\_frame} verdicts and zero inference. & ROS camera-interface
+  fault, not physical camera-hardware failure. \\
+
+  \path{SCOUT-STALE-20260928} & Completed with limitation & Three live
+  preflight inferences followed by five correlated \texttt{ERROR/stale\_frame}
+  verdicts and zero post-stop inference. & Controlled bridge stop after proven
+  readiness; not a natural fault-frequency estimate. \\
+
+  \path{SCOUT-PROC-20260928} & Completed with limitation & Five Sentinel
+  \texttt{TIMEOUT} decisions while the Scout verifier was absent. & Synthetic
+  detections at the dispatch boundary; not camera or network-disconnect evidence. \\
+
+  \path{LATE-DUP-20260928} & Completed with limitation & Ten post-timeout
+  \texttt{CONFIRMED} verdicts were rejected with zero additional final
+  decisions. & Deterministic late/duplicate injection, not a natural delay
+  distribution. \\
+
+  \path{FULL-POS-STRONG} & Completed with limitation & Thirteen correlated
+  requests in a marked stronger visible-flame interval; all were confirmed. &
+  Proof of function for that exposure, not a population recall estimate. \\
+
+  \path{FULL-POS-SMALL} & Completed with limitation & Ten correlated requests
+  in a marked small unstable-flame interval; one was confirmed. &
+  Condition-specific sensitivity to a difficult visible target. \\
+
+  \path{FULL-NEG-FORCED} & Completed with limitation & Six injected unlit
+  Scout requests; all were rejected. & Rejection of those forced requests; not
+  an environmental false-positive rate or tiered-workflow ablation. \\
+
+  \path{HIST-LIGHTER} & Historical proof-of-function & Earlier unsynchronized
+  stationary lighter logs. & Implementation history only; script start is not
+  ignition time and no detection-delay or success-rate estimate is allowed. \\
+
+  \path{FLIGHT-DRYRUN} & Completed with limitation & Local-frame path preview,
+  hold/resume logic and safety-locked command adapter. & Software dry-run
+  behaviour only; no estimator, GPS, controller or physical-flight evidence. \\
+
+  M8 development pilots & Completed with limitation & Two nominal and four
+  selected-fault retained pilots plus one continuous-video confirmed-hazard
+  v17 run using provisional Gazebo airframe proxies; the accepted video and
+  corrected v6 contact-sheet delivery were retained for presentation. & Existence of the
+  exercised branches, corrected fault transition, identity-isolated PX4 command
+  paths, and one visually recorded 4.5~m Scout-standoff sequence; no
+  mission-success probability. \\
+
+  \path{m8_dual_px4_formal_v1} & Not executed & Preregistered 310-run campaign
+  and readiness audit. & Protocol definition only; no formal reliability result. \\
+
+  Exact-device matrix & Not executed & Frozen fidelity and 20/200 benchmark contract.
+  & No supported candidate-by-platform ranking beyond the historical deployed
+  pair. \\
+
+  Full-service endurance & Completed with limitation & Thirty-minute
+  synchronized stationary complete-stack run on both devices, plus 36/36
+  corrected correlated verdicts during a bounded 180.245~s probe. & The Scout
+  p95 alert-to-verdict time was 2.618~s and Sentinel swap grew by 0.922~MiB;
+  therefore the run did not satisfy every preregistered acceptance criterion
+  and does not establish unlimited or airborne sustainability. \\
+
+  Common-stimulus ablation & Not executed & Registered single-frame, temporal-filter
+  and Scout-verification comparison. & No filter/tiered-workflow effect size for
+  event retention or false-alert reduction. \\
+
+  External evaluation & Not evaluated & FASDD admission remained blocked;
+  MmodalFire acquisition/decode evidence existed but eligibility gates remained
+  open. & No external transfer-performance conclusion. \\
+\end{longtable}
+}
+
+\section{Principal claim-to-evidence mapping}
+
+Table~\ref{tab:appendix-claims} states the strongest form of each principal
+claim admitted by the thesis. More general wording is intentionally excluded.
+
+{\scriptsize
+\begin{longtable}{@{}p{0.08\textwidth}p{0.32\textwidth}p{0.27\textwidth}p{0.24\textwidth}@{}}
+  \caption{Principal claim register and limiting condition.}
+  \label{tab:appendix-claims}\\
+  \toprule
+  Claim & Admitted statement & Evidence & Limiting condition \\
+  \midrule
+  \endfirsthead
+  \multicolumn{4}{c}{\tablename\ \thetable\ continued}\\
+  \toprule
+  Claim & Admitted statement & Evidence & Limiting condition \\
+  \midrule
+  \endhead
+  \midrule
+  \multicolumn{4}{r}{Continued on next page}\\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+
+  C1 & The frozen internal dataset and source-family split support a controlled
+  six-model comparison. & \texttt{DATA-V7}, frozen manifest and audit hashes. &
+  Third-party sources, reconstructed groups and domain imbalance limit
+  representativeness. \\
+
+  C2 & The six candidates exhibit different predictive and laptop-runtime
+  trade-offs; no universal winner was identified. & \texttt{SIX-VAL} and
+  \texttt{SIX-TEST}. & One seed per model, framework differences and overlapping
+  grouped intervals. \\
+
+  C3 & Conversion success is not sufficient evidence of equivalent model
+  behaviour. & Two 416-pixel YOLO ONNX passes and three recorded fidelity
+  failures. & The fidelity sample and conversion paths are specific to the
+  registered calibration protocol. \\
+
+  C4 & The final 640-pixel Sentinel TensorRT path and the historical Scout TFLite
+  path execute on their assigned devices. & \texttt{HW-BACKEND-20260803}. &
+  Camera capture, communication and complete services were excluded from the
+  100-iteration backend timing. \\
+
+  C5 & The stationary workflow produces correlated Scout confirmations and
+  rejections. & \texttt{FULL-POS-STRONG}, \texttt{FULL-POS-SMALL} and
+  \texttt{FULL-NEG-FORCED}. & Small dependent samples, handheld lighter,
+  stationary platforms and post-diagnostic Scout threshold. \\
+
+  C6 & Application-level communication was typically short relative to Scout
+  inference in the retained setup, while specific fail-closed coordinator paths
+  rejected or finalized the registered faults. & Two 300-event RTT campaigns,
+  the loaded 1,000-event campaign and four repeated fault cases. & Stationary
+  SwarmNet conditions; no loaded-flight, natural fault-rate or interference
+  generalization. \\
+
+  C7 & Nominal and selected-fault mission branches are executable in development
+  simulation. & Six retained pilots and pre-fix/post-fix fault evidence. &
+  Provisional proxies and no completed repeated campaign or physical flight. \\
+
+  C8 & The central hypothesis is supported only for role division in the tested
+  stationary two-node workflow and development simulation. & C1--C7 as bounded
+  by Chapters~\ref{ch:results}--\ref{ch:discussion}. & Sustainability,
+  comparative tiered-workflow benefit, external transfer, localization and physical
+  industrial operation remain unestablished. \\
+\end{longtable}
+}
+
+\section{Research-question closure}
+
+The final evidence supports bounded answers to RQ1--RQ4. RQ1 identifies
+different internal predictive and runtime trade-offs and demonstrates the
+historical deployed pair, but it does not provide a complete candidate-by-device
+ranking. RQ2 establishes more than 30 minutes of stationary concurrent-service
+operation, while retaining the failed Scout latency and strict Sentinel
+swap-growth criteria. RQ3 establishes correlated, condition-sensitive Scout
+verdicts and their decision latency, but not the effect size of the temporal
+filter or tiered workflow. RQ4 establishes executable nominal and selected-fault
+development paths in simulation, but not a mission-reliability estimate. RQ5
+was not evaluated because neither external source reached a frozen eligible
+inference manifest. These dispositions are used consistently in the abstract,
+results, discussion and conclusion.

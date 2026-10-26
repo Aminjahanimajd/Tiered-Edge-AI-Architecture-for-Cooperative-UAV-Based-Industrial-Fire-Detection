@@ -1,0 +1,216 @@
+\chapter{Introduction}
+\label{ch:introduction}
+
+\section{Motivation and application context}
+\label{sec:introduction:motivation}
+
+Industrial facilities contain spatially distributed assets, restricted areas,
+and conditions in which a potential fire must be assessed quickly. Aerial
+robots can extend the field of view of a monitoring system and can approach
+areas that are inconvenient or unsafe for a person to inspect. Their use does
+not remove the sensing problem, however. An RGB camera records visual
+appearance rather than temperature or combustion products, and an airborne
+computer must process that stream within strict limits on memory, computation,
+power, heat dissipation, payload and wireless connectivity.
+
+Sending every camera frame to a remote server would make hazard detection
+dependent on link capacity and remote availability. Edge inference places the
+detector beside the camera and permits a compact event record to be transmitted
+instead. Published work on edge-oriented UAV fire detection consequently
+assesses predictive quality together with runtime and energy or resource cost
+\cite{Vazquez2026EdgeFire}. Research on collaborative UAV edge intelligence
+similarly treats computation, storage and link availability as joint design
+constraints rather than assuming an unlimited central processor
+\cite{Qu2024ElasticUAV}. These studies motivate local and cooperative
+processing, but their numerical results cannot be transferred to the hardware,
+data or two-stage decision process evaluated in this thesis.
+
+This work studies a heterogeneous two-vehicle system. The \emph{Sentinel}
+performs initial visual hazard detection on an NVIDIA Jetson Nano. The
+\emph{Scout} performs secondary visual hazard verification on a ModalAI VOXL~2.
+The design aims to reserve the Scout for candidates that persist at the
+Sentinel and to preserve a traceable relationship among the initial candidate,
+the verification request, the returned verdict and the final decision. The
+title's phrase ``industrial fire detection'' identifies the target application
+domain; it does not imply validation at an operating industrial facility. The
+final physical target is visible flame, while broader industrial sensing and
+physical smoke verification remain outside the evaluated scope.
+
+\section{Problem statement}
+\label{sec:introduction:problem}
+
+A single detector on a constrained UAV faces competing objectives. Lower model
+capacity or resolution may reduce runtime cost but can remove visual detail.
+A permissive threshold may retain weak hazards but can also pass fire-like
+backgrounds. Requiring persistence across frames can suppress transients, but
+it can delay or discard short events. A second verifier can reject some
+candidates, but it introduces another model, camera, computer, communication
+path and timeout condition. The architectural benefit is therefore an
+experimental question rather than an automatic consequence of adding a second
+vehicle.
+
+The problem addressed here is to determine how far a resource-aware division
+of responsibilities can support visual fire detection and verification on two
+heterogeneous edge platforms. The study must compare detector choices, measure
+the selected runtimes on the devices that execute them, examine sustained
+operation with concurrent services, and determine what the temporal and tiered
+verification stages do to event retention and decision time. It must also test
+the two-vehicle mission logic under defined simulation conditions and examine
+whether predictive performance transfers beyond the development data.
+
+This formulation deliberately separates an engineering prototype from an
+operational safety system. RGB predictions do not provide physical fire ground
+truth. Secondary verification by another RGB model is an independent visual
+assessment, not proof of combustion. The laboratory system is stationary, and
+the simulation uses modeled vehicles and scenario coordinates. The thesis
+therefore evaluates a bounded research prototype and records the evidence
+required before broader deployment claims could be considered.
+
+\section{Terminology and system interpretation}
+\label{sec:introduction:terms}
+
+Three terms in the title require precise interpretation.
+
+\begin{description}
+  \item[Tiered.] Detection and verification responsibilities are assigned to
+  distinct, ordered stages across the two edge platforms. The Sentinel detects
+  a candidate and decides whether to request verification; the Scout returns an
+  independent verdict; the Sentinel records one correlated terminal decision.
+  The term describes role specialization and decision flow; it does not imply
+  a multi-level command organization or feature-level neural-network fusion.
+
+  \item[Cooperative UAV pair.] The prototype contains two cooperating aerial
+  platforms that exchange typed messages over a shared network. This is the
+  smallest multi-vehicle configuration needed to study role specialization. It
+  does not support conclusions about scaling to a larger fleet or swarm.
+
+  \item[Industrial.] Industrial describes the intended monitoring context and
+  its resource and safety constraints. The retained evidence comes from
+  offline datasets, exact-device measurements, stationary laboratory trials
+  and simulation. No industrial-site deployment was conducted.
+\end{description}
+
+Throughout the thesis, \emph{hazard detection} means the Sentinel's initial
+visual identification and \emph{hazard verification} means the Scout's
+secondary assessment. The \emph{temporal filter} is the consecutive-frame rule
+applied before an alert is published. The title's \emph{tiered edge AI
+architecture} denotes this division of responsibilities between the two edge
+platforms and the ordered detection--verification decision flow. ``Fire'' in
+the final live evaluation refers to a visible flame.
+Historical fire/smoke artifacts are reported only as development history or
+offline evidence; physical smoke verification is outside the validated live
+scope.
+
+\section{Research questions and objectives}
+\label{sec:introduction:rqs}
+
+The investigation is organized around five research questions.
+
+\begin{description}
+  \item[RQ1.] What predictive-performance and resource trade-offs do the
+  candidate detectors exhibit, and which are supported for each edge platform?
+
+  \item[RQ2.] Can the selected configurations operate sustainably with the
+  required concurrent services?
+
+  \item[RQ3.] How do temporal filtering and Scout verification affect event
+  retention, false alerts and decision latency?
+
+  \item[RQ4.] Does the implemented two-vehicle mission behave correctly and
+  handle faults in the tested simulation?
+
+  \item[RQ5.] How does predictive performance transfer to eligible external
+  UAV and industrial-like datasets?
+\end{description}
+
+Table~\ref{tab:rq-objectives} converts these questions into objectives and
+identifies where each is answered. An unanswered question remains an evidence
+gap; it is not assigned a favourable result by inference.
+
+\begin{table}[H]
+  \centering
+  \caption{Research-question objectives and thesis traceability.}
+  \label{tab:rq-objectives}
+  \small
+  \begin{tabularx}{\textwidth}{@{}p{0.10\textwidth}X p{0.22\textwidth}@{}}
+    \toprule
+    Question & Operational objective & Principal chapters \\
+    \midrule
+    RQ1 & Compare predictive metrics, artifact fidelity and exact-device
+    resource behaviour without mixing laptop and edge measurements. &
+    Chapters~4, 6--8 \\
+    RQ2 & Evaluate the selected configurations with the camera, communication
+    and logging services required by the workflow over a defined duration. &
+    Chapters~5--8 \\
+    RQ3 & Compare single-frame, temporally filtered and verified decisions on
+    admissible labelled units, including the latency introduced by each stage. &
+    Chapters~5--8 \\
+    RQ4 & Exercise nominal mission branches and preregistered faults in the
+    simulator after its readiness gates are satisfied. & Chapters~5--8 \\
+    RQ5 & Evaluate frozen models on external data admitted through provenance,
+    overlap and annotation checks. & Chapters~4 and 6--8 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Contributions}
+\label{sec:introduction:contributions}
+
+The thesis makes four evidence-bounded contributions. First, it specifies a
+two-node tiered edge architecture in which a recall-oriented Sentinel
+stage and a precision-oriented Scout stage exchange compact, correlated
+decision records. Second, it develops an auditable protocol with explicit
+experiment, trial and event identities; monotonic timing; model hashes;
+timeouts; terminal decisions; and append-only logging. Third, it establishes a
+comparison framework that connects dataset-controlled detector screening to
+runtime feasibility on the intended devices while preserving the distinction
+between historical and final deployment artifacts. Fourth, it integrates the
+decision process with a safety-constrained two-vehicle simulation architecture
+and defines gates that prevent development demonstrations from being reported
+as formal reliability evidence.
+
+These contributions concern architecture, implementation and evaluation
+method. Claims about effectiveness are made only where retained measurements
+support them. In particular, the study does not claim universal reliability,
+zero false positives, autonomous industrial flight, geographic hazard
+localization or physical smoke verification.
+
+\section{Scope and evidence boundaries}
+\label{sec:introduction:scope}
+
+The main evidence categories are kept separate. Offline predictive evaluation
+tests frozen image splits. Exact-device experiments measure particular model
+artifacts and runtime configurations. Stationary laboratory trials demonstrate
+the integrated physical detection--verification path under recorded
+conditions. Simulation evaluates mission software under modeled dynamics and
+scenario inputs. External-data evaluation, when its admission conditions are
+met, concerns transfer to those datasets only. A result in one category is not
+presented as evidence in another.
+
+The physical evaluation uses stationary vehicles with their propellers
+removed. The final live hazard is a handheld visible flame. Image-space box
+coordinates describe the Sentinel camera observation; they are neither
+geographic coordinates nor a position in the Scout camera frame. Integrated
+AI-controlled flight, common-world localization, physical-smoke trials,
+industrial-site trials and systems containing more than two vehicles are
+outside the validated scope.
+
+The deployed Sentinel ROS workspace contains a 640-pixel TensorRT engine. An
+earlier benchmark used a different 416-pixel engine. Their input and output
+shapes and artifact identities differ, so measurements from the earlier engine
+are not treated as performance measurements of the final deployment. The same
+identity rule applies to every model and runtime comparison in later chapters.
+
+\section{Thesis organization}
+\label{sec:introduction:organization}
+
+Chapter~2 reviews visual hazard detection, lightweight detectors, edge
+optimization, cooperative perception, temporal processing and ROS~2/DDS.
+Chapter~3 derives the requirements and presents the tiered architecture.
+Chapter~4 documents dataset preparation, detector development and deployment
+artifacts. Chapter~5 describes the software, device and communication
+implementation. Chapter~6 defines the experimental and statistical methods,
+and Chapter~7 reports accepted results. Chapter~8 answers the research
+questions and examines limitations and threats to validity. Chapter~9 states
+the evidence-supported conclusions and the work required for broader
+validation.

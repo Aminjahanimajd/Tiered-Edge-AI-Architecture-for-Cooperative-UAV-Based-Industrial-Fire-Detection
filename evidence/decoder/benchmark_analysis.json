@@ -1,0 +1,1797 @@
+{
+  "claim_boundary": {
+    "heterogeneity_warning": "The devices, models, runtimes, output channel counts, and implementation stacks differ, so this is a system-role comparison rather than a controlled model-only comparison.",
+    "not_permitted": [
+      "model accuracy or detection-rate comparison",
+      "model-only superiority claim",
+      "camera or ROS 2 end-to-end latency claim",
+      "power-consumption claim",
+      "industrial-environment generalization"
+    ],
+    "permitted": "descriptive camera-free runtime comparison for these exact hardware, model, runtime, and configuration combinations"
+  },
+  "comparison": {
+    "scout_to_sentinel_mean_pipeline_latency_ratio": 17.17225707518357,
+    "sentinel_mean_pipeline_latency_reduction_relative_to_scout_percent": 94.1766536826126
+  },
+  "device_results": {
+    "scout": {
+      "backend": "tflite",
+      "backend_load_ms": 33.4945,
+      "derived": {
+        "mean_component_share_percent": {
+          "decode": 0.10128936448162439,
+          "inference": 99.45141160402359,
+          "preprocess": 0.44729903149479144
+        },
+        "mean_pipeline_fps": 1.0207546396166742
+      },
+      "iteration_count": 50,
+      "model_path": "/home/root/colcon_ws/best.tflite",
+      "model_sha256": "d533e320081be17ac91fb77c20a9de09f4bffada0d7f88c88326d57cd893bc35",
+      "platform": "Linux-4.19.125-aarch64-with-Ubuntu-18.04-bionic",
+      "python_version": "3.6.9",
+      "resource_after_backend_load": {
+        "load_average_1m_5m_15m": [
+          1.96,
+          2.13,
+          2.16
+        ],
+        "monotonic_ns": 10539826362906,
+        "proc_meminfo": {
+          "MemAvailable": "5368064 kB",
+          "MemTotal": "7855512 kB",
+          "SwapFree": "3927752 kB",
+          "SwapTotal": "3927752 kB"
+        },
+        "process_max_rss_kib": 38028,
+        "process_system_cpu_seconds": 0.456022,
+        "process_user_cpu_seconds": 0.6575529999999999,
+        "thermal_zones": [
+          {
+            "assumed_celsius_if_millidegrees": 35.5,
+            "raw_temperature": 35500.0,
+            "type": "aoss0-usr",
+            "zone": "thermal_zone0"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.5,
+            "raw_temperature": 35500.0,
+            "type": "cpu-0-0-usr",
+            "zone": "thermal_zone1"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.4,
+            "raw_temperature": 37400.0,
+            "type": "cpu-1-3-usr",
+            "zone": "thermal_zone10"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.3,
+            "raw_temperature": 36300.0,
+            "type": "cpu-1-4-usr",
+            "zone": "thermal_zone11"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-5-usr",
+            "zone": "thermal_zone12"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.0,
+            "raw_temperature": 37000.0,
+            "type": "cpu-1-6-usr",
+            "zone": "thermal_zone13"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.8,
+            "raw_temperature": 37800.0,
+            "type": "cpu-1-7-usr",
+            "zone": "thermal_zone14"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 33.6,
+            "raw_temperature": 33600.0,
+            "type": "gpuss-0-usr",
+            "zone": "thermal_zone15"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.4,
+            "raw_temperature": 35400.0,
+            "type": "aoss-1-usr",
+            "zone": "thermal_zone16"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 34.6,
+            "raw_temperature": 34600.0,
+            "type": "cwlan-usr",
+            "zone": "thermal_zone17"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.8,
+            "raw_temperature": 35800.0,
+            "type": "video-usr",
+            "zone": "thermal_zone18"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.4,
+            "raw_temperature": 35400.0,
+            "type": "ddr-usr",
+            "zone": "thermal_zone19"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-0-1-usr",
+            "zone": "thermal_zone2"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.4,
+            "raw_temperature": 35400.0,
+            "type": "q6-hvx-usr",
+            "zone": "thermal_zone20"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 34.6,
+            "raw_temperature": 34600.0,
+            "type": "camera-usr",
+            "zone": "thermal_zone21"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.2,
+            "raw_temperature": 36200.0,
+            "type": "cmpss-usr",
+            "zone": "thermal_zone22"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 34.6,
+            "raw_temperature": 34600.0,
+            "type": "npu-usr",
+            "zone": "thermal_zone23"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.4,
+            "raw_temperature": 35400.0,
+            "type": "gpuss-1-usr",
+            "zone": "thermal_zone24"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.8,
+            "raw_temperature": 35800.0,
+            "type": "gpuss-max-step",
+            "zone": "thermal_zone25"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.0,
+            "raw_temperature": 37000.0,
+            "type": "apc-0-max-step",
+            "zone": "thermal_zone26"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.8,
+            "raw_temperature": 37800.0,
+            "type": "apc-1-max-step",
+            "zone": "thermal_zone27"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.0,
+            "raw_temperature": 35000.0,
+            "type": "pop-mem-step",
+            "zone": "thermal_zone28"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.5,
+            "raw_temperature": 35500.0,
+            "type": "cpu-0-0-step",
+            "zone": "thermal_zone29"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.3,
+            "raw_temperature": 36300.0,
+            "type": "cpu-0-2-usr",
+            "zone": "thermal_zone3"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.0,
+            "raw_temperature": 37000.0,
+            "type": "cpu-0-1-step",
+            "zone": "thermal_zone30"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.9,
+            "raw_temperature": 35900.0,
+            "type": "cpu-0-2-step",
+            "zone": "thermal_zone31"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.9,
+            "raw_temperature": 35900.0,
+            "type": "cpu-0-3-step",
+            "zone": "thermal_zone32"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.3,
+            "raw_temperature": 36300.0,
+            "type": "cpu-1-0-step",
+            "zone": "thermal_zone33"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-1-step",
+            "zone": "thermal_zone34"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-2-step",
+            "zone": "thermal_zone35"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.8,
+            "raw_temperature": 37800.0,
+            "type": "cpu-1-3-step",
+            "zone": "thermal_zone36"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.3,
+            "raw_temperature": 36300.0,
+            "type": "cpu-1-4-step",
+            "zone": "thermal_zone37"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.3,
+            "raw_temperature": 36300.0,
+            "type": "cpu-1-5-step",
+            "zone": "thermal_zone38"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-6-step",
+            "zone": "thermal_zone39"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.9,
+            "raw_temperature": 35900.0,
+            "type": "cpu-0-3-usr",
+            "zone": "thermal_zone4"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.8,
+            "raw_temperature": 37800.0,
+            "type": "cpu-1-7-step",
+            "zone": "thermal_zone40"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.0,
+            "raw_temperature": 35000.0,
+            "type": "cwlan-step",
+            "zone": "thermal_zone41"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.8,
+            "raw_temperature": 35800.0,
+            "type": "video-step",
+            "zone": "thermal_zone42"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.4,
+            "raw_temperature": 35400.0,
+            "type": "ddr-step",
+            "zone": "thermal_zone43"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.4,
+            "raw_temperature": 35400.0,
+            "type": "q6-hvx-step",
+            "zone": "thermal_zone44"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 34.6,
+            "raw_temperature": 34600.0,
+            "type": "camera-step",
+            "zone": "thermal_zone45"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.2,
+            "raw_temperature": 36200.0,
+            "type": "cmpss-step",
+            "zone": "thermal_zone46"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 34.2,
+            "raw_temperature": 34200.0,
+            "type": "npu-step",
+            "zone": "thermal_zone47"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.387,
+            "raw_temperature": 36387.0,
+            "type": "pm8150_tz",
+            "zone": "thermal_zone48"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.057,
+            "raw_temperature": 35057.0,
+            "type": "pm8150b_tz",
+            "zone": "thermal_zone49"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.4,
+            "raw_temperature": 37400.0,
+            "type": "cpuss-0-usr",
+            "zone": "thermal_zone5"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.39,
+            "raw_temperature": 390.0,
+            "type": "pm8150b-ibat-lvl0",
+            "zone": "thermal_zone50"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.39,
+            "raw_temperature": 390.0,
+            "type": "pm8150b-ibat-lvl1",
+            "zone": "thermal_zone51"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 3.786,
+            "raw_temperature": 3786.0,
+            "type": "pm8150b-vbat-lvl0",
+            "zone": "thermal_zone52"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 3.786,
+            "raw_temperature": 3786.0,
+            "type": "pm8150b-vbat-lvl1",
+            "zone": "thermal_zone53"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 3.786,
+            "raw_temperature": 3786.0,
+            "type": "pm8150b-vbat-lvl2",
+            "zone": "thermal_zone54"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150b-bcl-lvl0",
+            "zone": "thermal_zone55"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150b-bcl-lvl1",
+            "zone": "thermal_zone56"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150b-bcl-lvl2",
+            "zone": "thermal_zone57"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.05,
+            "raw_temperature": 50.0,
+            "type": "soc",
+            "zone": "thermal_zone58"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.846,
+            "raw_temperature": 37846.0,
+            "type": "pm8150l_tz",
+            "zone": "thermal_zone59"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.3,
+            "raw_temperature": 36300.0,
+            "type": "cpuss-1-usr",
+            "zone": "thermal_zone6"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150l-vph-lvl0",
+            "zone": "thermal_zone60"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150l-vph-lvl1",
+            "zone": "thermal_zone61"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150l-vph-lvl2",
+            "zone": "thermal_zone62"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -274.0,
+            "raw_temperature": -274000.0,
+            "type": "pm8150l-bcl-lvl0",
+            "zone": "thermal_zone63"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -274.0,
+            "raw_temperature": -274000.0,
+            "type": "pm8150l-bcl-lvl1",
+            "zone": "thermal_zone64"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -274.0,
+            "raw_temperature": -274000.0,
+            "type": "pm8150l-bcl-lvl2",
+            "zone": "thermal_zone65"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 33.19,
+            "raw_temperature": 33190.0,
+            "type": "conn-therm-usr",
+            "zone": "thermal_zone66"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -40.0,
+            "raw_temperature": -40000.0,
+            "type": "skin-msm-therm-usr",
+            "zone": "thermal_zone67"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 11.52,
+            "raw_temperature": 11520.0,
+            "type": "gpu-skin-avg-step",
+            "zone": "thermal_zone68"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 33.674,
+            "raw_temperature": 33674.0,
+            "type": "pm8250-wifi-usr",
+            "zone": "thermal_zone69"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.3,
+            "raw_temperature": 36300.0,
+            "type": "cpu-1-0-usr",
+            "zone": "thermal_zone7"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 34.691,
+            "raw_temperature": 34691.0,
+            "type": "pm8150l-therm-usr",
+            "zone": "thermal_zone70"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -40.0,
+            "raw_temperature": -40000.0,
+            "type": "pm8250-xo-therm-usr",
+            "zone": "thermal_zone71"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -40.0,
+            "raw_temperature": -40000.0,
+            "type": "pm8150l-skin-step",
+            "zone": "thermal_zone72"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 24.5,
+            "raw_temperature": 24500.0,
+            "type": "bms",
+            "zone": "thermal_zone73"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 24.5,
+            "raw_temperature": 24500.0,
+            "type": "battery",
+            "zone": "thermal_zone74"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-1-usr",
+            "zone": "thermal_zone8"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.3,
+            "raw_temperature": 36300.0,
+            "type": "cpu-1-2-usr",
+            "zone": "thermal_zone9"
+          }
+        ],
+        "utc": "2026-07-29T10:50:51.273Z"
+      },
+      "resource_after_benchmark": {
+        "load_average_1m_5m_15m": [
+          3.47,
+          2.53,
+          2.3
+        ],
+        "monotonic_ns": 10593899308027,
+        "proc_meminfo": {
+          "MemAvailable": "5223764 kB",
+          "MemTotal": "7855512 kB",
+          "SwapFree": "3927752 kB",
+          "SwapTotal": "3927752 kB"
+        },
+        "process_max_rss_kib": 213344,
+        "process_system_cpu_seconds": 11.996353,
+        "process_user_cpu_seconds": 160.131588,
+        "thermal_zones": [
+          {
+            "assumed_celsius_if_millidegrees": 47.8,
+            "raw_temperature": 47800.0,
+            "type": "aoss0-usr",
+            "zone": "thermal_zone0"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 49.8,
+            "raw_temperature": 49800.0,
+            "type": "cpu-0-0-usr",
+            "zone": "thermal_zone1"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 52.1,
+            "raw_temperature": 52100.0,
+            "type": "cpu-1-3-usr",
+            "zone": "thermal_zone10"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.9,
+            "raw_temperature": 50900.0,
+            "type": "cpu-1-4-usr",
+            "zone": "thermal_zone11"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.9,
+            "raw_temperature": 50900.0,
+            "type": "cpu-1-5-usr",
+            "zone": "thermal_zone12"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 51.7,
+            "raw_temperature": 51700.0,
+            "type": "cpu-1-6-usr",
+            "zone": "thermal_zone13"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 52.9,
+            "raw_temperature": 52900.0,
+            "type": "cpu-1-7-usr",
+            "zone": "thermal_zone14"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 45.1,
+            "raw_temperature": 45100.0,
+            "type": "gpuss-0-usr",
+            "zone": "thermal_zone15"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 48.3,
+            "raw_temperature": 48300.0,
+            "type": "aoss-1-usr",
+            "zone": "thermal_zone16"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 46.3,
+            "raw_temperature": 46300.0,
+            "type": "cwlan-usr",
+            "zone": "thermal_zone17"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 49.0,
+            "raw_temperature": 49000.0,
+            "type": "video-usr",
+            "zone": "thermal_zone18"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 47.5,
+            "raw_temperature": 47500.0,
+            "type": "ddr-usr",
+            "zone": "thermal_zone19"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.5,
+            "raw_temperature": 50500.0,
+            "type": "cpu-0-1-usr",
+            "zone": "thermal_zone2"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 48.7,
+            "raw_temperature": 48700.0,
+            "type": "q6-hvx-usr",
+            "zone": "thermal_zone20"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 46.7,
+            "raw_temperature": 46700.0,
+            "type": "camera-usr",
+            "zone": "thermal_zone21"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 48.7,
+            "raw_temperature": 48700.0,
+            "type": "cmpss-usr",
+            "zone": "thermal_zone22"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 46.7,
+            "raw_temperature": 46700.0,
+            "type": "npu-usr",
+            "zone": "thermal_zone23"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 47.5,
+            "raw_temperature": 47500.0,
+            "type": "gpuss-1-usr",
+            "zone": "thermal_zone24"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 47.5,
+            "raw_temperature": 47500.0,
+            "type": "gpuss-max-step",
+            "zone": "thermal_zone25"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 51.3,
+            "raw_temperature": 51300.0,
+            "type": "apc-0-max-step",
+            "zone": "thermal_zone26"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 52.5,
+            "raw_temperature": 52500.0,
+            "type": "apc-1-max-step",
+            "zone": "thermal_zone27"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 47.9,
+            "raw_temperature": 47900.0,
+            "type": "pop-mem-step",
+            "zone": "thermal_zone28"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 49.8,
+            "raw_temperature": 49800.0,
+            "type": "cpu-0-0-step",
+            "zone": "thermal_zone29"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 49.4,
+            "raw_temperature": 49400.0,
+            "type": "cpu-0-2-usr",
+            "zone": "thermal_zone3"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.5,
+            "raw_temperature": 50500.0,
+            "type": "cpu-0-1-step",
+            "zone": "thermal_zone30"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 49.4,
+            "raw_temperature": 49400.0,
+            "type": "cpu-0-2-step",
+            "zone": "thermal_zone31"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.2,
+            "raw_temperature": 50200.0,
+            "type": "cpu-0-3-step",
+            "zone": "thermal_zone32"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.5,
+            "raw_temperature": 50500.0,
+            "type": "cpu-1-0-step",
+            "zone": "thermal_zone33"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 51.3,
+            "raw_temperature": 51300.0,
+            "type": "cpu-1-1-step",
+            "zone": "thermal_zone34"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.9,
+            "raw_temperature": 50900.0,
+            "type": "cpu-1-2-step",
+            "zone": "thermal_zone35"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 51.7,
+            "raw_temperature": 51700.0,
+            "type": "cpu-1-3-step",
+            "zone": "thermal_zone36"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.5,
+            "raw_temperature": 50500.0,
+            "type": "cpu-1-4-step",
+            "zone": "thermal_zone37"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.9,
+            "raw_temperature": 50900.0,
+            "type": "cpu-1-5-step",
+            "zone": "thermal_zone38"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 51.3,
+            "raw_temperature": 51300.0,
+            "type": "cpu-1-6-step",
+            "zone": "thermal_zone39"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 49.8,
+            "raw_temperature": 49800.0,
+            "type": "cpu-0-3-usr",
+            "zone": "thermal_zone4"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 52.1,
+            "raw_temperature": 52100.0,
+            "type": "cpu-1-7-step",
+            "zone": "thermal_zone40"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 46.7,
+            "raw_temperature": 46700.0,
+            "type": "cwlan-step",
+            "zone": "thermal_zone41"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 49.0,
+            "raw_temperature": 49000.0,
+            "type": "video-step",
+            "zone": "thermal_zone42"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 47.9,
+            "raw_temperature": 47900.0,
+            "type": "ddr-step",
+            "zone": "thermal_zone43"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 48.3,
+            "raw_temperature": 48300.0,
+            "type": "q6-hvx-step",
+            "zone": "thermal_zone44"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 46.3,
+            "raw_temperature": 46300.0,
+            "type": "camera-step",
+            "zone": "thermal_zone45"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 48.7,
+            "raw_temperature": 48700.0,
+            "type": "cmpss-step",
+            "zone": "thermal_zone46"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 46.7,
+            "raw_temperature": 46700.0,
+            "type": "npu-step",
+            "zone": "thermal_zone47"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 46.216,
+            "raw_temperature": 46216.0,
+            "type": "pm8150_tz",
+            "zone": "thermal_zone48"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 39.89,
+            "raw_temperature": 39890.0,
+            "type": "pm8150b_tz",
+            "zone": "thermal_zone49"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.9,
+            "raw_temperature": 50900.0,
+            "type": "cpuss-0-usr",
+            "zone": "thermal_zone5"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.39,
+            "raw_temperature": 390.0,
+            "type": "pm8150b-ibat-lvl0",
+            "zone": "thermal_zone50"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.39,
+            "raw_temperature": 390.0,
+            "type": "pm8150b-ibat-lvl1",
+            "zone": "thermal_zone51"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 3.786,
+            "raw_temperature": 3786.0,
+            "type": "pm8150b-vbat-lvl0",
+            "zone": "thermal_zone52"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 3.786,
+            "raw_temperature": 3786.0,
+            "type": "pm8150b-vbat-lvl1",
+            "zone": "thermal_zone53"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 3.786,
+            "raw_temperature": 3786.0,
+            "type": "pm8150b-vbat-lvl2",
+            "zone": "thermal_zone54"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150b-bcl-lvl0",
+            "zone": "thermal_zone55"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150b-bcl-lvl1",
+            "zone": "thermal_zone56"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150b-bcl-lvl2",
+            "zone": "thermal_zone57"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.05,
+            "raw_temperature": 50.0,
+            "type": "soc",
+            "zone": "thermal_zone58"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 47.384,
+            "raw_temperature": 47384.0,
+            "type": "pm8150l_tz",
+            "zone": "thermal_zone59"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 51.3,
+            "raw_temperature": 51300.0,
+            "type": "cpuss-1-usr",
+            "zone": "thermal_zone6"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150l-vph-lvl0",
+            "zone": "thermal_zone60"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150l-vph-lvl1",
+            "zone": "thermal_zone61"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150l-vph-lvl2",
+            "zone": "thermal_zone62"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -274.0,
+            "raw_temperature": -274000.0,
+            "type": "pm8150l-bcl-lvl0",
+            "zone": "thermal_zone63"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -274.0,
+            "raw_temperature": -274000.0,
+            "type": "pm8150l-bcl-lvl1",
+            "zone": "thermal_zone64"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -274.0,
+            "raw_temperature": -274000.0,
+            "type": "pm8150l-bcl-lvl2",
+            "zone": "thermal_zone65"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.061,
+            "raw_temperature": 36061.0,
+            "type": "conn-therm-usr",
+            "zone": "thermal_zone66"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -40.0,
+            "raw_temperature": -40000.0,
+            "type": "skin-msm-therm-usr",
+            "zone": "thermal_zone67"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 19.57,
+            "raw_temperature": 19570.0,
+            "type": "gpu-skin-avg-step",
+            "zone": "thermal_zone68"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 39.707,
+            "raw_temperature": 39707.0,
+            "type": "pm8250-wifi-usr",
+            "zone": "thermal_zone69"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.2,
+            "raw_temperature": 50200.0,
+            "type": "cpu-1-0-usr",
+            "zone": "thermal_zone7"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 40.68,
+            "raw_temperature": 40680.0,
+            "type": "pm8150l-therm-usr",
+            "zone": "thermal_zone70"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -40.0,
+            "raw_temperature": -40000.0,
+            "type": "pm8250-xo-therm-usr",
+            "zone": "thermal_zone71"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -40.0,
+            "raw_temperature": -40000.0,
+            "type": "pm8150l-skin-step",
+            "zone": "thermal_zone72"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 24.5,
+            "raw_temperature": 24500.0,
+            "type": "bms",
+            "zone": "thermal_zone73"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 24.5,
+            "raw_temperature": 24500.0,
+            "type": "battery",
+            "zone": "thermal_zone74"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.5,
+            "raw_temperature": 50500.0,
+            "type": "cpu-1-1-usr",
+            "zone": "thermal_zone8"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.2,
+            "raw_temperature": 50200.0,
+            "type": "cpu-1-2-usr",
+            "zone": "thermal_zone9"
+          }
+        ],
+        "utc": "2026-07-29T10:51:45.346Z"
+      },
+      "resource_before_backend_load": {
+        "load_average_1m_5m_15m": [
+          1.96,
+          2.13,
+          2.16
+        ],
+        "monotonic_ns": 10539770696288,
+        "proc_meminfo": {
+          "MemAvailable": "5368244 kB",
+          "MemTotal": "7855512 kB",
+          "SwapFree": "3927752 kB",
+          "SwapTotal": "3927752 kB"
+        },
+        "process_max_rss_kib": 31828,
+        "process_system_cpu_seconds": 0.443378,
+        "process_user_cpu_seconds": 0.6247309999999999,
+        "thermal_zones": [
+          {
+            "assumed_celsius_if_millidegrees": 35.5,
+            "raw_temperature": 35500.0,
+            "type": "aoss0-usr",
+            "zone": "thermal_zone0"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.9,
+            "raw_temperature": 35900.0,
+            "type": "cpu-0-0-usr",
+            "zone": "thermal_zone1"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.0,
+            "raw_temperature": 37000.0,
+            "type": "cpu-1-3-usr",
+            "zone": "thermal_zone10"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-4-usr",
+            "zone": "thermal_zone11"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-5-usr",
+            "zone": "thermal_zone12"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.0,
+            "raw_temperature": 37000.0,
+            "type": "cpu-1-6-usr",
+            "zone": "thermal_zone13"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.8,
+            "raw_temperature": 37800.0,
+            "type": "cpu-1-7-usr",
+            "zone": "thermal_zone14"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 33.6,
+            "raw_temperature": 33600.0,
+            "type": "gpuss-0-usr",
+            "zone": "thermal_zone15"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.4,
+            "raw_temperature": 35400.0,
+            "type": "aoss-1-usr",
+            "zone": "thermal_zone16"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.0,
+            "raw_temperature": 35000.0,
+            "type": "cwlan-usr",
+            "zone": "thermal_zone17"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.8,
+            "raw_temperature": 35800.0,
+            "type": "video-usr",
+            "zone": "thermal_zone18"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.4,
+            "raw_temperature": 35400.0,
+            "type": "ddr-usr",
+            "zone": "thermal_zone19"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-0-1-usr",
+            "zone": "thermal_zone2"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.8,
+            "raw_temperature": 35800.0,
+            "type": "q6-hvx-usr",
+            "zone": "thermal_zone20"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 34.6,
+            "raw_temperature": 34600.0,
+            "type": "camera-usr",
+            "zone": "thermal_zone21"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.2,
+            "raw_temperature": 36200.0,
+            "type": "cmpss-usr",
+            "zone": "thermal_zone22"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 34.6,
+            "raw_temperature": 34600.0,
+            "type": "npu-usr",
+            "zone": "thermal_zone23"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.8,
+            "raw_temperature": 35800.0,
+            "type": "gpuss-1-usr",
+            "zone": "thermal_zone24"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.8,
+            "raw_temperature": 35800.0,
+            "type": "gpuss-max-step",
+            "zone": "thermal_zone25"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.0,
+            "raw_temperature": 37000.0,
+            "type": "apc-0-max-step",
+            "zone": "thermal_zone26"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.8,
+            "raw_temperature": 37800.0,
+            "type": "apc-1-max-step",
+            "zone": "thermal_zone27"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.4,
+            "raw_temperature": 35400.0,
+            "type": "pop-mem-step",
+            "zone": "thermal_zone28"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.9,
+            "raw_temperature": 35900.0,
+            "type": "cpu-0-0-step",
+            "zone": "thermal_zone29"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.3,
+            "raw_temperature": 36300.0,
+            "type": "cpu-0-2-usr",
+            "zone": "thermal_zone3"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-0-1-step",
+            "zone": "thermal_zone30"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.3,
+            "raw_temperature": 36300.0,
+            "type": "cpu-0-2-step",
+            "zone": "thermal_zone31"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.3,
+            "raw_temperature": 36300.0,
+            "type": "cpu-0-3-step",
+            "zone": "thermal_zone32"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-0-step",
+            "zone": "thermal_zone33"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.0,
+            "raw_temperature": 37000.0,
+            "type": "cpu-1-1-step",
+            "zone": "thermal_zone34"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-2-step",
+            "zone": "thermal_zone35"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.4,
+            "raw_temperature": 37400.0,
+            "type": "cpu-1-3-step",
+            "zone": "thermal_zone36"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-4-step",
+            "zone": "thermal_zone37"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-5-step",
+            "zone": "thermal_zone38"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.0,
+            "raw_temperature": 37000.0,
+            "type": "cpu-1-6-step",
+            "zone": "thermal_zone39"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.9,
+            "raw_temperature": 35900.0,
+            "type": "cpu-0-3-usr",
+            "zone": "thermal_zone4"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 38.2,
+            "raw_temperature": 38200.0,
+            "type": "cpu-1-7-step",
+            "zone": "thermal_zone40"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.0,
+            "raw_temperature": 35000.0,
+            "type": "cwlan-step",
+            "zone": "thermal_zone41"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.8,
+            "raw_temperature": 35800.0,
+            "type": "video-step",
+            "zone": "thermal_zone42"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.0,
+            "raw_temperature": 35000.0,
+            "type": "ddr-step",
+            "zone": "thermal_zone43"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.8,
+            "raw_temperature": 35800.0,
+            "type": "q6-hvx-step",
+            "zone": "thermal_zone44"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 34.6,
+            "raw_temperature": 34600.0,
+            "type": "camera-step",
+            "zone": "thermal_zone45"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.2,
+            "raw_temperature": 36200.0,
+            "type": "cmpss-step",
+            "zone": "thermal_zone46"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 34.6,
+            "raw_temperature": 34600.0,
+            "type": "npu-step",
+            "zone": "thermal_zone47"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.452,
+            "raw_temperature": 36452.0,
+            "type": "pm8150_tz",
+            "zone": "thermal_zone48"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 35.057,
+            "raw_temperature": 35057.0,
+            "type": "pm8150b_tz",
+            "zone": "thermal_zone49"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.0,
+            "raw_temperature": 37000.0,
+            "type": "cpuss-0-usr",
+            "zone": "thermal_zone5"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.234,
+            "raw_temperature": 234.0,
+            "type": "pm8150b-ibat-lvl0",
+            "zone": "thermal_zone50"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.234,
+            "raw_temperature": 234.0,
+            "type": "pm8150b-ibat-lvl1",
+            "zone": "thermal_zone51"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 3.786,
+            "raw_temperature": 3786.0,
+            "type": "pm8150b-vbat-lvl0",
+            "zone": "thermal_zone52"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 3.786,
+            "raw_temperature": 3786.0,
+            "type": "pm8150b-vbat-lvl1",
+            "zone": "thermal_zone53"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 3.786,
+            "raw_temperature": 3786.0,
+            "type": "pm8150b-vbat-lvl2",
+            "zone": "thermal_zone54"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150b-bcl-lvl0",
+            "zone": "thermal_zone55"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150b-bcl-lvl1",
+            "zone": "thermal_zone56"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150b-bcl-lvl2",
+            "zone": "thermal_zone57"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.05,
+            "raw_temperature": 50.0,
+            "type": "soc",
+            "zone": "thermal_zone58"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.846,
+            "raw_temperature": 37846.0,
+            "type": "pm8150l_tz",
+            "zone": "thermal_zone59"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.3,
+            "raw_temperature": 36300.0,
+            "type": "cpuss-1-usr",
+            "zone": "thermal_zone6"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150l-vph-lvl0",
+            "zone": "thermal_zone60"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150l-vph-lvl1",
+            "zone": "thermal_zone61"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 0.0,
+            "raw_temperature": 0.0,
+            "type": "pm8150l-vph-lvl2",
+            "zone": "thermal_zone62"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -274.0,
+            "raw_temperature": -274000.0,
+            "type": "pm8150l-bcl-lvl0",
+            "zone": "thermal_zone63"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -274.0,
+            "raw_temperature": -274000.0,
+            "type": "pm8150l-bcl-lvl1",
+            "zone": "thermal_zone64"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -274.0,
+            "raw_temperature": -274000.0,
+            "type": "pm8150l-bcl-lvl2",
+            "zone": "thermal_zone65"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 33.203,
+            "raw_temperature": 33203.0,
+            "type": "conn-therm-usr",
+            "zone": "thermal_zone66"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -40.0,
+            "raw_temperature": -40000.0,
+            "type": "skin-msm-therm-usr",
+            "zone": "thermal_zone67"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 11.52,
+            "raw_temperature": 11520.0,
+            "type": "gpu-skin-avg-step",
+            "zone": "thermal_zone68"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 33.674,
+            "raw_temperature": 33674.0,
+            "type": "pm8250-wifi-usr",
+            "zone": "thermal_zone69"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-0-usr",
+            "zone": "thermal_zone7"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 34.691,
+            "raw_temperature": 34691.0,
+            "type": "pm8150l-therm-usr",
+            "zone": "thermal_zone70"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -40.0,
+            "raw_temperature": -40000.0,
+            "type": "pm8250-xo-therm-usr",
+            "zone": "thermal_zone71"
+          },
+          {
+            "assumed_celsius_if_millidegrees": -40.0,
+            "raw_temperature": -40000.0,
+            "type": "pm8150l-skin-step",
+            "zone": "thermal_zone72"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 24.5,
+            "raw_temperature": 24500.0,
+            "type": "bms",
+            "zone": "thermal_zone73"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 24.5,
+            "raw_temperature": 24500.0,
+            "type": "battery",
+            "zone": "thermal_zone74"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 37.0,
+            "raw_temperature": 37000.0,
+            "type": "cpu-1-1-usr",
+            "zone": "thermal_zone8"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 36.6,
+            "raw_temperature": 36600.0,
+            "type": "cpu-1-2-usr",
+            "zone": "thermal_zone9"
+          }
+        ],
+        "utc": "2026-07-29T10:50:51.218Z"
+      },
+      "source_evidence_file_sha256": "744c8e0da178610c2321fae4c985976440b8011fdae6840c5a0015d48166e9b6",
+      "source_evidence_filename": "20260729T105050.212Z_scout_optimized_camera_free_backend_benchmark_2b6bfc13.json",
+      "source_record_sha256": "cd77c395e9d3abb80ad23f822812858d14fc9bf3e534a4fc3411e305af9e3a64",
+      "summaries_ms": {
+        "decode_ms": {
+          "maximum": 1.102213,
+          "mean": 0.99229884,
+          "median": 0.980289,
+          "minimum": 0.958206,
+          "n": 50,
+          "p05": 0.9616664,
+          "p25": 0.9670595,
+          "p75": 1.007398,
+          "p95": 1.0606486,
+          "population_standard_deviation": 0.034130776691051155,
+          "population_variance": 0.0011649099175344007,
+          "range": 0.1440070000000001
+        },
+        "inference_ms": {
+          "maximum": 1052.376649,
+          "mean": 974.29301562,
+          "median": 966.537664,
+          "minimum": 931.286566,
+          "n": 50,
+          "p05": 937.15409645,
+          "p25": 953.96839825,
+          "p75": 995.81974,
+          "p95": 1015.3894185,
+          "population_standard_deviation": 26.7687617343478,
+          "population_variance": 716.5666047902831,
+          "range": 121.09008300000005
+        },
+        "pipeline_ms": {
+          "maximum": 1057.814225,
+          "mean": 979.66735706,
+          "median": 971.6618100000001,
+          "minimum": 936.629665,
+          "n": 50,
+          "p05": 942.3262129,
+          "p25": 959.4992795000001,
+          "p75": 1001.23477875,
+          "p95": 1022.3285496,
+          "population_standard_deviation": 26.87490005962311,
+          "population_variance": 722.2602532147301,
+          "range": 121.18456000000003
+        },
+        "preprocess_ms": {
+          "maximum": 7.505859,
+          "mean": 4.3820426,
+          "median": 4.286927,
+          "minimum": 4.123493,
+          "n": 50,
+          "p05": 4.15215455,
+          "p25": 4.20858275,
+          "p75": 4.4306209999999995,
+          "p95": 4.62157035,
+          "population_standard_deviation": 0.4684576410698837,
+          "population_variance": 0.21945256147675998,
+          "range": 3.382366
+        }
+      },
+      "warmup_count": 5
+    },
+    "sentinel": {
+      "backend": "tensorrt",
+      "backend_load_ms": 5811.761289,
+      "derived": {
+        "mean_component_share_percent": {
+          "decode": 2.260511418150898,
+          "inference": 78.83362317535351,
+          "preprocess": 18.905865406495604
+        },
+        "mean_pipeline_fps": 17.528661082183888
+      },
+      "iteration_count": 50,
+      "model_path": "/home/unime-nano/ros2_ws/sentinel_v1.engine",
+      "model_sha256": "16f9018ac299c6f525610a877d798392ec26d53fccb84b589ff6533d76589bf2",
+      "platform": "Linux-4.9.337-tegra-aarch64-with-Ubuntu-18.04-bionic",
+      "python_version": "3.6.9",
+      "resource_after_backend_load": {
+        "load_average_1m_5m_15m": [
+          0.13,
+          0.17,
+          0.13
+        ],
+        "monotonic_ns": 12988615571367,
+        "proc_meminfo": {
+          "MemAvailable": "1997828 kB",
+          "MemTotal": "4059016 kB",
+          "SwapFree": "1754368 kB",
+          "SwapTotal": "2029504 kB"
+        },
+        "process_max_rss_kib": 1021740,
+        "process_system_cpu_seconds": 2.2,
+        "process_user_cpu_seconds": 3.524,
+        "thermal_zones": [
+          {
+            "assumed_celsius_if_millidegrees": 52.5,
+            "raw_temperature": 52500.0,
+            "type": "AO-therm",
+            "zone": "thermal_zone0"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 42.5,
+            "raw_temperature": 42500.0,
+            "type": "CPU-therm",
+            "zone": "thermal_zone1"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 43.0,
+            "raw_temperature": 43000.0,
+            "type": "GPU-therm",
+            "zone": "thermal_zone2"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 42.0,
+            "raw_temperature": 42000.0,
+            "type": "PLL-therm",
+            "zone": "thermal_zone3"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.0,
+            "raw_temperature": 50000.0,
+            "type": "PMIC-Die",
+            "zone": "thermal_zone4"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 43.0,
+            "raw_temperature": 43000.0,
+            "type": "thermal-fan-est",
+            "zone": "thermal_zone5"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 54.0,
+            "raw_temperature": 54000.0,
+            "type": "iwlwifi_1",
+            "zone": "thermal_zone6"
+          }
+        ],
+        "utc": "2026-07-29T10:51:03.153Z"
+      },
+      "resource_after_benchmark": {
+        "load_average_1m_5m_15m": [
+          0.12,
+          0.16,
+          0.13
+        ],
+        "monotonic_ns": 12992519054680,
+        "proc_meminfo": {
+          "MemAvailable": "1959428 kB",
+          "MemTotal": "4059016 kB",
+          "SwapFree": "1754368 kB",
+          "SwapTotal": "2029504 kB"
+        },
+        "process_max_rss_kib": 1098516,
+        "process_system_cpu_seconds": 2.42,
+        "process_user_cpu_seconds": 5.184,
+        "thermal_zones": [
+          {
+            "assumed_celsius_if_millidegrees": 54.5,
+            "raw_temperature": 54500.0,
+            "type": "AO-therm",
+            "zone": "thermal_zone0"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 44.0,
+            "raw_temperature": 44000.0,
+            "type": "CPU-therm",
+            "zone": "thermal_zone1"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 45.0,
+            "raw_temperature": 45000.0,
+            "type": "GPU-therm",
+            "zone": "thermal_zone2"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 43.0,
+            "raw_temperature": 43000.0,
+            "type": "PLL-therm",
+            "zone": "thermal_zone3"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.0,
+            "raw_temperature": 50000.0,
+            "type": "PMIC-Die",
+            "zone": "thermal_zone4"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 44.5,
+            "raw_temperature": 44500.0,
+            "type": "thermal-fan-est",
+            "zone": "thermal_zone5"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 53.0,
+            "raw_temperature": 53000.0,
+            "type": "iwlwifi_1",
+            "zone": "thermal_zone6"
+          }
+        ],
+        "utc": "2026-07-29T10:51:07.057Z"
+      },
+      "resource_before_backend_load": {
+        "load_average_1m_5m_15m": [
+          0.06,
+          0.15,
+          0.13
+        ],
+        "monotonic_ns": 12982797324169,
+        "proc_meminfo": {
+          "MemAvailable": "2893172 kB",
+          "MemTotal": "4059016 kB",
+          "SwapFree": "1754368 kB",
+          "SwapTotal": "2029504 kB"
+        },
+        "process_max_rss_kib": 27232,
+        "process_system_cpu_seconds": 0.04,
+        "process_user_cpu_seconds": 0.412,
+        "thermal_zones": [
+          {
+            "assumed_celsius_if_millidegrees": 52.0,
+            "raw_temperature": 52000.0,
+            "type": "AO-therm",
+            "zone": "thermal_zone0"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 43.5,
+            "raw_temperature": 43500.0,
+            "type": "CPU-therm",
+            "zone": "thermal_zone1"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 42.5,
+            "raw_temperature": 42500.0,
+            "type": "GPU-therm",
+            "zone": "thermal_zone2"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 42.0,
+            "raw_temperature": 42000.0,
+            "type": "PLL-therm",
+            "zone": "thermal_zone3"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 50.0,
+            "raw_temperature": 50000.0,
+            "type": "PMIC-Die",
+            "zone": "thermal_zone4"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 42.5,
+            "raw_temperature": 42500.0,
+            "type": "thermal-fan-est",
+            "zone": "thermal_zone5"
+          },
+          {
+            "assumed_celsius_if_millidegrees": 53.0,
+            "raw_temperature": 53000.0,
+            "type": "iwlwifi_1",
+            "zone": "thermal_zone6"
+          }
+        ],
+        "utc": "2026-07-29T10:50:57.335Z"
+      },
+      "source_evidence_file_sha256": "9c0124c06cac86ece88821530fdf6e38bd76a1ce7f6373b50ca3ee088ceab2e7",
+      "source_evidence_filename": "20260729T105054.222Z_sentinel_optimized_camera_free_backend_benchmark_9f214098.json",
+      "source_record_sha256": "ad35b0aa9bc476338b529ab5d11b4b98a039da633b94eaff91fbc2f39b87fdf3",
+      "summaries_ms": {
+        "decode_ms": {
+          "maximum": 1.670137,
+          "mean": 1.28960872,
+          "median": 1.2865095,
+          "minimum": 1.076219,
+          "n": 50,
+          "p05": 1.1495752,
+          "p25": 1.247459,
+          "p75": 1.313841,
+          "p95": 1.432007,
+          "population_standard_deviation": 0.0896443587963102,
+          "population_variance": 0.0080361110640016,
+          "range": 0.593918
+        },
+        "inference_ms": {
+          "maximum": 46.92212,
+          "mean": 44.97412712,
+          "median": 44.8395535,
+          "minimum": 44.60994,
+          "n": 50,
+          "p05": 44.6532373,
+          "p25": 44.710449249999996,
+          "p75": 45.0263155,
+          "p95": 45.9027837,
+          "population_standard_deviation": 0.43024290643326785,
+          "population_variance": 0.18510895853614567,
+          "range": 2.312179999999998
+        },
+        "pipeline_ms": {
+          "maximum": 59.009077,
+          "mean": 57.04942296,
+          "median": 56.950677,
+          "minimum": 56.385431,
+          "n": 50,
+          "p05": 56.4405059,
+          "p25": 56.71564625,
+          "p75": 57.21968025,
+          "p95": 57.85063535,
+          "population_standard_deviation": 0.4968952267224133,
+          "population_variance": 0.24690486633951855,
+          "range": 2.623646000000001
+        },
+        "preprocess_ms": {
+          "maximum": 11.49908,
+          "mean": 10.78568712,
+          "median": 10.759717,
+          "minimum": 10.395413,
+          "n": 50,
+          "p05": 10.41143385,
+          "p25": 10.58738275,
+          "p75": 10.96719425,
+          "p95": 11.18941475,
+          "population_standard_deviation": 0.2620519398047372,
+          "population_variance": 0.06867121915542561,
+          "range": 1.1036669999999997
+        }
+      },
+      "warmup_count": 5
+    }
+  },
+  "generated_utc": "2026-07-29T10:53:18.103Z",
+  "inferential_statistics": {
+    "confidence_intervals_reported": false,
+    "reason": "The 50 serial iterations came from one run per device and a repeated deterministic frame; independence is not established."
+  },
+  "protocol": {
+    "frame": "fixed black BGR uint8 image",
+    "frame_shape": [
+      480,
+      640,
+      3
+    ],
+    "measured_iterations_per_device": 50,
+    "percentile_definition": "linear interpolation at (n - 1) * percentage / 100",
+    "resize_mode": "letterbox",
+    "units": "milliseconds unless explicitly stated",
+    "variance_definition": "population variance with divisor n",
+    "warmups_excluded_from_statistics": 5
+  },
+  "sample_csv": "benchmark_samples.csv",
+  "sample_csv_sha256": "86c71e103b55d90e7bbddf1f93945f4347ef5982374261a776e303f93d5cbce8",
+  "schema_version": 1,
+  "source_evidence_directory": "D:\\Drones\\Drone_Enhanced\\artifacts\\raw\\device_validation\\20260729_m2_decoder_optimization",
+  "source_evidence_label": "optimized_camera_free_backend_benchmark"
+}

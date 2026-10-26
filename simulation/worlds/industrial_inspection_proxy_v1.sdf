@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf version="1.9">
+  <world name="industrial_inspection_proxy_v1">
+    <physics type="ode">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>250</real_time_update_rate>
+    </physics>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type="adiabatic"/>
+    <plugin filename="gz-sim-physics-system"
+            name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system"
+            name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system"
+            name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-contact-system"
+            name="gz::sim::systems::Contact"/>
+    <plugin filename="gz-sim-imu-system"
+            name="gz::sim::systems::Imu"/>
+    <plugin filename="gz-sim-air-pressure-system"
+            name="gz::sim::systems::AirPressure"/>
+    <plugin filename="gz-sim-air-speed-system"
+            name="gz::sim::systems::AirSpeed"/>
+    <plugin filename="gz-sim-apply-link-wrench-system"
+            name="gz::sim::systems::ApplyLinkWrench"/>
+    <plugin filename="gz-sim-navsat-system"
+            name="gz::sim::systems::NavSat"/>
+    <plugin filename="gz-sim-magnetometer-system"
+            name="gz::sim::systems::Magnetometer"/>
+    <plugin filename="gz-sim-sensors-system"
+            name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <scene>
+      <grid>true</grid>
+      <ambient>0.45 0.45 0.45 1</ambient>
+      <background>0.65 0.7 0.75 1</background>
+      <shadows>true</shadows>
+    </scene>
+    <light name="sun" type="directional">
+      <pose>0 0 50 0 0 0</pose>
+      <direction>-0.2 0.4 -0.9</direction>
+      <diffuse>0.9 0.9 0.9 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+    </light>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <world_frame_orientation>ENU</world_frame_orientation>
+      <latitude_deg>45.4642</latitude_deg>
+      <longitude_deg>9.1900</longitude_deg>
+      <elevation>0</elevation>
+    </spherical_coordinates>
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="ground">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>60 40</size></plane></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>60 40</size></plane></geometry>
+          <material><diffuse>0.35 0.37 0.39 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <model name="tank_a">
+      <static>true</static><pose>12 5 2 0 0 0</pose>
+      <link name="tank">
+        <collision name="collision"><geometry><cylinder><radius>1.5</radius><length>4</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>1.5</radius><length>4</length></cylinder></geometry><material><diffuse>0.55 0.58 0.6 1</diffuse></material></visual>
+      </link>
+    </model>
+    <!-- A scenario-truth visual cue for the confirmed-hazard demonstration.
+         It is not an output of a detector or a physically validated flame model. -->
+    <model name="scenario_fire_tank_a_marker">
+      <static>true</static><pose>12 5 4.45 0 0 0</pose>
+      <link name="scenario_fire">
+        <visual name="outer_flame">
+          <pose>0 0 0.45 0 0 0</pose>
+          <geometry><cone><radius>0.55</radius><length>1.4</length></cone></geometry>
+          <material>
+            <ambient>1 0.08 0.01 1</ambient>
+            <diffuse>1 0.12 0.01 1</diffuse>
+            <emissive>0.9 0.03 0 1</emissive>
+          </material>
+        </visual>
+        <visual name="inner_flame">
+          <pose>0 0 0.35 0 0 0</pose>
+          <geometry><cone><radius>0.28</radius><length>0.9</length></cone></geometry>
+          <material>
+            <ambient>1 0.75 0.02 1</ambient>
+            <diffuse>1 0.65 0.01 1</diffuse>
+            <emissive>1 0.45 0 1</emissive>
+          </material>
+        </visual>
+        <light name="fire_glow" type="point">
+          <pose>0 0 0.6 0 0 0</pose>
+          <diffuse>1 0.25 0.02 1</diffuse>
+          <specular>0.6 0.12 0.01 1</specular>
+          <attenuation><range>8</range><constant>0.2</constant><linear>0.15</linear><quadratic>0.02</quadratic></attenuation>
+          <cast_shadows>false</cast_shadows>
+        </light>
+      </link>
+    </model>
+    <model name="tank_c">
+      <static>true</static><pose>12 15 2 0 0 0</pose>
+      <link name="tank">
+        <collision name="collision"><geometry><cylinder><radius>1.5</radius><length>4</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>1.5</radius><length>4</length></cylinder></geometry><material><diffuse>0.45 0.48 0.5 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="pipe_rack_b">
+      <static>true</static><pose>18 8 1.2 0 1.57079632679 0</pose>
+      <link name="pipe">
+        <collision name="collision"><geometry><cylinder><radius>0.35</radius><length>8</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.35</radius><length>8</length></cylinder></geometry><material><diffuse>0.85 0.35 0.05 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="aisle_wall_west">
+      <static>true</static><pose>7 10 1.5 0 0 0</pose>
+      <link name="wall">
+        <collision name="collision"><geometry><box><size>0.3 18 3</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.3 18 3</size></box></geometry><material><diffuse>0.2 0.25 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="aisle_wall_east">
+      <static>true</static><pose>23 10 1.5 0 0 0</pose>
+      <link name="wall">
+        <collision name="collision"><geometry><box><size>0.3 18 3</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.3 18 3</size></box></geometry><material><diffuse>0.2 0.25 0.3 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="sentinel_home_marker">
+      <static>true</static><pose>0 0 0.01 0 0 0</pose>
+      <link name="marker"><visual name="visual"><geometry><cylinder><radius>0.8</radius><length>0.02</length></cylinder></geometry><material><diffuse>1 0.25 0.02 1</diffuse></material></visual></link>
+    </model>
+    <model name="scout_home_marker">
+      <static>true</static><pose>-4 0 0.01 0 0 0</pose>
+      <link name="marker"><visual name="visual"><geometry><cylinder><radius>0.8</radius><length>0.02</length></cylinder></geometry><material><diffuse>0.02 0.25 1 1</diffuse></material></visual></link>
+    </model>
+    <!-- Fixed evidence camera. It records a continuous, unobstructed overview
+         of the simulated mission and is not a vehicle perception sensor. -->
+    <model name="defense_overview_camera">
+      <static>true</static>
+      <pose>-7 -7 24 0 0.80 0.78</pose>
+      <link name="camera_link">
+        <sensor name="defense_overview" type="camera">
+          <camera>
+            <horizontal_fov>1.35</horizontal_fov>
+            <image>
+              <width>1280</width>
+              <height>720</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip><near>0.1</near><far>120</far></clip>
+          </camera>
+          <always_on>true</always_on>
+          <update_rate>15</update_rate>
+          <visualize>false</visualize>
+          <topic>defense_overview/image</topic>
+          <plugin filename="gz-sim-camera-video-recorder-system"
+                  name="gz::sim::systems::CameraVideoRecorder">
+            <service>defense_overview/record_video</service>
+          </plugin>
+        </sensor>
+      </link>
+    </model>
+  </world>
+</sdf>

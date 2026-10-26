@@ -1,0 +1,256 @@
+\chapter{Background and Related Work}
+\label{ch:background}
+
+This chapter establishes the concepts needed to assess the proposed system.
+The literature is compared by sensing task, computational setting and
+validation conditions. Results obtained on different datasets or devices are
+not treated as a common numerical benchmark for this thesis.
+
+\section{Visual fire and smoke detection}
+\label{sec:background:vision}
+
+RGB fire detection is a visual recognition task. A camera provides colour,
+texture, boundary and motion cues, but it does not directly measure heat,
+combustion gases or chemical products. Bright reflections, lamps, sunsets and
+displayed fire imagery can resemble flame, whereas a distant flame may occupy
+too few pixels to preserve useful structure. Smoke creates a different
+appearance problem because it can be diffuse, semi-transparent and strongly
+affected by background and illumination. A visual prediction must therefore
+be described as evidence of a fire-like appearance rather than physical ground
+truth.
+
+UAV-oriented fire and smoke research has identified early small targets and
+transparent smoke as difficult cases and has used multi-scale processing and
+augmentation to address them \cite{Fan2025UAVFire}. That work supports the
+need to examine target scale and environmental conditions. Its data, model and
+test setting differ from those used here, so its reported accuracy is not a
+baseline for the present system.
+
+Domain shift is central to this application. Training images may contain large,
+well-exposed outdoor fires, while a deployment camera observes small flames,
+glare, clouds, reflective metal or indoor scenes. Closely related frames or
+derived copies split between training and evaluation can also inflate a
+performance estimate. Evidence from another imaging domain demonstrates how
+subject-level leakage can produce optimistic deep-learning evaluation
+\cite{Tampu2022Leakage}. The specific leakage mechanism differs here, but the
+principle motivates source-family grouping, duplicate checks and frozen splits
+in Chapter~4.
+
+The final physical scope of this thesis is visible flame. Historical datasets
+and models include smoke, but no controlled physical-smoke campaign was
+conducted. Smoke-video playback can expose the detector to displayed imagery;
+it cannot establish performance on airborne smoke. This distinction is needed
+whenever fire and smoke are discussed together in the literature.
+
+\section{Lightweight object detectors}
+\label{sec:background:detectors}
+
+Object detection assigns class scores and spatial boxes to candidate objects.
+The original YOLO formulation cast this as one end-to-end regression from an
+image to boxes and class probabilities \cite{Redmon2016YOLO}. The YOLOv8
+software used in this project is a later engineering family. Ultralytics
+documents its training, validation, inference and export interfaces, but no
+formal YOLOv8 architecture paper exists \cite{UltralyticsYOLOv8}. The original
+YOLO paper is therefore used for historical single-stage context and the
+official software record identifies the implementation family; neither source
+is used as performance evidence for the trained thesis checkpoints.
+
+SSD predicts class scores and box offsets over default boxes at multiple
+feature-map scales \cite{Liu2016SSD}. MobileNetV2 supplies a mobile-oriented
+backbone based on inverted residual blocks and linear bottlenecks, and its
+evaluation explicitly relates predictive quality to operations, parameter
+count and latency \cite{Sandler2018MobileNetV2}. EfficientDet combines a
+weighted bidirectional feature pyramid with compound scaling of resolution,
+depth and width to address multiple resource budgets
+\cite{Tan2020EfficientDet}. These design goals justify comparing SSD MobileNet
+V2 FPNLite and EfficientDet-Lite0 with YOLOv8n and YOLOv8s. They do not predict
+which trained implementation will perform best on the curated fire data or on
+either edge device.
+
+Input resolution and model capacity create coupled trade-offs. A larger input
+can retain more pixels for a small object but increases the tensor and the work
+performed by many layers. A larger model can represent more complex patterns
+but increases memory, computation and often latency. Runtime libraries,
+preprocessing, output decoding and accelerator support can reverse an ordering
+suggested by parameter count alone. The candidate comparison in this thesis
+therefore treats model family, size, resolution, exported graph and execution
+backend as explicit configuration variables.
+
+\section{Edge inference and model optimization}
+\label{sec:background:edge}
+
+Edge deployment separates at least three artifacts: a trained checkpoint, an
+interchange or framework representation, and a runtime-specific optimized
+artifact. Export success does not prove numerical fidelity, and a valid file
+does not prove that the intended accelerator executes every operation. The
+result must be checked against a frozen preprocessing and decoding contract and
+then measured on the target device.
+
+TensorRT constructs an optimized engine for a specified network, hardware and
+precision configuration. NVIDIA documents reduced-precision execution and the
+target-specific nature of serialized engines \cite{NvidiaTensorRT861}. In this
+project, TensorRT FP16 is relevant to the Sentinel, while TensorFlow Lite is
+used for the accepted Scout runtime. TensorFlow distinguishes float16 weight
+conversion from full integer quantization; actual execution still depends on
+the available delegates and kernels \cite{TensorFlowPostTrainingQuantization}.
+An artifact labelled FP16 or quantized is therefore not, by itself, evidence
+of accelerator use or end-to-end speed.
+
+Latency also requires a declared boundary. \emph{Inference-call latency}
+measures a model invocation after its input is available. \emph{Backend
+pipeline latency} may add preprocessing and decoding. \emph{Camera-to-decision
+latency} additionally includes capture, queues, temporal filtering,
+communication, Scout processing and finalization. Frames per second computed
+as the reciprocal of mean inference duration describe potential invocation
+rate; they do not automatically equal camera or decision throughput. Chapters
+6 and 7 preserve these distinctions.
+
+The Jetson Nano and VOXL~2 also differ in architecture and software support.
+NVIDIA specifies the Jetson Nano module with a quad-core Arm Cortex-A57 CPU, a
+128-core Maxwell GPU and 4~GB LPDDR4 memory \cite{NvidiaJetsonNano}. ModalAI
+specifies the VOXL~2 around the QRB5165 with eight CPU cores, 8~GB LPDDR5, an
+Adreno~650 GPU and a neural-processing accelerator \cite{ModalAIVOXL2}.
+Manufacturer specifications describe available resources; they do not predict
+application latency, sustained temperature or power. Those quantities require
+measurements of the exact artifact and concurrent services.
+
+\section{Cooperative UAV perception and tiered verification}
+\label{sec:background:cooperation}
+
+Cooperative perception can exchange raw observations, intermediate features or
+final decisions. These choices retain different amounts of information and
+impose different bandwidth, synchronization and fusion requirements. Work on
+adaptive feature fusion illustrates this early/intermediate/late distinction
+in connected-vehicle LiDAR perception \cite{Qiao2023AdaptiveFusion}. Its
+spatial scene-fusion results do not transfer to this camera-based two-drone
+prototype, but the representation distinction is useful.
+
+Collaborative UAV edge-intelligence proposals allocate computation and storage
+across a swarm while considering node and link failures
+\cite{Qu2024ElasticUAV}. Hierarchical aerial-computing research has also
+examined cooperative resource allocation and task offloading
+\cite{Kang2023HierarchicalAerial}. The present architecture addresses a
+narrower problem. It does not partition a neural network or offload part of an
+inference graph. Each vehicle executes a complete detector and exchanges a
+compact decision-level message.
+
+Decision-level exchange reduces communication volume and decouples the two
+model runtimes, but it discards feature information that could support joint
+fusion. It also requires the two cameras to observe a relevant scene at the
+right time. In the evaluated stationary workflow, a Sentinel alert triggers a
+full-frame Scout inference. The Sentinel box is retained as source-image
+metadata; it is not projected into the Scout image or a world map. The Scout
+therefore supplies a second visual decision but not geometric localization.
+
+The tiered workflow assigns different intended priorities to its stages. The
+Sentinel is intended to retain possible hazards for review, while the Scout is
+intended to reject unsupported candidates before a final confirmation. Whether
+this reduces false alerts while retaining true events depends on the data,
+thresholds and error dependence between the two RGB models. The extra
+verification and network path also adds latency and new failure modes. RQ3
+tests this trade-off rather than assuming a benefit.
+
+\section{Temporal filtering}
+\label{sec:background:temporal}
+
+A frame-wise detector can respond to a transient fire-like pattern that does
+not persist. Video fire detection has therefore combined frame-level evidence
+over time. Kong \emph{et al.} used temporal smoothing with a frame-level fire
+classifier and reported a trade-off between sensitivity, delay and false
+alarms \cite{Kong2016TemporalFire}. Their classifier, datasets and smoothing
+method differ from this project, so their timing parameters and numerical
+results are not transferred.
+
+The mechanism studied here is a three-consecutive-frame rule. A qualifying
+detection increments the current evidence count; loss of the qualifying event
+resets it. An alert becomes eligible when the count reaches three. If the
+per-frame events were independent and the probability of a false candidate in
+one frame were \(p\), an idealized three-frame probability would be \(p^3\).
+Real video frames are temporally correlated, however, so this expression is
+not an estimator for the deployed system. Retained sequences and event-level
+labels are required to measure suppression, retention and delay.
+
+\section{ROS 2, DDS and correlated decisions}
+\label{sec:background:ros2}
+
+ROS~2 uses a middleware abstraction over DDS/RTPS implementations. It exposes
+quality-of-service policies including history, depth, reliability, durability,
+deadline and liveliness, and publisher/subscriber policies must be compatible
+for communication \cite{OpenRoboticsROS2QoS}. ROS~2 can use different
+middleware vendors, so implementation and compatibility are deployment
+details rather than interchangeable labels \cite{OpenRoboticsRMW}.
+
+A reliable DDS setting does not prove that the application produced one valid
+answer within a deadline. The application must identify an event, reject
+unrelated or late replies, define timeout behaviour and record a terminal
+outcome. The protocol in this thesis consequently carries experiment, trial
+and event identifiers and requires one accepted final decision for each
+published alert.
+
+Wireless ROS~2 studies with large payloads have identified fragmentation,
+retransmission timing and buffer bursts as possible failure mechanisms
+\cite{Lee2025ROS2Wireless}. Those results concern a different payload and
+network setting. They motivate explicit message size, load and runtime
+reporting but do not establish the behaviour of the compact SwarmNet event
+messages used here. Likewise, MAVLink is designed for constrained robotic
+links \cite{MAVLinkProtocolOverview}, but protocol design does not validate the
+project's untested physical mission interface.
+
+\section{Comparative synthesis and research gap}
+\label{sec:background:gap}
+
+Table~\ref{tab:related-work} summarizes how the principal sources inform this
+thesis and why their validation settings cannot replace project-specific
+experiments.
+
+\begin{table}[H]
+  \centering
+  \caption{Comparison of related work and its role in this thesis. Reported
+  findings remain conditional on each source's data, hardware and setting.}
+  \label{tab:related-work}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{@{}p{0.19\textwidth}p{0.18\textwidth}p{0.20\textwidth}X@{}}
+    \toprule
+    Source & Main topic & Validation setting & Use and limitation here \\
+    \midrule
+    Fan \emph{et al.} \cite{Fan2025UAVFire} & UAV fire/smoke detection & UAV
+    remote-sensing imagery & Motivates small-target and smoke challenges;
+    different data and model. \\
+    Vazquez \emph{et al.} \cite{Vazquez2026EdgeFire} & Lightweight wildfire
+    detection & Transfer-learned models with edge/resource evaluation &
+    Motivates joint predictive/resource analysis; no numerical transfer. \\
+    Liu \emph{et al.} \cite{Liu2016SSD}, Sandler \emph{et al.}
+    \cite{Sandler2018MobileNetV2} & Single-stage and mobile detection & Generic
+    object-detection benchmarks & Supports candidate design concepts; does not
+    validate the exported SSD checkpoint. \\
+    Tan \emph{et al.} \cite{Tan2020EfficientDet} & Scalable efficient detector &
+    COCO object detection & Supports BiFPN/compound-scaling context; COCO results
+    are not a fire-data baseline. \\
+    Kong \emph{et al.} \cite{Kong2016TemporalFire} & Temporal fire evidence &
+    Surveillance video & Motivates temporal processing; does not validate the
+    three-frame rule. \\
+    Qiao and Zulkernine \cite{Qiao2023AdaptiveFusion} & Cooperative perception &
+    Connected-vehicle LiDAR fusion & Explains exchange levels; different sensor,
+    geometry and task. \\
+    Qu \emph{et al.} \cite{Qu2024ElasticUAV} & Collaborative UAV edge
+    intelligence & Architectural resource/failure analysis & Motivates resource
+    cooperation; unlike this decision-level two-node workflow. \\
+    Kang \emph{et al.} \cite{Kang2023HierarchicalAerial} & Hierarchical aerial
+    task offloading & Simulated learning-based resource allocation & Motivates
+    hierarchical allocation; not a prototype baseline. \\
+    ROS~2 documentation \cite{OpenRoboticsROS2QoS,OpenRoboticsRMW} & DDS QoS and
+    middleware & Specified middleware semantics & Defines mechanisms; cannot
+    establish SwarmNet latency or completion. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The literature establishes strong components: efficient single-stage
+detectors, edge runtimes, temporal evidence, cooperative perception and typed
+robotic communication. The research gap addressed here is their integration
+into a traceable heterogeneous prototype in which model choice, artifact
+identity, resource cost, temporal filtering, secondary verification and
+mission logic are assessed under explicit evidence boundaries. The goal is not
+to claim a universally novel swarm concept. It is to determine what this
+particular division of responsibility supports, what it costs, and which
+claims remain untested.

@@ -1,0 +1,26 @@
+{
+  "access_class": "NO LAB",
+  "created_utc": "2026-08-09T09:45:10.839679+00:00",
+  "latency_csv_sha256": "fc31c09424242361a83ae1b028a5943dfebd4a2bcc7dd75909c92eb1ebfb3e1d",
+  "limitations": [
+    "Throughput is the reciprocal of mean single-image inference latency.",
+    "This summary does not include preprocessing or postprocessing unless the selected source column does."
+  ],
+  "maximum": 69.03179999790154,
+  "mean": 10.987520143223394,
+  "median": 10.284050003974698,
+  "metric": "inference_ms",
+  "minimum": 5.768900009570643,
+  "model_id": "yolov8s_640",
+  "p05": 7.084230006148573,
+  "p95": 14.912935004394965,
+  "p99": 57.78126299759605,
+  "range": 63.2628999883309,
+  "sample_count": 700,
+  "schema_version": 1,
+  "standard_deviation_sample": 7.879432737649596,
+  "throughput_from_mean_fps": 91.01234736909718,
+  "tool_sha256": "3be55934a21bc3ede9d34761ae9cea0c0ed440e923fdd922fb3ccd74950b95fc",
+  "unit": "milliseconds",
+  "variance_sample": 62.085460267144214
+}

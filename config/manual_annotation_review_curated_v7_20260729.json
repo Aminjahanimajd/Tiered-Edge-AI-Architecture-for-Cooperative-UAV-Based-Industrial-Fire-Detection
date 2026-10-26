@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-07-29",
+  "reviewer_role": "principal engineer",
+  "queue_csv_sha256": "f23a0b54752170bac47a1e8273d28c2eed51fbbbef8a50ce9c1a8ceb0bb7196b",
+  "queue_row_numbering": "one-based data-row order, excluding the CSV header",
+  "viewing_method": "seven generated contact sheets; 42 retained records traced to the preceding reviewed/adjudicated queue and eight newly sampled records inspected directly",
+  "classification_definitions": {
+    "acceptable": "visible fire is plausibly covered by the rendered box or the background image correctly contains no localized fire target",
+    "questionable": "a label may cover non-fire content or cannot be judged reliably at contact-sheet resolution",
+    "incorrect": "no visible fire is covered by the rendered box at contact-sheet resolution"
+  },
+  "classifications": {
+    "acceptable": "1-50"
+  },
+  "interpretation": [
+    "All 50 records in the final deterministic split- and box-size-stratified review queue were acceptable after record, box, and source-family adjudication.",
+    "The queue is enriched and deterministic rather than a simple random sample, so this result is not a whole-dataset error-rate estimate.",
+    "The review remains single-reviewer and cannot establish exhaustive annotation correctness."
+  ]
+}
